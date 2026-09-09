@@ -114,8 +114,8 @@ public class AccountCommand implements CommandInheritor {
 
                         if (rankType == RankType.CHEFE) {
                             String targetName = args[0].toLowerCase();
-                            if (!targetName.equals("bwrcelos")) {
-                                sender.send("§cO rank CHEFE só pode ser definido para §bbwrcelos§c!");
+                            if (!targetName.equals(com.minecraft.core.Constant.CHEFE_OWNER_NAME.toLowerCase())) {
+                                sender.send("§cO rank CHEFE só pode ser definido para §b" + com.minecraft.core.Constant.CHEFE_OWNER_NAME + "§c!");
                                 return;
                             }
                         }
