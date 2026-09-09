@@ -1,0 +1,12 @@
+{
+  "webhooks": {
+    "recrutamento": "https://discord.com/api/webhooks/SUA_URL_AQUI",
+    "contato": "https://discord.com/api/webhooks/SUA_URL_AQUI"
+  },
+  "discord": {
+    "client_id": "SEU_CLIENT_ID",
+    "guild_id": "SEU_GUILD_ID"
+  },
+  "site_name": "SpartaMC",
+  "version": "1.0.0"
+}

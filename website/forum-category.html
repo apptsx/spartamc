@@ -1,0 +1,430 @@
+﻿<!-- forum-category.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartaMC - Categoria do Fórum</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .topic-list-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .topic-list-card:hover {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.02);
+            transform: translateX(5px);
+        }
+        .topic-author-head { width: 40px; height: 40px; border-radius: 8px; }
+        .topic-main-info { flex: 1; }
+        .topic-title { font-size: 1rem; font-weight: 700; margin-bottom: 3px; display: block; }
+        .topic-meta { font-size: 0.75rem; color: var(--text-muted); }
+        .topic-replies { text-align: right; font-size: 0.8rem; color: #444; min-width: 80px; }
+        .topic-actions-dropdown { position: relative; display: inline-block; }
+        .topic-actions-btn {
+            background: none;
+            border: none;
+            color: #555;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+        .topic-actions-btn:hover { color: var(--primary); }
+        .topic-actions-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            z-index: 100;
+            min-width: 120px;
+        }
+        .topic-actions-menu.show { display: block; }
+        .topic-actions-menu button, .topic-actions-menu a {
+            width: 100%;
+            padding: 8px 12px;
+            text-align: left;
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: block;
+            text-decoration: none;
+        }
+        .topic-actions-menu button:hover, .topic-actions-menu a:hover { background: rgba(249, 115, 22, 0.1); color: var(--primary); }
+        .topic-actions-menu .delete-btn { color: #ff4444; }
+        .new-topic-btn {
+            background: var(--primary);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 12px;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .new-topic-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .new-topic-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #555;
+        }
+        .empty-topics {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+        .empty-topics i { font-size: 3rem; color: #2a2a2a; margin-bottom: 15px; }
+        .topic-modal { max-width: 600px; }
+        .topic-modal textarea {
+            width: 100%;
+            padding: 12px;
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: #fff;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .pin-badge {
+            background: var(--primary);
+            color: #000;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo-container">
+                <img src="images/logo.png" alt="SpartaMC Logo" class="header-logo-img">
+                <span class="brand-name">SpartaMC</span>
+            </a>
+            <div class="header-buttons">
+                <div id="authButtons" class="auth-buttons">
+                    <button class="login-btn" id="loginBtn">Login</button>
+                    <button class="register-btn" id="registerBtn">Registrar</button>
+                </div>
+                <div id="userProfile" class="user-profile" style="display: none;">
+                    <img id="userSkinHead" src="" alt="Skin" class="user-skin-head">
+                    <span id="userNickname" class="user-nickname"></span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-dropdown-header">
+                            <img id="dropdownSkinHead" src="" alt="Skin">
+                            <div>
+                                <div class="name" id="dropdownUserName"></div>
+                                <div class="email" id="dropdownUserEmail"></div>
+                                <div id="dropdownUserRank" style="margin-top:4px;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:5px;display:none;"></div>
+                            </div>
+                        </div>
+                        <a href="/profile" class="profile-dropdown-item" id="viewProfileBtn">
+                            <i class="fas fa-user"></i> Ver Perfil
+                        </a>
+                        <a href="/settings" class="profile-dropdown-item" id="settingsBtn">
+                            <i class="fas fa-cog"></i> Configurações
+                        </a>
+                        <button class="profile-dropdown-item logout" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </button>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h2>MENU SPARTAMC</h2>
+            <button class="side-menu-close" id="menuClose">✕</button>
+        </div>
+        <div class="side-menu-links">
+            <a href="/" class="side-link"><i class="fas fa-home"></i> Início</a>
+            <a href="/shop" class="side-link"><i class="fas fa-shopping-cart"></i> Loja Oficial</a>
+            <a href="/forum" class="side-link"><i class="fas fa-comments"></i> Fórum Oficial</a>
+            <a href="/equipe" class="side-link"><i class="fas fa-users"></i> Equipe</a>
+            <a href="/recrutamento" class="side-link"><i class="fas fa-user-plus"></i> Recrutamento</a>
+        </div>
+    </div>
+
+    <section class="hero" style="height: 200px;">
+        <img src="images/banner.png" alt="Sparta Banner" class="banner-image">
+        <div class="hero-logo-wrapper">
+            <h1 id="categoryTitle" style="font-size: 2rem;">CATEGORIA</h1>
+            <p id="categoryDesc">Explore os tópicos desta categoria</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <a href="/forum" style="color: var(--primary); text-decoration: none;">← Voltar ao Fórum</a>
+                <button class="new-topic-btn" id="newTopicBtn"><i class="fas fa-plus"></i> Novo Tópico</button>
+            </div>
+            <div id="topicsList"><div style="text-align: center; padding: 50px;"><i class="fas fa-spinner fa-spin"></i><p>Carregando tópicos...</p></div></div>
+        </div>
+    </div>
+
+    <div class="auth-overlay" id="newTopicOverlay">
+        <div class="auth-modal topic-modal">
+            <button class="auth-close" id="closeTopicModal">✕</button>
+            <div class="auth-modal-header"><h2>Criar Novo Tópico</h2></div>
+            <form id="newTopicForm">
+                <div class="form-group"><label>Título</label><input type="text" id="topicTitle" required></div>
+                <div class="form-group"><label>Conteúdo</label><textarea id="topicContent" rows="8" required></textarea></div>
+                <div id="pinOption" style="display: none; margin-bottom: 15px;">
+                    <label><input type="checkbox" id="pinTopic"> Fixar tópico (Admin)</label>
+                </div>
+                <button type="submit" class="auth-submit-btn">Publicar</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <img src="images/logo.png" alt="Sparta Logo" class="footer-logo-img">
+        <span class="footer-title">SpartaMC</span>
+        <p class="footer-description">Apoie o SpartaMC adquirindo produtos em nossa loja oficial.</p>
+    </footer>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/staff.js"></script>
+    <script src="js/forum.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ranks.js"></script>
+    <script src="js/profile-dropdown.js"></script>
+    <script>
+        let currentCategory = 'atendimento';
+        let currentUser = null;
+
+        function escapeHtml(t) {
+            return (t || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        function formatDate(d) {
+            const date = new Date(d), now = new Date();
+            const diff = Math.floor((now - date) / 86400000);
+            if (diff === 0) return 'Hoje';
+            if (diff === 1) return 'Ontem';
+            if (diff < 7) return diff + ' dias atrás';
+            return date.toLocaleDateString('pt-BR');
+        }
+
+        function isAdmin(user) {
+            if (!user) return false;
+            return ['laranja','admin'].includes(user.rank);
+        }
+
+        function isMod(user) {
+            if (!user) return false;
+            return ['laranja','admin','mod+','mod','trial','helper'].includes(user.rank);
+        }
+
+        function canCreate(user) {
+            if (!user) return false;
+            if (isMod(user)) return true;
+            return window._catCanCreate === true;
+        }
+
+        async function loadTopics() {
+            const params = new URLSearchParams(window.location.search);
+            currentCategory = params.get('cat') || 'atendimento';
+
+            // Buscar info da categoria da API
+            let catInfo = null;
+            try {
+                const cats = await forumAPI.getCategories();
+                catInfo = cats.find(c => c.slug === currentCategory);
+            } catch(e) {}
+
+            const title = catInfo ? catInfo.title : currentCategory;
+            const desc  = catInfo ? catInfo.description : '';
+            window._catCanCreate = catInfo ? !!catInfo.can_create : false;
+            const catLocked = catInfo ? !!catInfo.locked : false;
+
+            document.getElementById('categoryTitle').textContent = title;
+            document.getElementById('categoryDesc').textContent  = desc + (catLocked ? ' 🔒 Trancada' : '');
+            document.title = `SpartaMC - ${title}`;
+
+            const list = document.getElementById('topicsList');
+            list.innerHTML = '<div style="text-align:center;padding:50px;"><i class="fas fa-spinner fa-spin" style="color:var(--primary);font-size:2rem;"></i></div>';
+
+            const newTopicBtn = document.getElementById('newTopicBtn');
+            const allowed = !catLocked && canCreate(currentUser);
+            if (newTopicBtn) {
+                newTopicBtn.disabled = !allowed;
+                newTopicBtn.classList.toggle('disabled', !allowed);
+                newTopicBtn.title = catLocked ? 'Categoria trancada' : (allowed ? '' : 'Sem permissão');
+            }
+
+            let topics = [];
+            try {
+                topics = await forumAPI.getTopics(currentCategory);
+            } catch (e) {
+                list.innerHTML = '<div style="text-align:center;padding:40px;color:#f44;">Erro ao carregar tópicos.</div>';
+                return;
+            }
+
+            if (topics.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-topics">
+                        <i class="fas fa-comments"></i>
+                        <p>Nenhum tópico ainda.</p>
+                        ${allowed ? '<button class="new-topic-btn" id="emptyNewTopicBtn"><i class="fas fa-plus"></i> Criar primeiro tópico</button>' : '<p style="color:#555;font-size:0.85rem;">Apenas a equipe pode criar tópicos aqui.</p>'}
+                    </div>`;
+                document.getElementById('emptyNewTopicBtn')?.addEventListener('click', openModal);
+                return;
+            }
+
+            list.innerHTML = topics.map(t => `
+                <div class="topic-list-card">
+                    <img src="https://mc-heads.net/avatar/64/${escapeHtml(t.author)}" onerror="this.src='https://mc-heads.net/avatar/64/Steve'" class="topic-author-head">
+                    <div class="topic-main-info">
+                        <span class="topic-title">
+                            ${escapeHtml(t.title)}
+                            ${t.pinned ? '<span class="pin-badge"><i class="fas fa-thumbtack"></i> Fixado</span>' : ''}
+                            ${t.locked ? '<span class="pin-badge" style="background:#555;color:#fff;"><i class="fas fa-lock"></i> Trancado</span>' : ''}
+                        </span>
+                        <span class="topic-meta">Por <strong>${escapeHtml(t.author)}</strong> • ${formatDate(t.created_at)} • ${t.replies_count || 0} respostas</span>
+                    </div>
+                    <div class="topic-replies"><i class="far fa-comment"></i> ${t.replies_count || 0}</div>
+                    <div class="topic-actions-dropdown">
+                        <button class="topic-actions-btn" onclick="event.stopPropagation(); toggleMenu(this)"><i class="fas fa-ellipsis-v"></i></button>
+                        <div class="topic-actions-menu">
+                            <a href="/forum-topic?id=${t.id}"><i class="fas fa-eye"></i> Ver tópico</a>
+                            ${isAdmin(currentUser) ? `
+                                <button onclick="event.stopPropagation(); togglePin(${t.id}, ${!t.pinned})"><i class="fas fa-thumbtack"></i> ${t.pinned ? 'Desfixar' : 'Fixar'}</button>
+                                <button onclick="event.stopPropagation(); toggleLock(${t.id}, ${!t.locked})"><i class="fas fa-${t.locked?'lock-open':'lock'}"></i> ${t.locked ? 'Destrancar' : 'Trancar'}</button>
+                                <button onclick="event.stopPropagation(); editTopicPrompt(${t.id}, '${escapeHtml(t.title).replace(/'/g,"\\'")}')"><i class="fas fa-edit"></i> Editar</button>
+                            ` : ''}
+                            ${(isMod(currentUser) || (currentUser && currentUser.nickname === t.author)) ? `
+                                <button class="delete-btn" onclick="event.stopPropagation(); removeTopic(${t.id})"><i class="fas fa-trash"></i> Excluir</button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleMenu(btn) {
+            const menu = btn.nextElementSibling;
+            document.querySelectorAll('.topic-actions-menu').forEach(m => { if (m !== menu) m.classList.remove('show'); });
+            menu.classList.toggle('show');
+        }
+
+        async function togglePin(id, pin) {
+            const r = await forumAPI.pinTopic(id, pin);
+            if (r.error) return alert(r.error);
+            loadTopics();
+        }
+
+        async function toggleLock(id, lock) {
+            const r = await forumAPI.lockTopic(id, lock);
+            if (r.error) return alert(r.error);
+            loadTopics();
+        }
+
+        async function editTopicPrompt(id, currentTitle) {
+            const newTitle = prompt('Novo título:', currentTitle);
+            if (!newTitle || newTitle === currentTitle) return;
+            const r = await forumAPI.editTopic(id, newTitle, null);
+            if (r.error) return alert(r.error);
+            loadTopics();
+        }
+
+        async function removeTopic(id) {
+            if (!confirm('Excluir este tópico?')) return;
+            const r = await forumAPI.deleteTopic(id);
+            if (r.error) return alert(r.error);
+            loadTopics();
+        }
+
+        function openModal() {
+            if (!currentUser) { window.openLogin && window.openLogin(); return; }
+            if (!canCreate(currentUser)) { alert('Sem permissão para criar tópicos aqui.'); return; }
+            document.getElementById('pinOption').style.display = isAdmin(currentUser) ? 'block' : 'none';
+            document.getElementById('newTopicOverlay').classList.add('active');
+        }
+
+        async function submitTopic(e) {
+            e.preventDefault();
+            if (!currentUser) return;
+            const title   = document.getElementById('topicTitle').value.trim();
+            const content = document.getElementById('topicContent').value.trim();
+            const pin     = isAdmin(currentUser) && document.getElementById('pinTopic')?.checked;
+            if (!title || !content) return alert('Preencha todos os campos!');
+
+            const btn = e.target.querySelector('button[type=submit]');
+            btn.disabled = true; btn.textContent = 'Publicando...';
+
+            const r = await forumAPI.createTopic(currentCategory, title, content, pin);
+            btn.disabled = false; btn.textContent = 'Publicar';
+
+            if (r.error) return alert(r.error);
+            document.getElementById('newTopicOverlay').classList.remove('active');
+            document.getElementById('newTopicForm').reset();
+            loadTopics();
+        }
+
+        document.addEventListener('click', e => {
+            if (!e.target.closest('.topic-actions-dropdown'))
+                document.querySelectorAll('.topic-actions-menu').forEach(m => m.classList.remove('show'));
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ler usuário
+            try {
+                const stored = localStorage.getItem('sparta_current_user');
+                if (stored) currentUser = typeof CryptoUtils !== 'undefined' ? CryptoUtils.decrypt(stored) : JSON.parse(stored);
+            } catch (e) {}
+
+            // Botões header
+            if (typeof window.openLogin !== 'function') {
+                window.openLogin    = () => document.getElementById('loginOverlay')?.classList.add('active');
+                window.openRegister = () => document.getElementById('registerOverlay')?.classList.add('active');
+                window.openSideMenu = () => { document.getElementById('sideMenu')?.classList.add('active'); document.getElementById('menuOverlay')?.classList.add('active'); };
+                window.closeAllModals = () => ['loginOverlay','registerOverlay','sideMenu','menuOverlay','newTopicOverlay'].forEach(id => document.getElementById(id)?.classList.remove('active'));
+            }
+            document.getElementById('loginBtn')?.addEventListener('click', e => { e.preventDefault(); window.openLogin(); });
+            document.getElementById('registerBtn')?.addEventListener('click', e => { e.preventDefault(); window.openRegister(); });
+            document.getElementById('menuToggle')?.addEventListener('click', e => { e.preventDefault(); window.openSideMenu(); });
+            document.querySelectorAll('.auth-close, #menuClose').forEach(b => b.addEventListener('click', () => window.closeAllModals()));
+            document.querySelectorAll('.auth-overlay, #menuOverlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) window.closeAllModals(); }));
+            document.getElementById('switchToRegister')?.addEventListener('click', e => { e.preventDefault(); window.openRegister(); });
+            document.getElementById('switchToLogin')?.addEventListener('click', e => { e.preventDefault(); window.openLogin(); });
+
+            document.getElementById('newTopicBtn')?.addEventListener('click', openModal);
+            document.getElementById('closeTopicModal')?.addEventListener('click', () => document.getElementById('newTopicOverlay').classList.remove('active'));
+            document.getElementById('newTopicForm')?.addEventListener('submit', submitTopic);
+            document.getElementById('newTopicOverlay')?.addEventListener('click', e => { if (e.target.id === 'newTopicOverlay') e.target.classList.remove('active'); });
+
+            loadTopics();
+        });
+    </script>
+</body>
+</html>

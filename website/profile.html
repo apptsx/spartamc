@@ -1,0 +1,979 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartaMC - Perfil</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root{
+            --primary: #f97316;
+            --primary-hover: #fb923c;
+            --primary-glow: rgba(249, 115, 22, 0.3);
+            --bg-dark: #0a0a0a;
+            --bg-card: #121212;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --banner-bg: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+        }
+        *{ box-sizing: border-box; }
+        body{
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+        body::before{
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: var(--banner-bg);
+            opacity: 0.05;
+            z-index: -1;
+            transition: background .3s ease;
+        }
+        a{ color: inherit; text-decoration: none; }
+        button{ font: inherit; cursor: pointer; }
+        ::selection{ background: var(--primary); color: #fff; }
+        
+        .profile-container{
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 90px 20px 50px;
+        }
+        
+        .profile-banner{
+            position: relative;
+            height: 200px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 80px;
+        }
+        .banner-fallback{
+            width: 100%;
+            height: 100%;
+            background: var(--banner-bg);
+        }
+        .banner-overlay{
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(10,10,10,0.95) 92%);
+            pointer-events: none;
+        }
+        
+        .banner-actions{
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        .banner-btn{
+            background: rgba(0,0,0,0.5);
+            border: 2px dashed rgba(255,255,255,0.3);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            backdrop-filter: blur(8px);
+            transition: var(--transition);
+        }
+        .banner-btn:hover{
+            background: rgba(0,0,0,0.7);
+            border-color: #fff;
+        }
+        
+        .banner-palette{
+            display: none;
+            position: absolute;
+            bottom: 60px;
+            right: 15px;
+            gap: 8px;
+            z-index: 10;
+        }
+        .banner-palette.show{ display: flex; }
+        .palette-color{
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .palette-color:hover{ transform: scale(1.15); border-color: #fff; }
+        
+        .profile-header-section{
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+            margin-top: -60px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .profile-avatar-wrapper{
+            position: relative;
+            flex-shrink: 0;
+        }
+        .profile-avatar{
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid var(--bg-dark);
+            background: var(--bg-card);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .profile-avatar:hover{ transform: scale(1.03); }
+        
+        .edit-avatar-btn{
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(0,0,0,0.5);
+            color: rgba(255,255,255,0.9);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(12px);
+            transition: var(--transition);
+        }
+        .edit-avatar-btn:hover{
+            background: rgba(0,0,0,0.7);
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .avatar-toggles{
+            display: none;
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 8px;
+            gap: 8px;
+            z-index: 20;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .avatar-toggles.show{ display: flex; }
+        .avatar-toggle{
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.03);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+        .avatar-toggle:hover{
+            border-color: var(--primary);
+            background: rgba(249,115,22,0.15);
+            color: #fff;
+        }
+        .avatar-toggle.active{
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+        
+        .profile-info{
+            flex: 1;
+            min-width: 0;
+        }
+        .profile-name-row{
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .profile-name{
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+        .profile-rank-badge{
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(249,115,22,0.2);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        .profile-username{
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+        
+        .profile-actions{
+            display: flex;
+            gap: 12px;
+            margin-left: auto;
+            padding-bottom: 10px;
+        }
+        .profile-btn{
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.05);
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        .profile-btn:hover{
+            border-color: var(--primary);
+            background: rgba(249,115,22,0.1);
+            transform: translateY(-2px);
+        }
+        .profile-btn.primary{
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: #000;
+            border: none;
+            box-shadow: 0 8px 25px var(--primary-glow);
+        }
+        .profile-btn.primary:hover{
+            box-shadow: 0 12px 35px var(--primary-glow);
+        }
+        
+        .profile-sections{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .profile-section{
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            transition: var(--transition);
+        }
+        .profile-section:hover{
+            border-color: rgba(249,115,22,0.3);
+        }
+        .profile-section.full-width{
+            grid-column: 1 / -1;
+        }
+        
+        .section-header{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-header i{
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .section-header h3{
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        
+        .info-list{
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .info-item{
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+        .info-item:hover{
+            border-color: rgba(249,115,22,0.3);
+            background: rgba(249,115,22,0.05);
+        }
+        .info-icon{
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: rgba(249,115,22,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        .info-content{ flex: 1; }
+        .info-label{ font-size: 0.75rem; color: var(--text-muted); }
+        .info-value{ 
+            font-size: 0.9rem; 
+            color: var(--text-main); 
+            font-weight: 600; 
+            margin-top: 2px;
+        }
+        .info-value.clickable{ cursor: pointer; }
+        .info-value.clickable:hover{ color: var(--primary); }
+        
+        .stats-grid{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+        .stat-item{
+            text-align: center;
+            padding: 16px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+        .stat-item:hover{
+            border-color: rgba(249,115,22,0.3);
+            transform: translateY(-2px);
+        }
+        .stat-icon{ font-size: 1.3rem; color: var(--primary); margin-bottom: 8px; }
+        .stat-number{ 
+            font-size: 1.4rem; 
+            font-weight: 700; 
+            color: var(--text-main);
+        }
+        .stat-label{ font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+        
+        .back-link{
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: opacity .2s;
+        }
+        .back-link:hover{ opacity: 0.8; }
+        
+        .own-profile-only{ display: inherit; }
+        .other-profile{ display: none; }
+        body.is-other .own-profile-only{ display: none; }
+        body.is-other .other-profile{ display: inherit; }
+        
+        .site-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 600;
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+            max-width: 350px;
+        }
+        .site-notification.success {
+            background: rgba(34,197,94,0.95);
+            border: 1px solid #22c55e;
+        }
+        .site-notification.info {
+            background: rgba(59,130,246,0.95);
+            border: 1px solid #3b82f6;
+        }
+        .site-notification.error {
+            background: rgba(239,68,68,0.95);
+            border: 1px solid #ef4444;
+        }
+
+        /* ========== DESKTOP ========== */
+        @media (min-width: 901px){
+            .mobile-only{ display: none !important; }
+        }
+        
+        /* ========== MOBILE ========== */
+        @media (max-width: 900px){
+            .desktop-only{ display: none !important; }
+            
+            .profile-banner{ height: 150px; margin-bottom: 60px; }
+            
+            .profile-header-section{
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin-top: -45px;
+            }
+            
+            .profile-avatar-wrapper{ order: 1; }
+            .profile-avatar{ width: 100px; height: 100px; }
+            .profile-info{ order: 2; margin-top: 10px; }
+            .profile-name{ font-size: 1.4rem; }
+            .profile-name-row{ justify-content: center; }
+            .profile-username{ display: block; }
+            
+.search-container{
+            position: relative;
+            margin-left: auto;
+        }
+        .search-bar{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            min-width: 200px;
+            transition: var(--transition);
+        }
+        .search-bar:focus-within{
+            border-color: var(--primary);
+            background: rgba(255,255,255,0.08);
+        }
+        .search-bar i{
+            color: var(--text-muted);
+        }
+        .search-bar input{
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+        }
+        .search-bar input::placeholder{
+            color: var(--text-muted);
+        }
+        .search-results{
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+            min-width: 250px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .search-results.show{ display: block; }
+        .search-result-item{
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .search-result-item:hover{
+            background: rgba(249,115,22,0.1);
+        }
+        .search-result-item img{
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+        }
+        .search-result-info{
+            flex: 1;
+        }
+        .search-result-name{
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        .search-result-rank{
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        
+.search-container{ margin: 0 auto 15px; width: 100%; max-width: 300px; }
+            .search-bar{ width: 100%; }
+            .search-results{ left: 50%; transform: translateX(-50%); min-width: 200px; }
+            
+            .profile-actions{ 
+                order: 3; 
+                margin: 15px 0 0 0;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .profile-sections{
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid{ grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo-container">
+                <img src="images/logo.png" alt="SpartaMC Logo" class="header-logo-img">
+                <span class="brand-name">SpartaMC</span>
+            </a>
+            <div class="header-buttons">
+                <a href="/" class="cart-btn"><i class="fas fa-home"></i> Início</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="profile-container">
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Voltar</a>
+        
+        <div class="profile-banner" id="profileBanner">
+            <div class="banner-fallback" id="bannerFallback"></div>
+            <div class="banner-overlay"></div>
+            
+            <div class="banner-actions own-profile-only">
+                <button class="banner-btn" onclick="togglePalette()">
+                    <i class="fas fa-palette"></i> <span class="desktop-only">Cor</span>
+                </button>
+            </div>
+            
+            <div class="banner-palette" id="bannerPalette">
+                <button class="palette-color" style="background: linear-gradient(135deg, #f97316, #fb923c)" onclick="setCover('default')" title="Laranja"></button>
+                <button class="palette-color" style="background: linear-gradient(135deg, #5865F2, #4752c4)" onclick="setCover('purple')" title="Roxo"></button>
+                <button class="palette-color" style="background: linear-gradient(135deg, #23a55a, #1a7f37)" onclick="setCover('green')" title="Verde"></button>
+                <button class="palette-color" style="background: linear-gradient(135deg, #f23f43, #c93d3f)" onclick="setCover('red')" title="Vermelho"></button>
+                <button class="palette-color" style="background: linear-gradient(135deg, #f0b232, #c7961f)" onclick="setCover('yellow')" title="Amarelo"></button>
+                <button class="palette-color" style="background: linear-gradient(135deg, #1e1f22, #000000)" onclick="setCover('black')" title="Preto"></button>
+            </div>
+        </div>
+        
+        <div class="profile-header-section">
+            <div class="profile-avatar-wrapper">
+                <img id="userAvatar" src="" alt="Avatar" class="profile-avatar">
+                <button class="edit-avatar-btn own-profile-only" onclick="toggleAvatarOptions()">
+                    <i class="fas fa-pen"></i>
+                </button>
+                <div class="avatar-toggles" id="avatarToggles">
+                    <button class="avatar-toggle active" id="toggleMC" onclick="setAvatarType('minecraft')">
+                        <i class="fas fa-cube"></i>
+                    </button>
+                    <button class="avatar-toggle" id="toggleDiscord" onclick="setAvatarType('discord')">
+                        <i class="fab fa-discord"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="profile-info">
+                <div class="profile-name-row">
+                    <span class="profile-name" id="userDisplayName">Carregando...</span>
+                    <span class="profile-rank-badge" id="userRank">Membro</span>
+                </div>
+                <div class="profile-username" id="userUsername">@...</div>
+            </div>
+            
+            <div class="profile-actions own-profile-only">
+                <a href="/settings" class="profile-btn primary">
+                    <i class="fas fa-cog"></i> <span class="desktop-only">Editar</span>
+                </a>
+                <button class="profile-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> <span class="desktop-only">Sair</span>
+                </button>
+            </div>
+            
+            <div class="profile-actions other-profile">
+                <button class="profile-btn" onclick="window.location.href='/'">
+                    <i class="fas fa-home"></i> Meu Perfil
+                </button>
+            </div>
+        </div>
+        
+        <div class="profile-sections">
+            <div class="profile-section">
+                <div class="section-header">
+                    <i class="fas fa-user"></i>
+                    <h3>Informações da Conta</h3>
+                </div>
+                <div class="info-list">
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="info-content">
+                            <div class="info-label">E-mail</div>
+                            <div class="info-value" id="userEmail">...</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="info-content">
+                            <div class="info-label">Membro desde</div>
+                            <div class="info-value" id="userJoined">...</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-id-badge"></i></div>
+                        <div class="info-content">
+                            <div class="info-label">ID</div>
+                            <div class="info-value clickable" id="userId" onclick="copyToClipboard(this)" title="Clique para copiar">...</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-sign-in-alt"></i></div>
+                        <div class="info-content">
+                            <div class="info-label">Último login</div>
+                            <div class="info-value" id="lastLogin">...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <div class="section-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Rank</h3>
+                </div>
+                <div class="info-list">
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-star"></i></div>
+                        <div class="info-content">
+                            <div class="info-label">Cargo</div>
+                            <div class="info-value" id="userRank2">Membro</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div class="info-content">
+                            <div class="info-label">Última promoção</div>
+                            <div class="info-value" id="lastPromo">Nunca</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-section full-width">
+                <div class="section-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Estatísticas</h3>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
+                        <div class="stat-number" id="statPurchases">0</div>
+                        <div class="stat-label">Compras na Loja</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-comments"></i></div>
+                        <div class="stat-number" id="statPosts">0</div>
+                        <div class="stat-label">Postagens no Fórum</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                        <div class="stat-number" id="statDays">0</div>
+                        <div class="stat-label">Dias no Servidor</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/ranks.js"></script>
+    <script>
+        var currentUser = null;
+        var viewingUser = null;
+        var bannerCover = 'default';
+        var isOwnProfile = true;
+
+        function searchPlayer(query) {
+            var resultsEl = document.getElementById('searchResults');
+            
+            if (query.length < 2) {
+                resultsEl.classList.remove('show');
+                resultsEl.innerHTML = '';
+                return;
+            }
+            
+            try {
+                var usersDB = new SecureDB('sparta_users_secure');
+                var users = usersDB.get('users') || [];
+                var filtered = users.filter(u => u.nickname.toLowerCase().includes(query.toLowerCase())).slice(0, 8);
+                
+                if (filtered.length === 0) {
+                    resultsEl.innerHTML = '<div style="padding:15px;text-align:center;color:var(--text-muted);font-size:13px;">Nenhum jogador encontrado</div>';
+                } else {
+                    resultsEl.innerHTML = filtered.map(u => '<div class="search-result-item" onclick="window.location.href=\'profile.html?id=' + u.id + '\'"><img src="https://mc-heads.net/avatar/' + u.nickname + '/36"><div class="search-result-info"><div class="search-result-name">' + u.nickname + '</div><div class="search-result-rank">' + (u.rank || 'Membro') + '</div></div></div>').join('');
+                }
+                
+                resultsEl.classList.add('show');
+            } catch (e) {
+                console.log('Search error:', e);
+            }
+        }
+
+        function copyToClipboard(el) {
+            navigator.clipboard.writeText(el.textContent).then(() => {
+                showNotification('ID copiado!', 'success');
+            });
+        }
+
+        function togglePalette() {
+            document.getElementById('bannerPalette').classList.toggle('show');
+        }
+
+        function toggleAvatarOptions() {
+            if (!viewingUser.discordId) {
+                showNotification('Vincule o Discord nas configurações', 'error');
+                return;
+            }
+            document.getElementById('avatarToggles').classList.toggle('show');
+        }
+
+        function setCover(color, save = true) {
+            var covers = {
+                'default': 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
+                'purple': 'linear-gradient(135deg, #5865F2 0%, #4752c4 100%)',
+                'green': 'linear-gradient(135deg, #23a55a 0%, #1a7f37 100%)',
+                'red': 'linear-gradient(135deg, #f23f43 0%, #c93d3f 100%)',
+                'yellow': 'linear-gradient(135deg, #f0b232 0%, #c7961f 100%)',
+                'black': 'linear-gradient(135deg, #1e1f22 0%, #000000 100%)'
+            };
+            
+            bannerCover = color;
+            var newCover = covers[color] || covers['default'];
+            document.getElementById('bannerFallback').style.background = newCover;
+            document.documentElement.style.setProperty('--banner-bg', newCover);
+            
+            if (save && isOwnProfile) {
+                saveUserCover(color);
+                showNotification('Fundo alterado!', 'success');
+            }
+            document.getElementById('bannerPalette').classList.remove('show');
+        }
+
+        function setAvatarType(type, save = true) {
+            var avatarEl = document.getElementById('userAvatar');
+            
+            if (type === 'discord' && viewingUser.discordId) {
+                avatarEl.src = `https://cdn.discordapp.com/avatars/${viewingUser.discordId}/${viewingUser.discordAvatar}.png?size=256`;
+                document.getElementById('toggleDiscord').classList.add('active');
+                document.getElementById('toggleMC').classList.remove('active');
+            } else {
+                avatarEl.src = `https://mc-heads.net/avatar/${viewingUser.nickname}/256`;
+                document.getElementById('toggleMC').classList.add('active');
+                document.getElementById('toggleDiscord').classList.remove('active');
+            }
+            
+            if (save && isOwnProfile) {
+                try {
+                    var usersDB = new SecureDB('sparta_users_secure');
+                    var users = usersDB.get('users') || [];
+                    var userIndex = users.findIndex(u => String(u.id) === String(viewingUser.id));
+                    
+                    if (userIndex !== -1) {
+                        users[userIndex].avatarType = type;
+                        usersDB.set('users', users);
+                        
+                        currentUser.avatarType = type;
+                        localStorage.setItem('sparta_current_user', CryptoUtils.encrypt(currentUser));
+                    }
+                } catch (e) {
+                    console.log('Error:', e);
+                }
+                showNotification('Avatar alterado!', 'success');
+            }
+            document.getElementById('avatarToggles').classList.remove('show');
+        }
+
+        function saveUserCover(cover) {
+            try {
+                var usersDB = new SecureDB('sparta_users_secure');
+                var users = usersDB.get('users') || [];
+                var userIndex = users.findIndex(u => String(u.id) === String(viewingUser.id));
+                
+                if (userIndex !== -1) {
+                    users[userIndex].profileCover = cover;
+                    usersDB.set('users', users);
+                    
+                    currentUser.profileCover = cover;
+                    localStorage.setItem('sparta_current_user', CryptoUtils.encrypt(currentUser));
+                }
+            } catch (e) {
+                console.log('Error:', e);
+            }
+        }
+
+        function loadUserData() {
+            try {
+                var usersDB = new SecureDB('sparta_users_secure');
+                var users = usersDB.get('users') || [];
+                var user = users.find(u => String(u.id) === String(viewingUser.id));
+                
+                if (user) {
+                    if (user.profileCover && isOwnProfile) {
+                        bannerCover = user.profileCover;
+                        setCover(user.profileCover, false);
+                    }
+                    if (user.avatarType && user.discordId) {
+                        setAvatarType(user.avatarType, false);
+                    }
+                    if (user.discordId && user.discordAvatar) {
+                        viewingUser.discordId = user.discordId;
+                        viewingUser.discordAvatar = user.discordAvatar;
+                    }
+                }
+                
+                if (viewingUser.discordId) {
+                    document.getElementById('toggleDiscord').style.display = 'flex';
+                }
+            } catch (e) {
+                console.log('Error:', e);
+            }
+        }
+
+        function showNotification(message, type) {
+            var existing = document.querySelector('.site-notification');
+            if (existing) existing.remove();
+            
+            var notif = document.createElement('div');
+            notif.className = 'site-notification ' + type;
+            notif.textContent = message;
+            notif.style.cssText = 'position:fixed;top:20px;right:20px;padding:15px 20px;border-radius:10px;color:#fff;font-weight:600;z-index:10000;animation:slideIn 0.3s ease;max-width:350px;background:' + (type === 'success' ? 'rgba(34,197,94,0.95);border:1px solid #22c55e;' : type === 'info' ? 'rgba(59,130,246,0.95);border:1px solid #3b82f6;' : 'rgba(239,68,68,0.95);border:1px solid #ef4444;');
+            document.body.appendChild(notif);
+            
+            setTimeout(function() {
+                notif.remove();
+            }, 5000);
+        }
+
+        function logout() {
+            localStorage.removeItem('sparta_current_user');
+            window.location.href = 'index.html';
+        }
+
+        function loadUserStats(userId) {
+            try {
+                var usersDB = new SecureDB('sparta_users_secure');
+                var users = usersDB.get('users') || [];
+                var user = users.find(u => String(u.id) === String(userId));
+                
+                if (user) {
+                    document.getElementById('statPurchases').textContent = user.purchases || 0;
+                    document.getElementById('statPosts').textContent = user.forumPosts || 0;
+                    
+                    if (user.createdAt) {
+                        var created = new Date(user.createdAt);
+                        var now = new Date();
+                        var days = Math.floor((now - created) / (1000 * 60 * 60 * 24));
+                        document.getElementById('statDays').textContent = days || 1;
+                    }
+                }
+            } catch (e) {
+                console.log('Error:', e);
+            }
+        }
+
+        function initProfile() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var viewId = urlParams.get('id');
+            var API = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:3000/api' : '/api';
+
+            var encrypted = localStorage.getItem('sparta_current_user');
+
+            if (viewId) {
+                // Ver perfil de outro jogador — busca da API
+                fetch(API + '/users/' + encodeURIComponent(viewId))
+                    .then(function(r) { return r.json(); })
+                    .then(function(data) {
+                        if (data.error) {
+                            showNotification('Usuário não encontrado', 'error');
+                            setTimeout(function() { window.location.href = '/'; }, 2000);
+                            return;
+                        }
+                        viewingUser = data;
+                        isOwnProfile = false;
+                        document.body.classList.add('is-other');
+                        renderProfile();
+                    })
+                    .catch(function() {
+                        showNotification('Erro ao carregar perfil', 'error');
+                    });
+            } else {
+                if (!encrypted) { window.location.href = '/'; return; }
+                currentUser = CryptoUtils.decrypt(encrypted);
+                if (!currentUser) { window.location.href = '/'; return; }
+                viewingUser = currentUser;
+
+                // Buscar rank atualizado da API
+                var token = currentUser.token;
+                if (token) {
+                    fetch(API + '/user/me', { headers: { 'Authorization': 'Bearer ' + token } })
+                        .then(function(r) { return r.json(); })
+                        .then(function(data) {
+                            if (data.user) {
+                                // Atualiza rank no localStorage
+                                currentUser.rank = data.user.rank;
+                                viewingUser.rank = data.user.rank;
+                                localStorage.setItem('sparta_current_user', CryptoUtils.encrypt(currentUser));
+                            }
+                            renderProfile();
+                        })
+                        .catch(function() { renderProfile(); });
+                } else {
+                    renderProfile();
+                }
+            }
+        }
+
+        function renderProfile() {
+            document.getElementById('userAvatar').src = 'https://mc-heads.net/avatar/' + viewingUser.nickname + '/256';
+            document.getElementById('userDisplayName').textContent = viewingUser.nickname;
+            document.getElementById('userUsername').textContent = '@' + viewingUser.nickname.toLowerCase();
+            document.getElementById('userEmail').textContent = isOwnProfile ? (viewingUser.email || '...') : '••••••••@••••.com';
+            document.getElementById('userId').textContent = viewingUser.id;
+
+            var rank = viewingUser.rank || null;
+            applyRankBadge(document.getElementById('userRank'), rank);
+            applyRankBadge(document.getElementById('userRank2'), rank);
+
+            if (viewingUser.created_at || viewingUser.createdAt) {
+                var date = new Date(viewingUser.created_at || viewingUser.createdAt);
+                document.getElementById('userJoined').textContent = date.toLocaleDateString('pt-BR');
+            }
+            if (viewingUser.promoAt) {
+                document.getElementById('lastPromo').textContent = new Date(viewingUser.promoAt).toLocaleDateString('pt-BR');
+            }
+            document.getElementById('lastLogin').textContent = 'Hoje';
+
+            loadUserData();
+            loadUserStats(viewingUser.id);
+        }
+
+        document.addEventListener('DOMContentLoaded', initProfile);
+    </script>
+</body>
+</html>

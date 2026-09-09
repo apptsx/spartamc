@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartaMC - Gerenciar Staff</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-container {
+            max-width: 800px;
+            margin: 100px auto 50px;
+            padding: 30px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+        .admin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .staff-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+        .staff-card img {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+        }
+        .staff-info {
+            flex: 1;
+        }
+        .staff-nick {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .staff-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-action {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        .btn-promote { background: var(--primary); color: #000; }
+        .btn-demote { background: #5865F2; color: #fff; }
+        .btn-remove { background: #ed4245; color: #fff; }
+        .rank-select {
+            padding: 8px 12px;
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #fff;
+        }
+        .add-staff-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(249,115,22,0.1);
+            border-radius: 12px;
+            border: 1px solid var(--primary);
+        }
+        .add-staff-form input, .add-staff-form select {
+            flex: 1;
+            padding: 10px 15px;
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #fff;
+        }
+        .add-staff-form button {
+            padding: 10px 20px;
+            background: var(--primary);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .back-btn {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo-container">
+                <img src="images/logo.png" alt="SpartaMC Logo" class="header-logo-img">
+                <span class="brand-name">SpartaMC</span>
+            </a>
+            <div class="header-buttons">
+                <a href="/" class="cart-btn"><i class="fas fa-home"></i> Início</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <div>
+                <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> Voltar</a>
+                <h2 style="margin-top: 10px;">Gerenciar Staff</h2>
+            </div>
+        </div>
+
+        <!-- Formulário para adicionar -->
+        <div class="add-staff-form">
+            <input type="text" id="newMemberNick" placeholder="Nickname do jogador">
+            <select id="newMemberRank">
+                <option value="">Selecione o cargo</option>
+                <option value="helper">Helper</option>
+                <option value="trial">Trial</option>
+                <option value="moderador">Moderador</option>
+                <option value="moderador+">Moderador+</option>
+                <option value="admin">Admin</option>
+            </select>
+            <button onclick="addStaffMember()"><i class="fas fa-plus"></i> Adicionar</button>
+        </div>
+
+        <!-- Lista de staff -->
+        <div id="staffList">
+            <div style="text-align: center; padding: 40px; color: #666;">
+                <i class="fas fa-spinner fa-spin"></i> Carregando...
+            </div>
+        </div>
+    </div>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/staff.js"></script>
+    <script>
+        const currentUserEncrypted = localStorage.getItem('sparta_current_user');
+        
+        if (!currentUserEncrypted) {
+            window.location.href = 'index.html';
+        }
+        
+        const currentUser = CryptoUtils.decrypt(currentUserEncrypted);
+        
+        if (!currentUser) {
+            window.location.href = 'index.html';
+        }
+        
+        // Verificar se é admin
+        const userRank = staffManager.getUserRank(currentUser.nickname);
+        if (!userRank || userRank.power < 5) {
+            alert('Acesso negado! Apenas administradores podem acessar.');
+            window.location.href = 'index.html';
+        }
+
+        function renderStaffList() {
+            const members = staffManager.getStaffMembers();
+            const ranks = CryptoUtils.getRanks();
+            
+            if (members.length === 0) {
+                document.getElementById('staffList').innerHTML = '<p style="text-align:center;color:#666;">Nenhum membro na equipe.</p>';
+                return;
+            }
+            
+            // Ordenar por power
+            members.sort((a, b) => {
+                const rankA = CryptoUtils.getRankById(a.rank);
+                const rankB = CryptoUtils.getRankById(b.rank);
+                return (rankB?.power || 0) - (rankA?.power || 0);
+            });
+            
+            document.getElementById('staffList').innerHTML = members.map(member => {
+                const rank = CryptoUtils.getRankById(member.rank);
+                return `
+                    <div class="staff-card">
+                        <img src="https://mc-heads.net/avatar/${member.nickname}" alt="${member.nickname}">
+                        <div class="staff-info">
+                            <div class="staff-nick">${member.nickname}</div>
+                            <span class="rank-badge" style="background:${rank?.color}20; color:${rank?.color};">
+                                <i class="fas ${rank?.icon}"></i> ${rank?.name}
+                            </span>
+                        </div>
+                        <div class="staff-actions">
+                            <select class="rank-select" onchange="changeRank('${member.nickname}', this.value)">
+                                ${ranks.filter(r => r.id !== 'fundador').map(r => `
+                                    <option value="${r.id}" ${r.id === member.rank ? 'selected' : ''}>${r.name}</option>
+                                `).join('')}
+                            </select>
+                            <button class="btn-action btn-remove" onclick="removeStaff('${member.nickname}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function addStaffMember() {
+            const nick = document.getElementById('newMemberNick').value.trim();
+            const rank = document.getElementById('newMemberRank').value;
+            
+            if (!nick || !rank) {
+                alert('Preencha o nickname e selecione o cargo!');
+                return;
+            }
+            
+            const result = staffManager.addMember(nick, rank);
+            
+            if (result.success) {
+                alert(`${nick} adicionado como ${result.member.rank}!`);
+                document.getElementById('newMemberNick').value = '';
+                document.getElementById('newMemberRank').value = '';
+                renderStaffList();
+            } else {
+                alert(result.error);
+            }
+        }
+
+        function changeRank(nickname, newRank) {
+            const result = staffManager.updateMemberRank(nickname, newRank);
+            
+            if (result.success) {
+                renderStaffList();
+            } else {
+                alert(result.error);
+            }
+        }
+
+        function removeStaff(nickname) {
+            if (!confirm(`Tem certeza que deseja remover ${nickname} da equipe?`)) return;
+            
+            const result = staffManager.removeMember(nickname);
+            
+            if (result.success) {
+                alert(`${nickname} removido da equipe!`);
+                renderStaffList();
+            } else {
+                alert(result.error);
+            }
+        }
+
+        renderStaffList();
+    </script>
+</body>
+</html>

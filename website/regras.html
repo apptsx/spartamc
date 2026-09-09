@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartaMC - Regras</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .rules-container { max-width: 800px; margin: 0 auto; }
+        .rules-intro {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .rules-intro p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; }
+        .rules-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+        .rules-section-header {
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,0.02);
+        }
+        .rules-section-header i {
+            font-size: 1.3rem;
+            color: var(--primary);
+            width: 30px;
+            text-align: center;
+        }
+        .rules-section-header h2 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .rule-item {
+            display: flex;
+            gap: 15px;
+            padding: 18px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.2s ease;
+        }
+        .rule-item:last-child { border-bottom: none; }
+        .rule-item:hover { background: rgba(249,115,22,0.04); }
+        .rule-number {
+            min-width: 28px;
+            height: 28px;
+            background: rgba(249,115,22,0.15);
+            border: 1px solid rgba(249,115,22,0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-top: 2px;
+        }
+        .rule-text { flex: 1; }
+        .rule-text strong { display: block; font-size: 0.95rem; color: #fff; margin-bottom: 4px; }
+        .rule-text span { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+        .penalty-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 5px;
+            margin-top: 6px;
+            text-transform: uppercase;
+        }
+        .penalty-warn { background: rgba(240,178,50,0.2); color: #f0b232; border: 1px solid rgba(240,178,50,0.3); }
+        .penalty-mute { background: rgba(88,101,242,0.2); color: #5865F2; border: 1px solid rgba(88,101,242,0.3); }
+        .penalty-ban { background: rgba(237,66,69,0.2); color: #ed4245; border: 1px solid rgba(237,66,69,0.3); }
+        .penalty-perm { background: rgba(100,0,0,0.3); color: #ff6b6b; border: 1px solid rgba(237,66,69,0.5); }
+        .rules-footer {
+            background: rgba(249,115,22,0.05);
+            border: 1px solid rgba(249,115,22,0.2);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .rules-footer p { color: var(--text-muted); font-size: 0.9rem; }
+        .rules-footer strong { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo-container">
+                <img src="images/logo.png" alt="SpartaMC Logo" class="header-logo-img">
+                <span class="brand-name">SpartaMC</span>
+            </a>
+            <div class="header-buttons">
+                <div id="authButtons" class="auth-buttons">
+                    <button class="login-btn" id="loginBtn">Login</button>
+                    <button class="register-btn" id="registerBtn">Registrar</button>
+                </div>
+                <div id="userProfile" class="user-profile" style="display: none;">
+                    <img id="userSkinHead" src="" alt="Skin" class="user-skin-head">
+                    <span id="userNickname" class="user-nickname"></span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-dropdown-header">
+                            <img id="dropdownSkinHead" src="" alt="Skin">
+                            <div>
+                                <div class="name" id="dropdownUserName"></div>
+                                <div class="email" id="dropdownUserEmail"></div>
+                                <div id="dropdownUserRank" style="margin-top:4px;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:5px;display:none;"></div>
+                            </div>
+                        </div>
+                        <a href="/profile" class="profile-dropdown-item"><i class="fas fa-user"></i> Ver Perfil</a>
+                        <a href="/settings" class="profile-dropdown-item"><i class="fas fa-cog"></i> Configurações</a>
+                        <button class="profile-dropdown-item logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h2>MENU</h2>
+            <button class="side-menu-close" id="menuClose">✕</button>
+        </div>
+        <div class="side-menu-links">
+            <a href="/" class="side-link"><i class="fas fa-home"></i> Início</a>
+            <a href="/shop" class="side-link"><i class="fas fa-shopping-cart"></i> Loja Oficial</a>
+            <a href="/forum" class="side-link"><i class="fas fa-comments"></i> Fórum Oficial</a>
+            <a href="/equipe" class="side-link"><i class="fas fa-users"></i> Equipe</a>
+            <a href="/recrutamento" class="side-link"><i class="fas fa-user-plus"></i> Recrutamento</a>
+            <a href="/regras" class="side-link"><i class="fas fa-shield-alt"></i> Regras</a>
+            <a href="/discord" class="side-link"><i class="fab fa-discord"></i> Discord</a>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" style="height: 220px;">
+        <img src="images/banner.png" alt="Banner" class="banner-image">
+        <div class="hero-logo-wrapper">
+            <h1 style="font-size: 2.5rem; font-weight: 900; text-shadow: 0 0 20px rgba(0,0,0,0.8);">
+                <i class="fas fa-shield-alt" style="color: var(--primary);"></i> REGRAS
+            </h1>
+            <p style="color: #ccc; font-weight: 600; margin-top: 8px;">Leia com atenção antes de jogar</p>
+        </div>
+    </section>
+
+    <!-- Conteúdo -->
+    <div class="container">
+        <div class="rules-container">
+
+            <div class="rules-intro">
+                <p>Ao entrar no servidor SpartaMC, você concorda automaticamente com todas as regras abaixo. O desconhecimento das regras não isenta de punição. Nossa equipe está sempre disponível para dúvidas no Discord.</p>
+            </div>
+
+            <!-- Comportamento Geral -->
+            <div class="rules-section">
+                <div class="rules-section-header">
+                    <i class="fas fa-users"></i>
+                    <h2>Comportamento Geral</h2>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">1</div>
+                    <div class="rule-text">
+                        <strong>Respeito mútuo</strong>
+                        <span>Trate todos os jogadores com respeito. Insultos, ofensas, discriminação ou qualquer forma de assédio são proibidos.</span>
+                        <span class="penalty-badge penalty-warn">Aviso</span>
+                        <span class="penalty-badge penalty-ban">Banimento</span>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">2</div>
+                    <div class="rule-text">
+                        <strong>Sem spam ou flood</strong>
+                        <span>Não envie mensagens repetidas, caracteres aleatórios ou letras maiúsculas excessivas no chat.</span>
+                        <span class="penalty-badge penalty-mute">Mute</span>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">3</div>
+                    <div class="rule-text">
+                        <strong>Sem divulgação de outros servidores</strong>
+                        <span>É proibido divulgar IPs, links ou nomes de outros servidores de Minecraft no chat ou Discord.</span>
+                        <span class="penalty-badge penalty-ban">Banimento</span>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">4</div>
+                    <div class="rule-text">
+                        <strong>Linguagem adequada</strong>
+                        <span>Evite palavrões excessivos e conteúdo impróprio. Lembre-se que temos jogadores de todas as idades.</span>
+                        <span class="penalty-badge penalty-warn">Aviso</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jogo Justo -->
+            <div class="rules-section">
+                <div class="rules-section-header">
+                    <i class="fas fa-gamepad"></i>
+                    <h2>Jogo Justo</h2>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">5</div>
+                    <div class="rule-text">
+                        <strong>Proibido uso de hacks ou cheats</strong>
+                        <span>Qualquer modificação que dê vantagem injusta (kill aura, fly, speed, etc.) é estritamente proibida.</span>
+                        <span class="penalty-badge penalty-perm">Ban Permanente</span>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">6</div>
+                    <div class="rule-text">
+                        <strong>Proibido explorar bugs</strong>
+                        <span>Explorar falhas do servidor para obter vantagens é proibido. Reporte bugs à equipe pelo Discord.</span>
+                        <span class="penalty-badge penalty-ban">Banimento</span>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">7</div>
+                    <div class="rule-text">
+                        <strong>Sem griefing</strong>
+                        <span>Destruir construções de outros jogadores sem permissão é proibido em todas as modalidades.</span>
+                        <span class="penalty-badge penalty-ban">Banimento</span>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">8</div>
+                    <div class="rule-text">
+                        <strong>Sem roubo</strong>
+                        <span>Roubar itens de outros jogadores, mesmo que não estejam protegidos, é proibido.</span>
+                        <span class="penalty-badge penalty-ban">Banimento</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conta e Segurança -->
+            <div class="rules-section">
+                <div class="rules-section-header">
+                    <i class="fas fa-lock"></i>
+                    <h2>Conta e Segurança</h2>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">9</div>
+                    <div class="rule-text">
+                        <strong>Uma conta por jogador</strong>
+                        <span>Cada jogador pode ter apenas uma conta. Contas alternativas para burlar punições resultam em ban permanente.</span>
+                        <span class="penalty-badge penalty-perm">Ban Permanente</span>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">10</div>
+                    <div class="rule-text">
+                        <strong>Não compartilhe sua conta</strong>
+                        <span>Você é responsável por tudo que acontece na sua conta. Não compartilhe suas credenciais com ninguém.</span>
+                        <span class="penalty-badge penalty-warn">Aviso</span>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">11</div>
+                    <div class="rule-text">
+                        <strong>Proibido se passar por staff</strong>
+                        <span>Fingir ser membro da equipe para enganar outros jogadores é proibido e resulta em punição severa.</span>
+                        <span class="penalty-badge penalty-perm">Ban Permanente</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Staff -->
+            <div class="rules-section">
+                <div class="rules-section-header">
+                    <i class="fas fa-crown"></i>
+                    <h2>Relação com a Staff</h2>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">12</div>
+                    <div class="rule-text">
+                        <strong>Respeite a equipe</strong>
+                        <span>Desrespeitar membros da staff no exercício de suas funções é proibido e sujeito a punição imediata.</span>
+                        <span class="penalty-badge penalty-ban">Banimento</span>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">13</div>
+                    <div class="rule-text">
+                        <strong>Siga as instruções da staff</strong>
+                        <span>Quando um membro da equipe solicitar algo dentro das regras, você deve obedecer. Reclamações devem ser feitas pelo Discord.</span>
+                        <span class="penalty-badge penalty-warn">Aviso</span>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-number">14</div>
+                    <div class="rule-text">
+                        <strong>Denúncias pelo canal correto</strong>
+                        <span>Denúncias de jogadores ou staff devem ser feitas pelo Discord, com provas. Não faça acusações públicas no chat.</span>
+                        <span class="penalty-badge penalty-warn">Aviso</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rules-footer">
+                <p>As regras podem ser atualizadas a qualquer momento. Fique atento aos anúncios no Discord.<br>
+                Dúvidas? Entre em contato com a equipe em <strong>discord.gg/spartamc</strong></p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <img src="images/logo.png" alt="Sparta Logo" class="footer-logo-img">
+        <span class="footer-title">SpartaMC</span>
+        <p class="footer-description">Apoie o SpartaMC adquirindo produtos em nossa loja oficial.</p>
+        <p style="font-size: 0.75rem; color: #444;">&copy; 2026 SpartaMC. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Modais -->
+    <div class="auth-overlay" id="loginOverlay">
+        <div class="auth-modal">
+            <button class="auth-close">✕</button>
+            <div class="auth-modal-header"><h2>Login</h2></div>
+            <form id="loginForm">
+                <div class="form-group"><label>E-mail</label><input type="email" id="loginEmail" required placeholder="seu@email.com"></div>
+                <div class="form-group"><label>Senha</label><input type="password" id="loginPassword" required placeholder="Sua senha"></div>
+                <button type="submit" class="auth-submit-btn">Entrar</button>
+                <p style="text-align:center; margin-top:15px; font-size:0.8rem; color:#555;">Não tem conta? <a href="#" id="switchToRegister" style="color:var(--primary);">Registre-se</a></p>
+            </form>
+        </div>
+    </div>
+    <div class="auth-overlay" id="registerOverlay">
+        <div class="auth-modal">
+            <button class="auth-close">✕</button>
+            <div class="auth-modal-header"><h2>Registrar</h2></div>
+            <form id="registerForm">
+                <div class="form-group"><label>Nickname (Minecraft)</label><input type="text" id="regNickname" required placeholder="Ex: uNyko"></div>
+                <div class="form-group"><label>E-mail</label><input type="email" id="regEmail" required placeholder="seu@email.com"></div>
+                <div class="form-group"><label>Senha</label><input type="password" id="regPassword" required placeholder="Crie uma senha"></div>
+                <div class="form-group"><label>Confirmar Senha</label><input type="password" id="regConfirmPassword" required placeholder="Repita a senha"></div>
+                <button type="submit" class="auth-submit-btn">Criar Conta</button>
+                <p style="text-align:center; margin-top:15px; font-size:0.8rem; color:#555;">Já tem conta? <a href="#" id="switchToLogin" style="color:var(--primary);">Faça Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ranks.js"></script>
+    <script src="js/profile-dropdown.js"></script>
+    <script>
+        (function() {
+            document.addEventListener('DOMContentLoaded', function() {
+                if (typeof window.openLogin !== 'function') {
+                    window.openLogin = function() { document.getElementById('loginOverlay')?.classList.add('active'); };
+                    window.openRegister = function() { document.getElementById('registerOverlay')?.classList.add('active'); };
+                    window.openSideMenu = function() {
+                        document.getElementById('sideMenu')?.classList.add('active');
+                        document.getElementById('menuOverlay')?.classList.add('active');
+                    };
+                    window.closeAllModals = function() {
+                        ['loginOverlay','registerOverlay','sideMenu','menuOverlay'].forEach(id => {
+                            document.getElementById(id)?.classList.remove('active');
+                        });
+                    };
+                }
+                const loginBtn = document.getElementById('loginBtn');
+                const registerBtn = document.getElementById('registerBtn');
+                const menuToggle = document.getElementById('menuToggle');
+                if (loginBtn) loginBtn.onclick = function(e) { e.preventDefault(); window.openLogin(); };
+                if (registerBtn) registerBtn.onclick = function(e) { e.preventDefault(); window.openRegister(); };
+                if (menuToggle) menuToggle.onclick = function(e) { e.preventDefault(); window.openSideMenu(); };
+                document.querySelectorAll('.auth-close, #menuClose').forEach(btn => {
+                    btn.onclick = function() { window.closeAllModals(); };
+                });
+                document.querySelectorAll('.auth-overlay, #menuOverlay').forEach(overlay => {
+                    overlay.onclick = function(e) { if (e.target === overlay) window.closeAllModals(); };
+                });
+                const switchToRegister = document.getElementById('switchToRegister');
+                if (switchToRegister) switchToRegister.onclick = function(e) { e.preventDefault(); window.openRegister(); };
+                const switchToLogin = document.getElementById('switchToLogin');
+                if (switchToLogin) switchToLogin.onclick = function(e) { e.preventDefault(); window.openLogin(); };
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{
+    "cargos": [
+        {
+            "id": "chefia",
+            "nome": "Chefia",
+            "cor": "#ab0000",
+            "membros": [
+                { "nickname": "uNyko", "descricao": "Fundador & Desenvolvedor" },
+                { "nickname": "Lyrio_xz", "descricao": "Co-Fundador" }
+            ]
+        },
+        {
+            "id": "administrador",
+            "nome": "Administrador",
+            "cor": "#ab0000",
+            "membros": [
+                { "nickname": "eoGatyy", "descricao": "Administrador Geral" }
+            ]
+        },
+        {
+            "id": "moderador_plus",
+            "nome": "Moderador+",
+            "cor": "#d300a6",
+            "membros": []
+        },
+        {
+            "id": "moderador",
+            "nome": "Moderador",
+            "cor": "#ff6bef",
+            "membros": [
+                { "nickname": "freestyleprime", "descricao": "Moderador Global" },
+                { "nickname": "GabrielaBW", "descricao": "Moderadora Global" }
+            ]
+        },
+        {
+            "id": "trial",
+            "nome": "Trial",
+            "cor": "#ff6bef",
+            "membros": []
+        },
+        {
+            "id": "helper",
+            "nome": "Helper",
+            "cor": "#55ffff",
+            "membros": []
+        }
+    ]
+}

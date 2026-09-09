@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartaMC - Loja</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo-container">
+                <img src="images/logo.png" alt="SpartaMC Logo" class="header-logo-img">
+                <span class="brand-name">SpartaMC</span>
+            </a>
+
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Buscar produtos..." id="searchInput" oninput="filterProducts()">
+            </div>
+
+            <div class="header-buttons">
+                <button class="cart-btn" id="cartBtn">
+                    <i class="fas fa-shopping-basket"></i> <span id="cartCount">0</span>
+                </button>
+
+                <div id="authButtons" class="auth-buttons">
+                    <button class="login-btn" id="loginBtn">Login</button>
+                    <button class="register-btn" id="registerBtn">Registrar</button>
+                </div>
+
+                <div id="userProfile" class="user-profile" style="display: none;">
+                    <img id="userSkinHead" src="" alt="Skin" class="user-skin-head">
+                    <span id="userNickname" class="user-nickname"></span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-dropdown-header">
+                            <img id="dropdownSkinHead" src="" alt="Skin">
+                            <div>
+                                <div class="name" id="dropdownUserName"></div>
+                                <div class="email" id="dropdownUserEmail"></div>
+                                <div id="dropdownUserRank" style="margin-top:4px;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:5px;display:none;"></div>
+                            </div>
+                        </div>
+                        <a href="/profile" class="profile-dropdown-item"><i class="fas fa-user"></i> Ver Perfil</a>
+                        <a href="/settings" class="profile-dropdown-item"><i class="fas fa-cog"></i> Configurações</a>
+                        <a href="/admin-staff" class="profile-dropdown-item" id="adminStaffBtn" style="display:none;"><i class="fas fa-shield-alt"></i> Staff</a>
+                        <button class="profile-dropdown-item logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                    </div>
+                </div>
+
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h2>MENU SPARTAMC</h2>
+            <button class="side-menu-close" id="menuClose">✕</button>
+        </div>
+        <div class="side-menu-links">
+            <a href="/" class="side-link"><i class="fas fa-home"></i> Início</a>
+            <a href="/shop" class="side-link"><i class="fas fa-shopping-cart"></i> Loja Oficial</a>
+            <a href="/forum" class="side-link"><i class="fas fa-comments"></i> Fórum Oficial</a>
+            <a href="/equipe" class="side-link"><i class="fas fa-users"></i> Equipe</a>
+            <a href="/recrutamento" class="side-link"><i class="fas fa-user-plus"></i> Recrutamento</a>
+            <a href="/regras" class="side-link"><i class="fas fa-shield-alt"></i> Regras</a>
+            <a href="/discord" class="side-link"><i class="fab fa-discord"></i> Discord</a>
+        </div>
+        <div style="margin-top: auto; padding: 20px; border-top: 1px solid var(--border);">
+            <button class="cart-btn" id="cartBtnSide" style="width: 100%; justify-content: center;">
+                <i class="fas fa-shopping-basket"></i> Ver Carrinho (<span id="cartCountSide">0</span>)
+            </button>
+        </div>
+    </div>
+
+    <section class="hero" style="height: 300px;">
+        <img src="images/banner.png" alt="Sparta Banner" class="banner-image">
+        <div class="hero-logo-wrapper">
+            <h1 style="font-size: 3rem; font-weight: 900; text-shadow: 0 0 20px rgba(0,0,0,0.8);">LOJA <span class="highlight">OFICIAL</span></h1>
+            <p style="color: #ccc; font-weight: 600;">Adquira Ranks, Cash e muito mais!</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="category-filters" id="categoryFilters">
+            <button class="filter-btn active" data-category="all">Todos</button>
+            <button class="filter-btn" data-category="ranks">Ranks</button>
+            <button class="filter-btn" data-category="cash">Cash</button>
+        </div>
+        <div id="productsGrid" class="products-grid"></div>
+    </div>
+
+    <footer>
+        <img src="images/logo.png" alt="Sparta Logo" class="footer-logo-img">
+        <span class="footer-title">SpartaMC</span>
+        <p class="footer-description">Apoie o SpartaMC adquirindo produtos em nossa loja oficial. Todas as compras são processadas de forma segura.</p>
+        <p style="font-size: 0.75rem; color: #444;">&copy; 2026 SpartaMC. Todos os direitos reservados.</p>
+    </footer>
+
+    <div class="auth-overlay" id="loginOverlay">
+        <div class="auth-modal">
+            <button class="auth-close">✕</button>
+            <div class="auth-modal-header"><h2>Login</h2></div>
+            <form id="loginForm">
+                <button type="button" class="discord-login-btn" id="discordLoginBtn" style="background:#5865F2;color:#fff;border:none;padding:12px;border-radius:8px;font-weight:600;cursor:pointer;width:100%;margin-bottom:15px;display:flex;align-items:center;justify-content:center;gap:8px;">
+                    <i class="fab fa-discord"></i> Entrar com Discord
+                </button>
+                <div style="text-align:center;color:#555;margin-bottom:15px;font-size:0.8rem;">ou</div>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" id="loginEmail" required placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="loginPassword" required placeholder="Sua senha">
+                </div>
+                <button type="submit" class="auth-submit-btn">Entrar</button>
+                <p style="text-align:center;margin-top:15px;font-size:0.8rem;color:#555;">Não tem conta? <a href="#" id="switchToRegister" style="color:var(--primary);">Registre-se</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="auth-overlay" id="registerOverlay">
+        <div class="auth-modal">
+            <button class="auth-close">✕</button>
+            <div class="auth-modal-header"><h2>Registrar</h2></div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>Nickname (Minecraft)</label>
+                    <input type="text" id="regNickname" required placeholder="Ex: uNyko">
+                </div>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" id="regEmail" required placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="regPassword" required placeholder="Crie uma senha">
+                </div>
+                <div class="form-group">
+                    <label>Confirmar Senha</label>
+                    <input type="password" id="regConfirmPassword" required placeholder="Repita a senha">
+                </div>
+                <button type="submit" class="auth-submit-btn">Criar Conta</button>
+                <p style="text-align:center;margin-top:15px;font-size:0.8rem;color:#555;">Já tem conta? <a href="#" id="switchToLogin" style="color:var(--primary);">Faça Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="auth-overlay" id="cartOverlay"></div>
+    <div class="cart-modal" id="cartModal">
+        <div style="padding:20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+            <h2 style="font-size:1.2rem;">Seu Carrinho</h2>
+            <button id="cartClose" style="background:none;border:none;color:#555;font-size:1.2rem;cursor:pointer;">✕</button>
+        </div>
+        <div id="cartItemsList" style="flex:1;overflow-y:auto;padding:10px 0;"></div>
+        <div style="padding:20px;border-top:1px solid var(--border);background:rgba(255,255,255,0.02);">
+            <div style="display:flex;justify-content:space-between;margin-bottom:15px;font-weight:700;">
+                <span>Total:</span>
+                <span id="cartTotalValue" style="color:var(--primary);">R$ 0,00</span>
+            </div>
+            <button class="auth-submit-btn" id="cartGoBtn">Finalizar Compra</button>
+            <button class="auth-submit-btn" id="clearCartBtn" style="background:transparent;color:#ef4444;border:1px solid #ef4444;margin-top:8px;font-size:0.85rem;">Limpar Carrinho</button>
+        </div>
+    </div>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ranks.js"></script>
+    <script src="js/profile-dropdown.js"></script>
+    <script>
+    // ── CATÁLOGO DE PRODUTOS ───────────────────────────────────
+    var PRODUCTS = [
+        { id: 1,  name: 'VIP',           category: 'ranks',   price: 29.90,  desc: '✓ Voo no lobby\n✓ /fly e /sit\n✓ Selecionar mapas\n✓ Cosmeticos exclusivos\n✓ Anuncio ao entrar\n✓ Blocos de lã coloridos\n§8Permanente',            icon: 'fa-crown',     popular: true,  hex: '55FF55' },
+        { id: 2,  name: 'Max',           category: 'ranks',   price: 39.90,  desc: '✓ Todos os beneficios VIP\n✓ Kits exclusivos\n✓ Tag Max colorida\n✓ Prioridade ao entrar\n✓ Salas customizadas\n✓ Vantagens em eventos\n§8Permanente',             icon: 'fa-shield-alt', popular: false, hex: 'FF5555' },
+        { id: 3,  name: 'Max+ 1 Mês',    category: 'ranks',   price: 35.90,  desc: '✓ Todos os beneficios Max\n✓ Acesso a clans\n✓ Tag Max+ exclusiva\n✓ Descontos na loja\n✓ Suporte prioritario\n✓ Eventos exclusivos\n§8Validade: 30 dias',                 icon: 'fa-bolt',      popular: false, hex: 'FFAA00' },
+        { id: 4,  name: 'Max+ 3 Meses',  category: 'ranks',   price: 89.90,  desc: '✓ Todos os beneficios Max\n✓ Acesso a clans\n✓ Tag Max+ exclusiva\n✓ Descontos na loja\n✓ Suporte prioritario\n✓ Eventos exclusivos\n§8Validade: 3 meses',             icon: 'fa-bolt',      popular: true,  hex: 'FFAA00' },
+        { id: 5,  name: 'Max+ 6 Meses',  category: 'ranks',   price: 149.90, desc: '✓ Todos os beneficios Max\n✓ Acesso a clans\n✓ Tag Max+ exclusiva\n✓ Descontos na loja\n✓ Suporte prioritario\n✓ Eventos exclusivos\n§8Validade: 6 meses',                  icon: 'fa-bolt',      popular: false, hex: 'FFAA00' },
+        { id: 6,  name: 'Max+ 1 Ano',    category: 'ranks',   price: 249.90, desc: '✓ Todos os beneficios Max\n✓ Acesso a clans\n✓ Tag Max+ exclusiva\n✓ Descontos na loja\n✓ Suporte prioritario\n✓ Eventos exclusivos\n✓ Melhor custo-beneficio!\n§8Validade: 1 ano',    icon: 'fa-bolt',      popular: false, hex: 'FFAA00' },
+        { id: 7,  name: 'Beta',          category: 'ranks',   price: 30.90,  desc: '✓ Acesso antecipado a novidades\n✓ Testes exclusivos\n✓ Conteudo experimental\n✓ Participe do desenvolvimento',        icon: 'fa-flask',     popular: false, hex: '5555FF' },
+        { id: 8,  name: '1000 Cash',     category: 'cash',    price: 9.90,   desc: '1000 Cash para gastar na loja do servidor.',                            icon: 'fa-coins',     popular: false },
+        { id: 9,  name: '5000 Cash',     category: 'cash',    price: 39.90,  desc: '5000 Cash — pacote economico com bonus de 10%!',                        icon: 'fa-sack-dollar', popular: true  },
+        { id: 10, name: '10000 Cash',    category: 'cash',    price: 69.90,  desc: '10000 Cash — pacote premium com 20% de bonus!',                         icon: 'fa-gem',       popular: false },
+        { id: 11, name: '25000 Cash',    category: 'cash',    price: 149.90, desc: '25000 Cash — pacote ultra com 35% de bonus! Melhor custo-beneficio.',   icon: 'fa-dragon',    popular: false }
+    ];
+
+    var currentCategory = 'all';
+    var searchTerm = '';
+
+    // ── CARRINHO ───────────────────────────────────────────────
+    function getCart() {
+        try { return JSON.parse(localStorage.getItem('sparta_cart')) || []; }
+        catch (e) { return []; }
+    }
+
+    function saveCart(cart) {
+        localStorage.setItem('sparta_cart', JSON.stringify(cart));
+        updateCartCount();
+    }
+
+    function updateCartCount() {
+        var cart = getCart();
+        var count = cart.reduce(function(sum, item) { return sum + (item.quantity || 1); }, 0);
+        ['cartCount', 'cartCountSide'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.textContent = count;
+        });
+        var cartBtn = document.getElementById('cartBtn');
+        if (cartBtn) cartBtn.innerHTML = '<i class="fas fa-shopping-basket"></i> ' + count;
+    }
+
+    function addToCart(product) {
+        var cart = getCart();
+        var existing = cart.find(function(item) { return item.id === product.id; });
+        if (existing) {
+            existing.quantity = (existing.quantity || 1) + 1;
+        } else {
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                icon: product.icon,
+                category: product.category,
+                quantity: 1
+            });
+        }
+        saveCart(cart);
+        window.showNotify && window.showNotify(product.name + ' adicionado ao carrinho!', 'success');
+    }
+
+    function removeFromCart(productId) {
+        var cart = getCart().filter(function(item) { return item.id !== productId; });
+        saveCart(cart);
+        renderCartModal();
+    }
+
+    function renderCartModal() {
+        var cart = getCart();
+        var list = document.getElementById('cartItemsList');
+        var total = document.getElementById('cartTotalValue');
+        if (!list) return;
+
+        if (cart.length === 0) {
+            list.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--text-muted);"><i class="fas fa-shopping-basket" style="font-size:3rem;display:block;margin-bottom:15px;opacity:0.3;"></i>Carrinho vazio</div>';
+            if (total) total.textContent = 'R$ 0,00';
+            return;
+        }
+
+        var sum = 0;
+        list.innerHTML = cart.map(function(item) {
+            var qty = item.quantity || 1;
+            var subtotal = item.price * qty;
+            sum += subtotal;
+            return '<div style="display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid rgba(255,255,255,0.04);">'
+                + '<div style="width:36px;height:36px;border-radius:8px;background:rgba(249,115,22,0.1);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0;">'
+                + '<i class="fas ' + (item.icon || 'fa-box') + '"></i></div>'
+                + '<div style="flex:1;min-width:0;">'
+                + '<div style="font-weight:700;font-size:0.85rem;">' + item.name + '</div>'
+                + '<div style="font-size:0.7rem;color:var(--text-muted);">R$ ' + item.price.toFixed(2).replace('.', ',') + ' x ' + qty + '</div></div>'
+                + '<div style="display:flex;align-items:center;gap:8px;">'
+                + '<div style="font-weight:800;color:var(--primary);font-size:0.85rem;white-space:nowrap;">R$ ' + subtotal.toFixed(2).replace('.', ',') + '</div>'
+                + '<button onclick="removeFromCart(' + item.id + ')" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:0.8rem;padding:4px;"><i class="fas fa-times"></i></button>'
+                + '</div></div>';
+        }).join('');
+        if (total) total.textContent = 'R$ ' + sum.toFixed(2).replace('.', ',');
+    }
+
+    // ── RENDERIZAR PRODUTOS ────────────────────────────────────
+    function renderProducts(category, search) {
+        currentCategory = category || currentCategory;
+        searchTerm = (search || '').toLowerCase().trim();
+
+        var grid = document.getElementById('productsGrid');
+        if (!grid) return;
+
+        var filtered = PRODUCTS.filter(function(p) {
+            var matchCat = currentCategory === 'all' || p.category === currentCategory;
+            var matchSearch = !searchTerm || p.name.toLowerCase().includes(searchTerm) || p.desc.toLowerCase().includes(searchTerm);
+            return matchCat && matchSearch;
+        });
+
+        // Atualizar botões de filtro
+        document.querySelectorAll('.filter-btn').forEach(function(btn) {
+            btn.classList.toggle('active', btn.dataset.category === currentCategory);
+        });
+
+        if (filtered.length === 0) {
+            grid.innerHTML = '<div class="empty-products"><i class="fas fa-search"></i>Nenhum produto encontrado</div>';
+            return;
+        }
+
+        grid.innerHTML = filtered.map(function(p) {
+            var badge = '';
+            if (p.popular) badge = '<span class="product-card-badge badge-popular">POPULAR</span>';
+            var cart = getCart();
+            var inCart = cart.some(function(item) { return item.id === p.id; });
+            var btnClass = 'add-cart-btn' + (inCart ? ' in-cart' : '');
+            var btnIcon = inCart ? 'fa-check' : 'fa-cart-plus';
+            var btnText = inCart ? 'Adicionado' : 'Adicionar';
+
+            function formatDesc(text) {
+                return text.split('\n').map(function(line) {
+                    var html = line.replace(/§([0-9a-fklmnor])/g, function(m, c) {
+                        var mc = {'0':'#000','1':'#00a','2':'#0a0','3':'#0aa','4':'#a00','5':'#a0a','6':'#fa0','7':'#aaa','8':'#555','9':'#55f','a':'#0f0','b':'#0ff','c':'#f55','d':'#f5f','e':'#ff0','f':'#fff'};
+                        return '</span><span style="color:' + (mc[c]||'#fff') + ';">';
+                    });
+                    if (html.includes('</span>')) html = '<span>' + html + '</span>';
+                    return html || '&nbsp;';
+                }).join('<br>');
+            }
+            var iconColor = p.hex ? '#' + p.hex : 'var(--primary)';
+            var descHtml = formatDesc(p.desc);
+            return '<div class="product-card">'
+                + '<div class="product-card-image" style="color:' + iconColor + ';">' + badge
+                + '<i class="fas ' + p.icon + '"></i></div>'
+                + '<div class="product-card-body">'
+                + '<div class="product-card-name">' + p.name + '</div>'
+                + '<div class="product-card-desc">' + descHtml + '</div>'
+                + '</div>'
+                + '<div class="product-card-footer">'
+                + '<div class="product-card-price">R$ ' + p.price.toFixed(2).replace('.', ',') + '</div>'
+                + '<button class="' + btnClass + '" onclick="addToCart(PRODUCTS.find(function(x){return x.id===' + p.id + '}))">'
+                + '<i class="fas ' + btnIcon + '"></i> ' + btnText
+                + '</button>'
+                + '</div></div>';
+        }).join('');
+    }
+
+    function filterProducts() {
+        var input = document.getElementById('searchInput');
+        renderProducts(null, input ? input.value : '');
+    }
+
+    // ── INICIALIZAÇÃO ──────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+        renderProducts('all');
+
+        // Filtros de categoria
+        document.querySelectorAll('.filter-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                renderProducts(this.dataset.category, document.getElementById('searchInput').value);
+            });
+        });
+
+        // Carrinho
+        var cartBtn = document.getElementById('cartBtn');
+        var cartBtnSide = document.getElementById('cartBtnSide');
+        var cartClose = document.getElementById('cartClose');
+        var cartOverlay = document.getElementById('cartOverlay');
+
+        function openCartModal() {
+            renderCartModal();
+            document.getElementById('cartModal')?.classList.add('active');
+            cartOverlay?.classList.add('active');
+        }
+
+        if (cartBtn) cartBtn.onclick = function(e) { e.preventDefault(); openCartModal(); };
+        if (cartBtnSide) cartBtnSide.onclick = function(e) { e.preventDefault(); openCartModal(); };
+        if (cartClose) cartClose.onclick = function() { window.closeAllModals(); };
+        if (cartOverlay) cartOverlay.onclick = function(e) { if (e.target === this) window.closeAllModals(); };
+
+        // Ir para checkout
+        document.getElementById('cartGoBtn')?.addEventListener('click', function() {
+            var cart = getCart();
+            if (cart.length === 0) { window.showNotify && window.showNotify('Carrinho vazio!', 'error'); return; }
+            window.location.href = '/checkout';
+        });
+
+        // Limpar carrinho
+        document.getElementById('clearCartBtn')?.addEventListener('click', function() {
+            if (confirm('Limpar todos os itens do carrinho?')) {
+                saveCart([]);
+                renderCartModal();
+                window.showNotify && window.showNotify('Carrinho limpo!', 'success');
+            }
+        });
+
+        // Menu toggle
+        document.getElementById('menuToggle')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('sideMenu')?.classList.add('active');
+            document.getElementById('menuOverlay')?.classList.add('active');
+        });
+        document.getElementById('menuClose')?.addEventListener('click', function() {
+            document.getElementById('sideMenu')?.classList.remove('active');
+            document.getElementById('menuOverlay')?.classList.remove('active');
+        });
+        document.getElementById('menuOverlay')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                document.getElementById('sideMenu')?.classList.remove('active');
+                this.classList.remove('active');
+            }
+        });
+
+        // Fechar modais com X
+        document.querySelectorAll('.auth-close').forEach(function(btn) {
+            btn.onclick = function() { window.closeAllModals(); };
+        });
+
+        // Trocar entre login e registro
+        document.getElementById('switchToRegister')?.addEventListener('click', function(e) { e.preventDefault(); window.openRegister(); });
+        document.getElementById('switchToLogin')?.addEventListener('click', function(e) { e.preventDefault(); window.openLogin(); });
+
+        updateCartCount();
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Dependências e credenciais locais
+node_modules/
+server/node_modules/
+.env
+.env.*
+!.env.example
+
+# Deploy (Vercel) e backups
+.vercel/
+index.html.bak

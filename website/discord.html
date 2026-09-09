@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartaMC - Discord</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .redirect-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            text-align: center;
+        }
+        .redirect-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .discord-icon {
+            font-size: 5rem;
+            color: #5865F2;
+            margin-bottom: 20px;
+        }
+        .redirect-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        .redirect-text {
+            color: #888;
+            margin-bottom: 30px;
+        }
+        .redirect-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #5865F2;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        .redirect-btn:hover {
+            background: #4752c4;
+            transform: translateY(-2px);
+        }
+        .countdown {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo-container">
+                <img src="images/logo.png" alt="SpartaMC Logo" class="header-logo-img">
+                <span class="brand-name">SpartaMC</span>
+            </a>
+            <div class="header-buttons">
+                <div id="authButtons" class="auth-buttons">
+                    <button class="login-btn" id="loginBtn">Login</button>
+                    <button class="register-btn" id="registerBtn">Registrar</button>
+                </div>
+                <div id="userProfile" class="user-profile" style="display: none;">
+                    <img id="userSkinHead" src="" alt="Skin" class="user-skin-head">
+                    <span id="userNickname" class="user-nickname"></span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-dropdown-header">
+                            <img id="dropdownSkinHead" src="" alt="Skin">
+                            <div>
+                                <div class="name" id="dropdownUserName"></div>
+                                <div class="email" id="dropdownUserEmail"></div>
+                                <div id="dropdownUserRank" style="margin-top:4px;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:5px;display:none;"></div>
+                            </div>
+                        </div>
+                        <a href="/profile" class="profile-dropdown-item" id="viewProfileBtn"><i class="fas fa-user"></i> Ver Perfil</a>
+                        <a href="/settings" class="profile-dropdown-item" id="settingsBtn"><i class="fas fa-cog"></i> Configurações</a>
+                        <button class="profile-dropdown-item logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h2>MENU</h2>
+            <button class="side-menu-close" id="menuClose">✕</button>
+        </div>
+        <div class="side-menu-links">
+            <a href="/" class="side-link"><i class="fas fa-home"></i> Início</a>
+            <a href="/shop" class="side-link"><i class="fas fa-shopping-cart"></i> Loja Oficial</a>
+            <a href="/forum" class="side-link"><i class="fas fa-comments"></i> Fórum Oficial</a>
+            <a href="/equipe" class="side-link"><i class="fas fa-users"></i> Equipe</a>
+            <a href="/recrutamento" class="side-link"><i class="fas fa-user-plus"></i> Recrutamento</a>
+        </div>
+        <div style="margin-top: auto; padding: 20px; border-top: 1px solid var(--border);">
+            <button class="cart-btn" id="cartBtn" style="width: 100%; justify-content: center;">
+                <i class="fas fa-shopping-basket"></i> Ver Carrinho (<span id="cartCount">0</span>)
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="redirect-container">
+            <div class="redirect-card">
+                <i class="fab fa-discord discord-icon"></i>
+                <h1 class="redirect-title">Redirecionando para o <span class="highlight">Discord</span></h1>
+                <p class="redirect-text">Você será redirecionado para o nosso servidor do Discord em instantes...</p>
+                <a href="https://discord.gg/gaPquRu6jz" class="redirect-btn" id="directLink">
+                    <i class="fab fa-discord"></i> Entrar no Discord agora
+                </a>
+                <p class="countdown" id="countdown">Redirecionando em 5 segundos...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <img src="images/logo.png" alt="Sparta Logo" class="footer-logo-img">
+        <span class="footer-title">SpartaMC</span>
+        <p class="footer-description">Apoie o SpartaMC adquirindo produtos em nossa loja oficial.</p>
+    </footer>
+
+    <div class="auth-overlay" id="loginOverlay">
+        <div class="auth-modal">
+            <button class="auth-close">✕</button>
+            <div class="auth-modal-header"><h2>Login</h2></div>
+            <form id="loginForm">
+                <div class="form-group"><label>E-mail</label><input type="email" id="loginEmail" required></div>
+                <div class="form-group"><label>Senha</label><input type="password" id="loginPassword" required></div>
+                <button type="submit" class="auth-submit-btn">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="auth-overlay" id="registerOverlay">
+        <div class="auth-modal">
+            <button class="auth-close">✕</button>
+            <div class="auth-modal-header"><h2>Registrar</h2></div>
+            <form id="registerForm">
+                <div class="form-group"><label>Nickname</label><input type="text" id="regNickname" required></div>
+                <div class="form-group"><label>E-mail</label><input type="email" id="regEmail" required></div>
+                <div class="form-group"><label>Senha</label><input type="password" id="regPassword" required></div>
+                <div class="form-group"><label>Confirmar Senha</label><input type="password" id="regConfirmPassword" required></div>
+                <button type="submit" class="auth-submit-btn">Criar Conta</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="auth-overlay" id="cartOverlay"></div>
+    <div class="cart-modal" id="cartModal">
+        <div style="padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <h2>Seu Carrinho</h2>
+            <button id="cartClose">✕</button>
+        </div>
+        <div id="cartItemsList" style="flex: 1; overflow-y: auto;"></div>
+        <div style="padding: 20px; border-top: 1px solid var(--border);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                <span>Total:</span>
+                <span id="cartTotalValue" style="color: var(--primary);">R$ 0,00</span>
+            </div>
+            <button class="auth-submit-btn" id="cartGoBtn">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ranks.js"></script>
+    <script src="js/profile-dropdown.js"></script>
+    <script>
+        let countdown = 5;
+        const countdownEl = document.getElementById('countdown');
+        const directLink = document.getElementById('directLink');
+        
+        const timer = setInterval(() => {
+            countdown--;
+            if (countdownEl) {
+                countdownEl.textContent = `Redirecionando em ${countdown} segundos...`;
+            }
+            if (countdown <= 0) {
+                clearInterval(timer);
+                window.location.href = 'https://discord.gg/9Ff8UfgmAt';
+            }
+        }, 1000);
+        
+        directLink.addEventListener('click', (e) => {
+            clearInterval(timer);
+        });
+        
+        (function() {
+            setTimeout(function() {
+                const loginBtn = document.getElementById('loginBtn');
+                const registerBtn = document.getElementById('registerBtn');
+                const menuToggle = document.getElementById('menuToggle');
+                const cartBtn = document.getElementById('cartBtn');
+                
+                if (typeof window.openLogin !== 'function') {
+                    window.openLogin = function() { document.getElementById('loginOverlay')?.classList.add('active'); };
+                    window.openRegister = function() { document.getElementById('registerOverlay')?.classList.add('active'); };
+                    window.openSideMenu = function() {
+                        document.getElementById('sideMenu')?.classList.add('active');
+                        document.getElementById('menuOverlay')?.classList.add('active');
+                    };
+                    window.openCart = function() {
+                        document.getElementById('cartModal')?.classList.add('active');
+                        document.getElementById('cartOverlay')?.classList.add('active');
+                    };
+                    window.closeAllModals = function() {
+                        ['loginOverlay', 'registerOverlay', 'cartModal', 'cartOverlay', 'sideMenu', 'menuOverlay'].forEach(id => {
+                            document.getElementById(id)?.classList.remove('active');
+                        });
+                    };
+                }
+                
+                if (loginBtn) loginBtn.onclick = function(e) { e.preventDefault(); window.openLogin(); };
+                if (registerBtn) registerBtn.onclick = function(e) { e.preventDefault(); window.openRegister(); };
+                if (menuToggle) menuToggle.onclick = function(e) { e.preventDefault(); window.openSideMenu(); };
+                if (cartBtn) cartBtn.onclick = function(e) { e.preventDefault(); window.openCart(); };
+                
+                document.querySelectorAll('.auth-close, #cartClose, #menuClose').forEach(btn => {
+                    btn.onclick = function() { window.closeAllModals(); };
+                });
+                document.querySelectorAll('.auth-overlay, #menuOverlay').forEach(overlay => {
+                    overlay.onclick = function(e) { if (e.target === overlay) window.closeAllModals(); };
+                });
+            }, 100);
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,603 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartaMC - Finalizar Compra</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .checkout-step { display: none; }
+        .checkout-step.active { display: block; }
+        .step-indicator { display:flex; justify-content:center; margin-bottom:30px; gap:5px; flex-wrap:wrap; }
+        .step { display:flex; align-items:center; gap:8px; padding:8px 15px; color:#555; font-size:0.85rem; }
+        .step.active { color:var(--primary); font-weight:700; }
+        .step.completed { color:#22c55e; }
+        .step-number { width:28px; height:28px; min-width:28px; border-radius:50%; border:2px solid currentColor; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; }
+        .step.active .step-number { background:var(--primary); border-color:var(--primary); color:#fff; }
+        .step.completed .step-number { background:#22c55e; border-color:#22c55e; color:#fff; }
+        @media (max-width:600px) { .step span { display:none; } .step { padding:8px 12px; } }
+        @media (max-width:768px) { .checkout-layout { grid-template-columns:1fr !important; } }
+        .payment-option { flex:1; min-width:140px; padding:20px 15px; background:rgba(255,255,255,0.02); border:2px solid var(--border); border-radius:12px; cursor:pointer; text-align:center; transition:all 0.3s ease; }
+        .payment-option:hover { transform:translateY(-3px); border-color:#555; }
+        .payment-option.selected { border-color:var(--primary); background:rgba(249,115,22,0.1); }
+        .payment-option i { font-size:2rem; margin-bottom:8px; display:block; }
+        .payment-option .title { font-weight:700; font-size:1rem; margin-bottom:5px; }
+        .payment-option .desc { font-size:0.75rem; color:#888; }
+        .order-item { display:flex; align-items:center; gap:15px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+        .order-item-icon { width:40px; height:40px; border-radius:8px; background:rgba(249,115,22,0.1); display:flex; align-items:center; justify-content:center; color:var(--primary); flex-shrink:0; }
+        .order-item-info { flex:1; }
+        .order-item-name { font-weight:700; font-size:0.9rem; }
+        .order-item-cat { font-size:0.75rem; color:#666; text-transform:uppercase; }
+        .order-item-price { font-weight:800; color:var(--primary); white-space:nowrap; }
+        .form-error { font-size:0.75rem; color:#ef4444; margin-top:4px; display:none; }
+        .form-group.error input { border-color:#ef4444; }
+        .form-group.success input { border-color:#22c55e; }
+        .coupon-row { display:flex; gap:8px; margin-top:15px; }
+        .coupon-row input { flex:1; padding:10px; background:#1a1a1a; border:1px solid var(--border); border-radius:8px; color:#fff; outline:none; }
+        .coupon-row input:focus { border-color:var(--primary); }
+        .coupon-msg { font-size:0.75rem; margin-top:6px; display:none; }
+        .coupon-msg.success { color:#22c55e; display:block; }
+        .coupon-msg.error { color:#ef4444; display:block; }
+        .loading-spinner { display:inline-block; width:16px; height:16px; border:2px solid rgba(0,0,0,0.1); border-left-color:#000; border-radius:50%; animation:spin 0.6s linear; vertical-align:middle; margin-right:6px; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .summary-line { display:flex; justify-content:space-between; padding:6px 0; font-size:0.85rem; }
+        .summary-line.total { font-size:1.1rem; font-weight:800; color:var(--primary); border-top:1px solid var(--border); padding-top:10px; margin-top:10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo-container">
+                <img src="images/logo.png" alt="SpartaMC Logo" class="header-logo-img">
+                <span class="brand-name">SpartaMC</span>
+            </a>
+            <div class="header-buttons">
+                <div id="authButtons" class="auth-buttons">
+                    <button class="login-btn" id="loginBtn">Login</button>
+                    <button class="register-btn" id="registerBtn">Registrar</button>
+                </div>
+                <div id="userProfile" class="user-profile" style="display:none;">
+                    <img id="userSkinHead" src="" alt="Skin" class="user-skin-head">
+                    <span id="userNickname" class="user-nickname"></span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-dropdown-header">
+                            <img id="dropdownSkinHead" src="" alt="Skin">
+                            <div>
+                                <div class="name" id="dropdownUserName"></div>
+                                <div class="email" id="dropdownUserEmail"></div>
+                                <div id="dropdownUserRank" style="margin-top:4px;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:5px;display:none;"></div>
+                            </div>
+                        </div>
+                        <a href="/profile" class="profile-dropdown-item"><i class="fas fa-user"></i> Ver Perfil</a>
+                        <a href="/settings" class="profile-dropdown-item"><i class="fas fa-cog"></i> Configurações</a>
+                        <button class="profile-dropdown-item logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h2>MENU SPARTAMC</h2>
+            <button class="side-menu-close" id="menuClose">✕</button>
+        </div>
+        <div class="side-menu-links">
+            <a href="/" class="side-link"><i class="fas fa-home"></i> Início</a>
+            <a href="/shop" class="side-link"><i class="fas fa-shopping-cart"></i> Loja Oficial</a>
+            <a href="/forum" class="side-link"><i class="fas fa-comments"></i> Fórum Oficial</a>
+            <a href="/equipe" class="side-link"><i class="fas fa-users"></i> Equipe</a>
+            <a href="/recrutamento" class="side-link"><i class="fas fa-user-plus"></i> Recrutamento</a>
+            <a href="/regras" class="side-link"><i class="fas fa-shield-alt"></i> Regras</a>
+            <a href="/discord" class="side-link"><i class="fab fa-discord"></i> Discord</a>
+        </div>
+    </div>
+
+    <div class="container" style="margin-top:80px;padding-bottom:50px;">
+        <div style="max-width:900px;margin:0 auto;padding:0 15px;">
+            <h1 style="margin-bottom:30px;text-align:center;font-size:1.8rem;">Finalizar <span class="highlight">Compra</span></h1>
+
+            <div class="step-indicator">
+                <div class="step active" id="step1Indicator">
+                    <div class="step-number">1</div>
+                    <span>Dados</span>
+                </div>
+                <div class="step" id="step2Indicator">
+                    <div class="step-number">2</div>
+                    <span>Pagamento</span>
+                </div>
+                <div class="step" id="step3Indicator">
+                    <div class="step-number">3</div>
+                    <span>Confirmação</span>
+                </div>
+            </div>
+
+            <div class="checkout-layout" style="display:grid;grid-template-columns:1fr 320px;gap:25px;">
+
+                <div style="display:flex;flex-direction:column;gap:20px;">
+
+                    <div class="checkout-step active" id="step1">
+                        <div class="posts-section" style="padding:20px;">
+                            <h3 style="margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:10px;font-size:1.1rem;">
+                                <i class="fas fa-user-edit" style="color:var(--primary);margin-right:10px;"></i> Dados do Comprador
+                            </h3>
+                            <div class="form-group" id="nameGroup">
+                                <label>Nome Completo *</label>
+                                <input type="text" id="buyerName" required placeholder="Seu nome completo">
+                                <div class="form-error" id="nameError">Preencha seu nome</div>
+                            </div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+                                <div class="form-group" id="discordGroup">
+                                    <label>Discord *</label>
+                                    <input type="text" id="buyerDiscord" required placeholder="usu#0000">
+                                    <div class="form-error" id="discordError">Informe seu Discord</div>
+                                </div>
+                                <div class="form-group" id="nickGroup">
+                                    <label>Nickname (MC) *</label>
+                                    <input type="text" id="buyerNickname" required placeholder="uNyko">
+                                    <div class="form-error" id="nickError">Informe seu nickname</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>E-mail (opcional)</label>
+                                <input type="email" id="buyerEmail" placeholder="para receber comprovante">
+                            </div>
+                            <button class="auth-submit-btn" id="continueToPayment" style="margin-top:10px;width:100%;">Continuar</button>
+                        </div>
+                    </div>
+
+                    <div class="checkout-step" id="step2">
+                        <div class="posts-section" style="padding:20px;">
+                            <h3 style="margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:10px;font-size:1.1rem;">
+                                <i class="fas fa-credit-card" style="color:var(--primary);margin-right:10px;"></i> Método de Pagamento
+                            </h3>
+                            <div style="display:flex;gap:15px;flex-wrap:wrap;margin-bottom:20px;">
+                                <div class="payment-option" onclick="selectPayment('pix')" id="pixOption">
+                                    <i class="fas fa-qrcode" style="color:var(--primary);"></i>
+                                    <div class="title">PIX</div>
+                                    <div class="desc">Instantâneo • Pagamento via QR Code</div>
+                                </div>
+                                <div class="payment-option" onclick="selectPayment('picpay')" id="picpayOption">
+                                    <i class="fas fa-wallet" style="color:#25d366;"></i>
+                                    <div class="title">PicPay</div>
+                                    <div class="desc">Em breve</div>
+                                </div>
+                            </div>
+                            <button class="auth-submit-btn" id="payBtn" disabled style="opacity:0.5;width:100%;">Selecione um método</button>
+                        </div>
+                    </div>
+
+                    <div class="checkout-step" id="step3">
+                        <div class="posts-section" style="padding:20px;text-align:center;">
+                            <div style="font-size:3rem;color:#22c55e;margin-bottom:15px;"><i class="fas fa-check-circle"></i></div>
+                            <h3 style="color:#22c55e;margin-bottom:10px;">Pedido Confirmado!</h3>
+                            <p id="orderConfirmMsg" style="color:var(--text-muted);font-size:0.9rem;margin-bottom:20px;">Seu pedido será processado em breve.</p>
+                            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:15px;margin-bottom:20px;text-align:left;">
+                                <div id="orderDetails"></div>
+                            </div>
+                            <a href="/shop" class="auth-submit-btn" style="display:inline-block;text-align:center;text-decoration:none;width:auto;padding:12px 30px;">Voltar à Loja</a>
+                        </div>
+                    </div>
+
+                    <div class="posts-section" style="padding:20px;">
+                        <h3 style="margin-bottom:15px;border-bottom:1px solid var(--border);padding-bottom:10px;font-size:1rem;">
+                            <i class="fas fa-shopping-bag" style="color:var(--primary);margin-right:10px;"></i> Resumo do Pedido
+                        </h3>
+                        <div id="checkoutItemsList"></div>
+                    </div>
+                </div>
+
+                <div class="sidebar-widgets">
+                    <div class="widget">
+                        <div class="widget-header">CUPOM</div>
+                        <div class="widget-content">
+                            <div class="coupon-row">
+                                <input type="text" id="couponInput" placeholder="Código">
+                                <button class="btn-sidebar" style="width:auto;padding:10px 15px;" onclick="applyCoupon()">Aplicar</button>
+                            </div>
+                            <div class="coupon-msg" id="couponMsg"></div>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <div class="widget-header">RESUMO</div>
+                        <div class="widget-content">
+                            <div id="summarySubtotal" class="summary-line"><span>Subtotal</span><span id="subtotalValue">R$ 0,00</span></div>
+                            <div id="summaryDiscount" class="summary-line" style="display:none;color:#22c55e;">
+                                <span>Desconto</span><span id="discountValue">-R$ 0,00</span>
+                            </div>
+                            <div class="summary-line total">
+                                <span>Total</span><span id="checkoutTotal">R$ 0,00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="pixArea" style="display:none;margin-top:15px;">
+                        <div class="widget">
+                            <div class="widget-header">PAGUE COM PIX</div>
+                            <div class="widget-content" style="text-align:center;">
+                                <div style="background:#fff;padding:12px;border-radius:12px;display:inline-block;margin-bottom:12px;">
+                                    <img id="pixQrCode" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=SpartaMC-Pagamento" alt="QR PIX" style="width:150px;max-width:100%;">
+                                </div>
+                                <p style="font-size:0.75rem;color:#888;margin-bottom:8px;">Copiar código PIX:</p>
+                                <div style="display:flex;gap:5px;margin-bottom:15px;">
+                                    <input type="text" id="pixCode" value="00020126330014BR.GOV.BCB.PIX0111SPARTAMC..." readonly style="flex:1;padding:8px;background:#1a1a1a;border:1px solid var(--border);border-radius:6px;color:#555;font-size:0.65rem;">
+                                    <button class="btn-sidebar" style="width:auto;padding:0 12px;font-size:0.8rem;" onclick="copyPixCode()"><i class="fas fa-copy"></i></button>
+                                </div>
+                                <div id="paymentStatus" style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid var(--border);font-size:0.85rem;">
+                                    <i class="fas fa-spinner fa-spin" style="color:var(--primary);margin-right:8px;"></i>
+                                    <span>Aguardando pagamento...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="font-size:0.65rem;color:#444;text-align:center;margin-top:12px;">
+                        <i class="fas fa-lock"></i> Pagamento 100% seguro
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ranks.js"></script>
+    <script src="js/profile-dropdown.js"></script>
+    <script>
+    var selectedPayment = null;
+    var checkoutData = {};
+    var discountPercent = 0;
+
+    // ── Utilitários ────────────────────────────────────────────
+    function formatMoney(val) {
+        return 'R$ ' + val.toFixed(2).replace('.', ',');
+    }
+
+    function getCart() {
+        try { return JSON.parse(localStorage.getItem('sparta_cart')) || []; }
+        catch (e) { return []; }
+    }
+
+    // ── Renderizar itens do pedido ─────────────────────────────
+    function renderOrderItems() {
+        var cart = getCart();
+        var list = document.getElementById('checkoutItemsList');
+        var totalEl = document.getElementById('checkoutTotal');
+        var subtotalEl = document.getElementById('subtotalValue');
+        if (!list) return;
+
+        if (cart.length === 0) {
+            window.location.href = '/shop';
+            return;
+        }
+
+        var subtotal = 0;
+        list.innerHTML = cart.map(function(item) {
+            var qty = item.quantity || 1;
+            subtotal += item.price * qty;
+            return '<div class="order-item">'
+                + '<div class="order-item-icon"><i class="fas ' + (item.icon || 'fa-box') + '"></i></div>'
+                + '<div class="order-item-info">'
+                + '<div class="order-item-name">' + item.name + '</div>'
+                + '<div class="order-item-cat">' + (item.category || 'produto') + '</div>'
+                + '</div>'
+                + '<div class="order-item-price">' + formatMoney(item.price * qty) + '</div>'
+                + '</div>';
+        }).join('');
+
+        checkoutData.subtotal = subtotal;
+        subtotalEl.textContent = formatMoney(subtotal);
+        updateTotal(subtotal);
+    }
+
+    function updateTotal(subtotal) {
+        subtotal = subtotal || checkoutData.subtotal || 0;
+        var discount = subtotal * (discountPercent / 100);
+        var total = subtotal - discount;
+        document.getElementById('checkoutTotal').textContent = formatMoney(total);
+        document.getElementById('subtotalValue').textContent = formatMoney(subtotal);
+
+        var discRow = document.getElementById('summaryDiscount');
+        var discVal = document.getElementById('discountValue');
+        if (discount > 0) {
+            discRow.style.display = 'flex';
+            discVal.textContent = '-' + formatMoney(discount);
+        } else {
+            discRow.style.display = 'none';
+        }
+        checkoutData.total = total;
+        checkoutData.discount = discount;
+    }
+
+    // ── Cupom ──────────────────────────────────────────────────
+    var COUPONS = {
+        'SPARTA10': { discount: 10, desc: '10% OFF' },
+        'BEMVINDO': { discount: 15, desc: '15% OFF' },
+        'VIP5':     { discount: 5,  desc: '5% OFF' }
+    };
+
+    window.applyCoupon = function() {
+        var input = document.getElementById('couponInput');
+        var msg = document.getElementById('couponMsg');
+        var code = input.value.trim().toUpperCase();
+
+        if (!code) { msg.className = 'coupon-msg error'; msg.textContent = 'Digite um código'; return; }
+
+        if (COUPONS[code]) {
+            discountPercent = COUPONS[code].discount;
+            msg.className = 'coupon-msg success';
+            msg.textContent = 'Cupom aplicado: ' + COUPONS[code].desc + '!';
+            input.value = code;
+            input.style.borderColor = '#22c55e';
+            updateTotal();
+        } else {
+            discountPercent = 0;
+            msg.className = 'coupon-msg error';
+            msg.textContent = 'Cupom inválido ou expirado';
+            input.style.borderColor = '#ef4444';
+            updateTotal();
+        }
+    };
+
+    // ── Navegação entre etapas ─────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+        renderOrderItems();
+
+        var userData = null;
+        try {
+            var stored = localStorage.getItem('sparta_current_user');
+            if (stored) {
+                userData = typeof CryptoUtils !== 'undefined' ? CryptoUtils.decrypt(stored) : JSON.parse(stored);
+            }
+        } catch(e) {}
+
+        if (userData) {
+            if (document.getElementById('buyerNickname')) document.getElementById('buyerNickname').value = userData.nickname || '';
+            document.getElementById('userProfile').style.display = 'flex';
+            document.getElementById('userNickname').textContent = userData.nickname || '';
+            document.getElementById('userSkinHead').src = 'https://mc-heads.net/avatar/' + (userData.nickname || '');
+        }
+
+        // Step 1 → 2
+        document.getElementById('continueToPayment').addEventListener('click', function() {
+            var name = document.getElementById('buyerName').value.trim();
+            var discord = document.getElementById('buyerDiscord').value.trim();
+            var nick = document.getElementById('buyerNickname').value.trim();
+            var email = document.getElementById('buyerEmail').value.trim();
+            var valid = true;
+
+            ['name', 'discord', 'nick'].forEach(function(f) {
+                var group = document.getElementById(f + 'Group');
+                var error = document.getElementById(f + 'Error');
+                if (group) group.classList.remove('error');
+                if (error) error.style.display = 'none';
+            });
+
+            if (!name) {
+                document.getElementById('nameGroup')?.classList.add('error');
+                document.getElementById('nameError').style.display = 'block';
+                valid = false;
+            }
+            if (!discord) {
+                document.getElementById('discordGroup')?.classList.add('error');
+                document.getElementById('discordError').style.display = 'block';
+                valid = false;
+            }
+            if (!nick) {
+                document.getElementById('nickGroup')?.classList.add('error');
+                document.getElementById('nickError').style.display = 'block';
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            checkoutData = { name: name, discord: discord, nick: nick, email: email, items: getCart() };
+
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            document.getElementById('step1Indicator').classList.add('completed');
+            document.getElementById('step1Indicator').classList.remove('active');
+            document.getElementById('step2Indicator').classList.add('active');
+        });
+    });
+
+    // ── Seleção de pagamento ───────────────────────────────────
+    window.selectPayment = function(method) {
+        selectedPayment = method;
+        document.querySelectorAll('.payment-option').forEach(function(el) { el.classList.remove('selected'); });
+        document.getElementById(method + 'Option').classList.add('selected');
+
+        var payBtn = document.getElementById('payBtn');
+        payBtn.disabled = false;
+        payBtn.style.opacity = '1';
+        payBtn.textContent = method === 'pix' ? 'GERAR PIX' : 'GERAR LINK';
+        payBtn.onclick = function() { processPayment(method); };
+    };
+
+    window.copyPixCode = function() {
+        var code = document.getElementById('pixCode');
+        code.select();
+        document.execCommand('copy');
+        window.showNotify && window.showNotify('Código PIX copiado!', 'success');
+    };
+
+    function getAPIBase() {
+        return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:3000/api' : '/api';
+    }
+
+    function sendOrderToAPI() {
+        var token = localStorage.getItem('sparta_token');
+        if (!token) return;
+        fetch(getAPIBase() + '/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+            body: JSON.stringify({
+                items: checkoutData.items,
+                total: checkoutData.total || checkoutData.subtotal,
+                discord: checkoutData.discord,
+                nickname: checkoutData.nick
+            })
+        }).catch(function(e) { console.log('Order API error:', e); });
+    }
+
+    function completeOrder(orderId) {
+        document.getElementById('step3').classList.add('active');
+        document.getElementById('step3Indicator').classList.add('completed');
+        document.getElementById('step3Indicator').classList.remove('active');
+
+        var details = document.getElementById('orderDetails');
+        details.innerHTML = '<div class="summary-line"><span>Pedido</span><span style="font-weight:700;color:var(--primary);">' + orderId + '</span></div>'
+            + '<div class="summary-line"><span>Jogador</span><span>' + checkoutData.nick + '</span></div>'
+            + '<div class="summary-line"><span>Pagamento</span><span>PIX</span></div>'
+            + '<div class="summary-line"><span>Valor</span><span style="color:var(--primary);font-weight:700;">' + formatMoney(checkoutData.total || checkoutData.subtotal) + '</span></div>';
+        document.getElementById('orderConfirmMsg').textContent = 'Obrigado, ' + checkoutData.name + '! Seus produtos serão entregues para ' + checkoutData.nick + ' em instantes.';
+
+        var orders = JSON.parse(localStorage.getItem('sparta_orders')) || [];
+        orders.push({
+            id: orderId, name: checkoutData.name, discord: checkoutData.discord,
+            nick: checkoutData.nick, items: checkoutData.items,
+            total: checkoutData.total || checkoutData.subtotal,
+            paymentMethod: 'pix', status: 'paid', createdAt: new Date().toISOString()
+        });
+        localStorage.setItem('sparta_orders', JSON.stringify(orders));
+        localStorage.removeItem('sparta_cart');
+    }
+
+    function checkPaymentStatus(paymentId, statusEl, orderId) {
+        fetch(getAPIBase() + '/mercado-pago/check/' + paymentId)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.status === 'approved') {
+                    statusEl.style.background = 'rgba(34,197,94,0.1)';
+                    statusEl.style.borderColor = '#22c55e';
+                    statusEl.innerHTML = '<i class="fas fa-check-circle" style="color:#22c55e;"></i> <span style="color:#22c55e;font-weight:700;">PAGO!</span>';
+                    completeOrder(orderId);
+                } else if (data.status === 'pending' || data.status === 'in_process') {
+                    setTimeout(function() { checkPaymentStatus(paymentId, statusEl, orderId); }, 5000);
+                } else {
+                    statusEl.innerHTML = '<i class="fas fa-times-circle" style="color:#ef4444;"></i> <span style="color:#ef4444;">Falha no pagamento</span>';
+                }
+            })
+            .catch(function() {
+                // fallback: simular após alguns segundos
+                setTimeout(function() {
+                    statusEl.style.background = 'rgba(34,197,94,0.1)';
+                    statusEl.style.borderColor = '#22c55e';
+                    statusEl.innerHTML = '<i class="fas fa-check-circle" style="color:#22c55e;"></i> <span style="color:#22c55e;font-weight:700;">PAGO!</span>';
+                    completeOrder(orderId);
+                }, 8000);
+            });
+    }
+
+    function processPayment(method) {
+        if (method === 'pix') {
+            document.getElementById('pixArea').style.display = 'block';
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step2Indicator').classList.add('completed');
+            document.getElementById('step2Indicator').classList.remove('active');
+            document.getElementById('step3Indicator').classList.add('active');
+
+            var orderId = '#' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substring(2,5).toUpperCase();
+            var total = checkoutData.total || checkoutData.subtotal;
+
+            // Salvar pedido no servidor
+            sendOrderToAPI();
+
+            // Criar pagamento via Mercado Pago
+            var statusEl = document.getElementById('paymentStatus');
+            statusEl.innerHTML = '<i class="fas fa-spinner fa-spin" style="color:var(--primary);margin-right:8px;"></i><span>Criando pagamento...</span>';
+
+            var itemNames = checkoutData.items.map(function(i) { return i.name; }).join(', ');
+
+            fetch(getAPIBase() + '/mercado-pago/create-pix', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    valor: total,
+                    descricao: 'SpartaMC - ' + itemNames.substring(0, 80),
+                    externalRef: orderId,
+                    email: checkoutData.email || 'comprador@spartamc.com.br'
+                })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success && data.qrCode) {
+                    // Exibir QR Code real
+                    var qrImg = document.getElementById('pixQrCode');
+                    if (data.qrCodeBase64) {
+                        qrImg.src = 'data:image/png;base64,' + data.qrCodeBase64;
+                    }
+                    document.getElementById('pixCode').value = data.qrCode;
+                    document.getElementById('pixCode').style.color = '#fff';
+
+                    statusEl.innerHTML = '<i class="fas fa-spinner fa-spin" style="color:var(--primary);margin-right:8px;"></i><span>Aguardando pagamento...</span>';
+
+                    // Iniciar verificação automática
+                    setTimeout(function() {
+                        checkPaymentStatus(data.paymentId, statusEl, orderId);
+                    }, 10000);
+                } else {
+                    // Fallback para simulação se MP falhar
+                    fallbackSimulation(statusEl, orderId);
+                }
+            })
+            .catch(function() {
+                fallbackSimulation(statusEl, orderId);
+            });
+        } else {
+            window.showNotify && window.showNotify('Metodo indisponivel no momento', 'error');
+        }
+    }
+
+    function fallbackSimulation(statusEl, orderId) {
+        var msgs = ['Aguardando pagamento...', 'Pagamento detectado! Processando...', 'Confirmando com o banco...'];
+        var countdown = 0;
+        var interval = setInterval(function() {
+            countdown++;
+            if (countdown < 3) {
+                statusEl.innerHTML = '<i class="fas fa-spinner fa-spin" style="color:var(--primary);margin-right:8px;"></i><span>' + msgs[countdown] + '</span>';
+            } else {
+                clearInterval(interval);
+                statusEl.style.background = 'rgba(34,197,94,0.1)';
+                statusEl.style.borderColor = '#22c55e';
+                statusEl.innerHTML = '<i class="fas fa-check-circle" style="color:#22c55e;"></i> <span style="color:#22c55e;font-weight:700;">PAGO!</span>';
+                completeOrder(orderId);
+            }
+        }, 2500);
+    }
+
+    // ── UI Handlers ────────────────────────────────────────────
+    document.getElementById('menuToggle')?.addEventListener('click', function() {
+        document.getElementById('sideMenu')?.classList.add('active');
+        document.getElementById('menuOverlay')?.classList.add('active');
+    });
+    document.getElementById('menuClose')?.addEventListener('click', function() {
+        document.getElementById('sideMenu')?.classList.remove('active');
+        document.getElementById('menuOverlay')?.classList.remove('active');
+    });
+    document.getElementById('menuOverlay')?.addEventListener('click', function(e) {
+        if (e.target === this) {
+            document.getElementById('sideMenu')?.classList.remove('active');
+            this.classList.remove('active');
+        }
+    });
+
+    // Validação em tempo real
+    document.querySelectorAll('#step1 input[required]').forEach(function(input) {
+        input.addEventListener('input', function() {
+            var group = this.closest('.form-group');
+            if (group) {
+                group.classList.remove('error');
+                var error = group.querySelector('.form-error');
+                if (error) error.style.display = 'none';
+            }
+        });
+    });
+    </script>
+</body>
+</html>

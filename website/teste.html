@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste SpartaMC</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #0a0a0a; color: #fff; }
+        button { padding: 10px 20px; margin: 10px; cursor: pointer; background: #f97316; border: none; border-radius: 8px; color: #000; font-weight: bold; }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 20px;
+            min-width: 300px;
+        }
+        .close { float: right; cursor: pointer; color: #888; }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background: #1a1a1a;
+            transition: right 0.3s;
+            padding: 20px;
+            z-index: 2000;
+        }
+        .sidebar.active { right: 0; }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 1999;
+        }
+        .overlay.active { display: block; }
+    </style>
+</head>
+<body>
+    <h1>Teste dos Botões - SpartaMC</h1>
+    
+    <button id="loginTestBtn">Login</button>
+    <button id="registerTestBtn">Registrar</button>
+    <button id="menuTestBtn">Menu</button>
+    <button id="cartTestBtn">Carrinho</button>
+    
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLogin">✕</span>
+            <h2>Login</h2>
+            <p>Modal de login funcionando!</p>
+        </div>
+    </div>
+    
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeRegister">✕</span>
+            <h2>Registrar</h2>
+            <p>Modal de registro funcionando!</p>
+        </div>
+    </div>
+    
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeCart">✕</span>
+            <h2>Carrinho</h2>
+            <p>Carrinho funcionando!</p>
+        </div>
+    </div>
+    
+    <div id="sidebar" class="sidebar">
+        <button id="closeSidebar" style="background: #444;">Fechar</button>
+        <h2>Menu</h2>
+        <p>Menu lateral funcionando!</p>
+    </div>
+    <div id="sidebarOverlay" class="overlay"></div>
+    
+    <script>
+        // Elementos
+        const loginBtn = document.getElementById('loginTestBtn');
+        const registerBtn = document.getElementById('registerTestBtn');
+        const menuBtn = document.getElementById('menuTestBtn');
+        const cartBtn = document.getElementById('cartTestBtn');
+        
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const cartModal = document.getElementById('cartModal');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        const closeLogin = document.getElementById('closeLogin');
+        const closeRegister = document.getElementById('closeRegister');
+        const closeCart = document.getElementById('closeCart');
+        const closeSidebar = document.getElementById('closeSidebar');
+        
+        // Funções
+        function openLogin() { loginModal.classList.add('active'); }
+        function openRegister() { registerModal.classList.add('active'); }
+        function openCart() { cartModal.classList.add('active'); }
+        function openSidebar() { sidebar.classList.add('active'); sidebarOverlay.classList.add('active'); }
+        function closeAll() {
+            loginModal.classList.remove('active');
+            registerModal.classList.remove('active');
+            cartModal.classList.remove('active');
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+        }
+        
+        // Eventos
+        loginBtn.onclick = openLogin;
+        registerBtn.onclick = openRegister;
+        cartBtn.onclick = openCart;
+        menuBtn.onclick = openSidebar;
+        
+        closeLogin.onclick = closeAll;
+        closeRegister.onclick = closeAll;
+        closeCart.onclick = closeAll;
+        closeSidebar.onclick = closeAll;
+        sidebarOverlay.onclick = closeAll;
+        
+        // Fechar ao clicar fora
+        loginModal.onclick = (e) => { if (e.target === loginModal) closeAll(); };
+        registerModal.onclick = (e) => { if (e.target === registerModal) closeAll(); };
+        cartModal.onclick = (e) => { if (e.target === cartModal) closeAll(); };
+        
+        console.log('Teste carregado! Botões devem funcionar.');
+    </script>
+</body>
+</html>

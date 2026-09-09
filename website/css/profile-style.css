@@ -1,0 +1,597 @@
+:root{
+    --bg: #0b0c11;
+    --bg2: #07080d;
+    --text: #f3f5ff;
+    --muted: rgba(243,245,255,.70);
+    --glass: rgba(18, 19, 28, .74);
+    --glass2: rgba(255,255,255,.04);
+    --border: rgba(255,255,255,.10);
+    --border2: rgba(255,255,255,.06);
+    --primary: #6f7bff;
+    --primary2: #8e6bff;
+    --r16: 16px;
+    --r20: 20px;
+    --r12: 12px;
+    --pad: 18px;
+    --shadow: 0 20px 60px rgba(0,0,0,.52);
+    --glow: 0 0 0 1px rgba(255,255,255,.05), 0 18px 50px rgba(111,123,255,.18);
+    --focus: 0 0 0 3px rgba(111,123,255,.28);
+}
+
+body{
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--text);
+    background: 
+        radial-gradient(1200px 650px at 12% -10%, rgba(111,123,255,.14), transparent 60%),
+        radial-gradient(1000px 520px at 90% 15%, rgba(142,107,255,.12), transparent 65%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+    min-height: 100vh;
+}
+
+.profile-container{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 50px;
+}
+
+.profile-banner{
+    position: relative;
+    height: 200px;
+    border-radius: var(--r20);
+    overflow: hidden;
+    margin-bottom: 80px;
+}
+
+.profile-banner::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,.00) 40%, rgba(11,12,17,.92) 92%);
+    pointer-events: none;
+}
+
+.profile-avatar-wrapper{
+    position: absolute;
+    bottom: -60px;
+    left: 30px;
+    z-index: 10;
+}
+
+.profile-avatar{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid var(--bg);
+    background: #10111a;
+    box-shadow: 0 18px 46px rgba(0,0,0,.60), 0 0 0 1px rgba(255,255,255,.06), 0 0 34px rgba(111,123,255,.22);
+    cursor: pointer;
+    transition: transform .18s ease;
+}
+
+.profile-avatar:hover{
+    transform: scale(1.03);
+}
+
+.edit-avatar-btn{
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(0,0,0,.48);
+    color: rgba(243,245,255,.92);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(12px);
+    transition: all .18s ease;
+}
+
+.edit-avatar-btn:hover{
+    background: rgba(0,0,0,.58);
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.avatar-options{
+    display: none;
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--r16);
+    padding: 12px;
+    gap: 10px;
+    z-index: 20;
+    box-shadow: var(--shadow);
+}
+
+.avatar-options.show{
+    display: flex;
+}
+
+.avatar-option{
+    width: 44px;
+    height: 44px;
+    border-radius: var(--r12);
+    border: 1px solid var(--border2);
+    background: var(--glass2);
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all .18s ease;
+}
+
+.avatar-option:hover{
+    border-color: var(--primary);
+    background: rgba(111,123,255,.15);
+    color: #fff;
+}
+
+.avatar-option.active{
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+}
+
+.profile-discord-badge{
+    position: absolute;
+    bottom: 5px;
+    right: -5px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 3px solid var(--bg);
+    background: #5865F2;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    z-index: 5;
+}
+
+.profile-discord-badge.linked{
+    display: flex;
+}
+
+.profile-actions-btn{
+    position: absolute;
+    right: 30px;
+    bottom: -10px;
+    display: flex;
+    gap: 12px;
+}
+
+.profile-btn{
+    padding: 10px 18px;
+    border-radius: var(--r12);
+    border: 1px solid var(--border);
+    background: var(--glass);
+    color: var(--text);
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all .18s ease;
+    text-decoration: none;
+}
+
+.profile-btn:hover{
+    border-color: var(--primary);
+    background: rgba(111,123,255,.15);
+    transform: translateY(-2px);
+}
+
+.profile-btn.primary{
+    background: linear-gradient(135deg, var(--primary), var(--primary2));
+    color: #000;
+    border: none;
+    box-shadow: 0 12px 36px rgba(111,123,255,.28);
+}
+
+.profile-btn.primary:hover{
+    box-shadow: 0 18px 54px rgba(111,123,255,.42);
+}
+
+.profile-sections{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.profile-section{
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: var(--r16);
+    padding: var(--pad);
+    backdrop-filter: blur(14px);
+    transition: border-color .18s ease;
+}
+
+.profile-section:hover{
+    border-color: rgba(111,123,255,.18);
+}
+
+.profile-section.full-width{
+    grid-column: 1 / -1;
+}
+
+.section-header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border2);
+}
+
+.section-header i{
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.section-header h3{
+    margin: 0;
+    font-size: 16px;
+    color: rgba(243,245,255,.94);
+    font-weight: 600;
+}
+
+.info-list{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.info-item{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 12px;
+    background: var(--glass2);
+    border: 1px solid var(--border2);
+    border-radius: var(--r12);
+    transition: all .18s ease;
+}
+
+.info-item:hover{
+    border-color: rgba(111,123,255,.18);
+    background: rgba(255,255,255,.05);
+}
+
+.info-icon{
+    width: 38px;
+    height: 38px;
+    border-radius: var(--r10);
+    background: rgba(111,123,255,.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 0.9rem;
+}
+
+.info-content{
+    flex: 1;
+}
+
+.info-label{
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.info-value{
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.info-value.copyable{
+    cursor: pointer;
+}
+
+.info-value.copyable:hover{
+    color: var(--primary);
+}
+
+.discord-profile-card{
+    background: #313338;
+    border-radius: var(--r16);
+    overflow: hidden;
+    border: 1px solid #3f4147;
+}
+
+.discord-cover-area{
+    height: 80px;
+    background: linear-gradient(135deg, #5865F2 0%, #4752c4 100%);
+    position: relative;
+}
+
+.discord-cover-area img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+}
+
+.discord-profile-main{
+    padding: 0 18px 18px;
+    position: relative;
+}
+
+.discord-avatar-large{
+    position: absolute;
+    top: -45px;
+    left: 18px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 5px solid #313338;
+    object-fit: cover;
+}
+
+.discord-status-dot{
+    position: absolute;
+    top: -10px;
+    left: 72px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 4px solid #313338;
+}
+
+.discord-status-dot.online{ background: #23a55a; box-shadow: 0 0 12px #23a55a; }
+.discord-status-dot.idle{ background: #f0b232; box-shadow: 0 0 12px #f0b232; }
+.discord-status-dot.dnd{ background: #f23f43; box-shadow: 0 0 12px #f23f43; }
+
+.discord-user-info{
+    padding-top: 40px;
+}
+
+.discord-display-name{
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.discord-username-small{
+    color: #a3a3a3;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.discord-linked-label{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #23a55a;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: rgba(35,165,90,.1);
+    border-radius: var(--r10);
+    width: fit-content;
+}
+
+.discord-bio-text{
+    color: #b5bac1;
+    font-size: 0.85rem;
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: #2b2d31;
+    border-radius: var(--r10);
+}
+
+.discord-badges-row{
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+}
+
+.d-badge{
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #2b2d31;
+    color: #b5bac1;
+}
+
+.d-badge.staff{ background: #5865F2; color: #fff; }
+.d-badge.boost{ background: linear-gradient(135deg, #da73e2, #c456d8); color: #fff; }
+
+.stats-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.stat-item{
+    text-align: center;
+    padding: 16px;
+    background: var(--glass2);
+    border: 1px solid var(--border2);
+    border-radius: var(--r12);
+    transition: all .18s ease;
+}
+
+.stat-item:hover{
+    border-color: rgba(111,123,255,.18);
+    background: rgba(255,255,255,.05);
+    transform: translateY(-2px);
+}
+
+.stat-icon{
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.stat-number{
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    text-shadow: 0 0 18px rgba(111,123,255,.18);
+}
+
+.stat-label{
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.cover-options{
+    display: none;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    gap: 10px;
+    z-index: 10;
+}
+
+.cover-options.show{
+    display: flex;
+}
+
+.edit-cover-btn{
+    background: rgba(0,0,0,.5);
+    border: 2px dashed rgba(255,255,255,.3);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: var(--r12);
+    cursor: pointer;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+    transition: all .18s ease;
+}
+
+.edit-cover-btn:hover{
+    background: rgba(0,0,0,.7);
+    border-color: #fff;
+}
+
+.cover-option{
+    width: 36px;
+    height: 36px;
+    border-radius: var(--r10);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all .18s ease;
+}
+
+.cover-option:hover{
+    transform: scale(1.1);
+    border-color: #fff;
+}
+
+.back-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 20px;
+    transition: opacity .18s ease;
+}
+
+.back-btn:hover{
+    opacity: 0.8;
+}
+
+@media (max-width: 800px){
+    .profile-sections{
+        grid-template-columns: 1fr;
+    }
+    .stats-grid{
+        grid-template-columns: 1fr;
+    }
+    .profile-banner{
+        height: 150px;
+        margin-bottom: 100px;
+    }
+    .profile-avatar-wrapper{
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .profile-actions-btn{
+        position: static;
+        margin-top: 15px;
+        justify-content: center;
+    }
+}
+
+.cover-upload-input{
+    display: none;
+}
+
+.toast{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(10,12,10,.92);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 18px 45px rgba(0,0,0,.55);
+    z-index: 99999;
+    animation: toastIn .18s ease;
+}
+
+@keyframes toastIn{
+    from{ opacity: 0; transform: translateY(-6px); }
+    to{ opacity: 1; transform: translateY(0); }
+}
+
+.toast.success .toast-fill{
+    background: linear-gradient(180deg, rgba(157,255,0,.45), rgba(107,212,0,.35));
+}
+
+.toast.error .toast-fill{
+    background: linear-gradient(180deg, rgba(255,0,0,.45), rgba(212,0,0,.35));
+}
+
+.toast-fill{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    border-radius: 10px 0 0 10px;
+}
+
+.toast-body{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.toast-title{
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.toast.success .toast-title{ color: #b6ff3a; }
+.toast.error .toast-title{ color: #ff6b6b; }
+
+.toast-msg{
+    font-size: 12px;
+    color: rgba(214,255,182,.85);
+}

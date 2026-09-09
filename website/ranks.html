@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartaMC - Ranks</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo-container">
+                <img src="images/logo.png" alt="SpartaMC Logo" class="header-logo-img">
+                <span class="brand-name">SpartaMC</span>
+            </a>
+            <div class="header-buttons">
+                <div id="authButtons" class="auth-buttons">
+                    <button class="login-btn" id="loginBtn">Login</button>
+                    <button class="register-btn" id="registerBtn">Registrar</button>
+                </div>
+                <div id="userProfile" class="user-profile" style="display: none;">
+                    <img id="userSkinHead" src="" alt="Skin" class="user-skin-head">
+                    <span id="userNickname" class="user-nickname"></span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-dropdown-header">
+                            <img id="dropdownSkinHead" src="" alt="Skin">
+                            <div>
+                                <div class="name" id="dropdownUserName"></div>
+                                <div class="email" id="dropdownUserEmail"></div>
+                                <div id="dropdownUserRank" style="margin-top:4px;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:5px;display:none;"></div>
+                            </div>
+                        </div>
+                        <a href="/profile" class="profile-dropdown-item" id="viewProfileBtn"><i class="fas fa-user"></i> Ver Perfil</a>
+                        <a href="/settings" class="profile-dropdown-item" id="settingsBtn"><i class="fas fa-cog"></i> Configurações</a>
+                        <button class="profile-dropdown-item logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Lateral -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h2>MENU SPARTAMC</h2>
+            <button class="side-menu-close" id="menuClose">✕</button>
+        </div>
+        <div class="side-menu-links">
+            <a href="/" class="side-link"><i class="fas fa-home"></i> Início</a>
+            <a href="/shop" class="side-link"><i class="fas fa-shopping-cart"></i> Loja Oficial</a>
+            <a href="/recrutamento" class="side-link"><i class="fas fa-users"></i> Recrutamento</a>
+        </div>
+        <div style="margin-top: auto; padding: 20px; border-top: 1px solid var(--border);">
+            <button class="cart-btn" id="cartBtn" style="width: 100%; justify-content: center;">
+                <i class="fas fa-shopping-basket"></i> Ver Carrinho (<span id="cartCount">0</span>)
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" style="height: 250px;">
+        <img src="images/banner.png" alt="Sparta Banner" class="banner-image">
+        <div class="hero-logo-wrapper">
+            <h1 style="font-size: 2.5rem; font-weight: 900; text-shadow: 0 0 20px rgba(0,0,0,0.8);">RANKS <span class="highlight">VIP</span></h1>
+            <p style="color: #ccc; font-weight: 600;">Benefícios exclusivos e tags coloridas!</p>
+        </div>
+    </section>
+
+    <!-- Conteúdo -->
+    <div class="container">
+        <div id="productsGrid" class="products-grid">
+            <!-- Renderizado via JS -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <img src="images/logo.png" alt="Sparta Logo" class="footer-logo-img">
+        <span class="footer-title">SpartaMC</span>
+        <p class="footer-description">Apoie o SpartaMC adquirindo produtos em nossa loja oficial.</p>
+    </footer>
+
+    <!-- Modais -->
+    <div class="auth-overlay" id="loginOverlay">
+        <div class="auth-modal">
+            <button class="auth-close">✕</button>
+            <div class="auth-modal-header"><h2>Login</h2></div>
+            <form id="loginForm">
+                <div class="form-group"><label>E-mail</label><input type="email" id="loginEmail" required></div>
+                <div class="form-group"><label>Senha</label><input type="password" id="loginPassword" required></div>
+                <button type="submit" class="auth-submit-btn">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="auth-overlay" id="registerOverlay">
+        <div class="auth-modal">
+            <button class="auth-close">✕</button>
+            <div class="auth-modal-header"><h2>Registrar</h2></div>
+            <form id="registerForm">
+                <div class="form-group"><label>Nickname</label><input type="text" id="regNickname" required></div>
+                <div class="form-group"><label>E-mail</label><input type="email" id="regEmail" required></div>
+                <div class="form-group"><label>Senha</label><input type="password" id="regPassword" required></div>
+                <div class="form-group"><label>Confirmar Senha</label><input type="password" id="regConfirmPassword" required></div>
+                <button type="submit" class="auth-submit-btn">Criar Conta</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Carrinho Lateral -->
+    <div class="auth-overlay" id="cartOverlay"></div>
+    <div class="cart-modal" id="cartModal">
+        <div style="padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="font-size: 1.2rem;">Seu Carrinho</h2>
+            <button id="cartClose" style="background:none; border:none; color:#555; font-size:1.2rem; cursor:pointer;">✕</button>
+        </div>
+        <div id="cartItemsList" style="flex: 1; overflow-y: auto;"></div>
+        <div style="padding: 20px; border-top: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 700;">
+                <span>Total:</span>
+                <span id="cartTotalValue" style="color: var(--primary);">R$ 0,00</span>
+            </div>
+            <button class="auth-submit-btn" id="cartGoBtn">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ranks.js"></script>
+    <script src="js/profile-dropdown.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            if (typeof renderProducts === 'function') renderProducts('ranks');
+        });
+    </script>
+</body>
+</html>

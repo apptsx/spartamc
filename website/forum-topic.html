@@ -1,0 +1,394 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartaMC - Tópico do Fórum</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .post-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .post-header {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border);
+        }
+        .post-author-info { text-align: center; width: 120px; }
+        .post-author-head { width: 64px; height: 64px; border-radius: 12px; margin-bottom: 10px; }
+        .post-author-nick { font-weight: 800; color: var(--primary); font-size: 0.9rem; display: block; }
+        .post-author-rank { font-size: 0.7rem; color: #555; text-transform: uppercase; font-weight: 900; }
+        .post-content { padding: 25px; flex: 1; }
+        .post-body { font-size: 0.95rem; color: #ccc; line-height: 1.8; white-space: pre-wrap; word-wrap: break-word; }
+        .post-footer { padding: 10px 20px; background: rgba(0,0,0,0.2); font-size: 0.75rem; color: #444; text-align: right; }
+        .reply-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .reply-textarea {
+            width: 100%;
+            height: 150px;
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            color: #fff;
+            outline: none;
+            margin-bottom: 15px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .reply-textarea:focus { border-color: var(--primary); }
+        .topic-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: flex-end;
+        }
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+        .delete-btn:hover { background: rgba(255, 68, 68, 0.1); }
+        .reply-count {
+            color: var(--primary);
+            font-weight: 700;
+            margin-left: 10px;
+        }
+        .empty-replies {
+            text-align: center;
+            padding: 40px;
+            color: #555;
+        }
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo-container">
+                <img src="images/logo.png" alt="SpartaMC Logo" class="header-logo-img">
+                <span class="brand-name">SpartaMC</span>
+            </a>
+            <div class="header-buttons">
+                <div id="authButtons" class="auth-buttons">
+                    <button class="login-btn" id="loginBtn">Login</button>
+                    <button class="register-btn" id="registerBtn">Registrar</button>
+                </div>
+                <div id="userProfile" class="user-profile" style="display: none;">
+                    <img id="userSkinHead" src="" alt="Skin" class="user-skin-head">
+                    <span id="userNickname" class="user-nickname"></span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-dropdown-header">
+                            <img id="dropdownSkinHead" src="" alt="Skin">
+                            <div>
+                                <div class="name" id="dropdownUserName"></div>
+                                <div class="email" id="dropdownUserEmail"></div>
+                                <div id="dropdownUserRank" style="margin-top:4px;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:5px;display:none;"></div>
+                            </div>
+                        </div>
+                        <a href="/profile" class="profile-dropdown-item" id="viewProfileBtn">
+                            <i class="fas fa-user"></i> Ver Perfil
+                        </a>
+                        <a href="/settings" class="profile-dropdown-item" id="settingsBtn">
+                            <i class="fas fa-cog"></i> Configurações
+                        </a>
+                        <button class="profile-dropdown-item logout" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </button>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Lateral -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h2>MENU SPARTAMC</h2>
+            <button class="side-menu-close" id="menuClose">✕</button>
+        </div>
+        <div class="side-menu-links">
+            <a href="/" class="side-link"><i class="fas fa-home"></i> Início</a>
+            <a href="/shop" class="side-link"><i class="fas fa-shopping-cart"></i> Loja Oficial</a>
+            <a href="/forum" class="side-link"><i class="fas fa-comments"></i> Fórum Oficial</a>
+            <a href="/equipe" class="side-link"><i class="fas fa-users"></i> Equipe</a>
+            <a href="/recrutamento" class="side-link"><i class="fas fa-user-plus"></i> Recrutamento</a>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" style="height: 120px;">
+        <img src="images/banner.png" alt="Sparta Banner" class="banner-image">
+        <div class="hero-logo-wrapper">
+            <h1 id="topicTitle" style="font-size: 1.5rem; font-weight: 900; text-shadow: 0 0 20px rgba(0,0,0,0.8);">CARREGANDO...</h1>
+        </div>
+    </section>
+
+    <!-- Conteúdo -->
+    <div class="container">
+        <div style="max-width: 900px; margin: 0 auto;">
+            
+            <a href="javascript:history.back()" class="back-link">
+                <i class="fas fa-arrow-left"></i> Voltar ao Fórum
+            </a>
+
+            <div id="mainPost"></div>
+            <div id="repliesContainer"></div>
+
+            <!-- Caixa de Resposta -->
+            <div class="reply-box" id="replyBox">
+                <h3 style="margin-bottom: 20px;">Deixe sua resposta</h3>
+                <textarea id="replyContent" class="reply-textarea" placeholder="Escreva sua mensagem aqui..."></textarea>
+                <button id="submitReplyBtn" class="auth-submit-btn" style="width: auto; padding: 12px 40px;">Enviar Resposta</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <img src="images/logo.png" alt="Sparta Logo" class="footer-logo-img">
+        <span class="footer-title">SpartaMC</span>
+        <p class="footer-description">Apoie o SpartaMC adquirindo produtos em nossa loja oficial.</p>
+    </footer>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ranks.js"></script>
+    <script src="js/profile-dropdown.js"></script>
+    <script src="js/forum.js"></script>
+    <script>
+        let currentTopic = null;
+        let currentReplies = [];
+        let currentUser = null;
+
+        function escapeHtml(t) {
+            return (t || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        function formatDate(d) {
+            return new Date(d).toLocaleDateString('pt-BR') + ' às ' + new Date(d).toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+        }
+
+        function isAdmin(user) {
+            return user && ['laranja','admin'].includes(user.rank);
+        }
+
+        function isMod(user) {
+            return user && ['laranja','admin','mod+','mod','trial','helper'].includes(user.rank);
+        }
+
+        function renderTopic() {
+            if (!currentTopic) {
+                document.getElementById('mainPost').innerHTML = '<div style="text-align:center;padding:40px;color:#888;">Tópico não encontrado.</div>';
+                document.getElementById('replyBox').style.display = 'none';
+                return;
+            }
+
+            document.title = `SpartaMC - ${currentTopic.title}`;
+            document.getElementById('topicTitle').textContent = currentTopic.title;
+
+            // Tranca caixa de resposta se tópico trancado (exceto admin)
+            if (currentTopic.locked && !isAdmin(currentUser)) {
+                document.getElementById('replyBox').innerHTML = '<p style="text-align:center;color:#888;padding:20px;"><i class="fas fa-lock"></i> Este tópico está trancado.</p>';
+            }
+
+            const canDel  = isAdmin(currentUser) || isMod(currentUser) || (currentUser && currentUser.nickname === currentTopic.author);
+            const canEdit = isAdmin(currentUser) || (currentUser && currentUser.nickname === currentTopic.author);
+
+            document.getElementById('mainPost').innerHTML = `
+                <div class="post-container">
+                    <div class="post-header">
+                        <div class="post-author-info">
+                            <img src="https://mc-heads.net/avatar/128/${escapeHtml(currentTopic.author)}"
+                                 onerror="this.src='https://mc-heads.net/avatar/128/Steve'"
+                                 class="post-author-head">
+                            <span class="post-author-nick">${escapeHtml(currentTopic.author)}</span>
+                            <span class="post-author-rank">${currentTopic.author === 'uNyko' ? 'Fundador' : 'Membro'}</span>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-body">${escapeHtml(currentTopic.content).replace(/\n/g,'<br>')}</div>
+                        </div>
+                    </div>
+                    <div class="post-footer">
+                        Postado em ${formatDate(currentTopic.created_at)}
+                        ${currentTopic.locked ? '<span style="color:#888;margin-left:10px;"><i class="fas fa-lock"></i> Trancado</span>' : ''}
+                        <div class="topic-actions">
+                            ${canEdit ? `<button class="delete-btn" style="color:var(--primary);" onclick="editTopicContent()"><i class="fas fa-edit"></i> Editar</button>` : ''}
+                            ${isAdmin(currentUser) ? `<button class="delete-btn" style="color:${currentTopic.locked?'#22c55e':'#f0b232'};" onclick="toggleTopicLock()"><i class="fas fa-${currentTopic.locked?'lock-open':'lock'}"></i> ${currentTopic.locked?'Destrancar':'Trancar'}</button>` : ''}
+                            ${isAdmin(currentUser) ? `<button class="delete-btn" style="color:var(--primary);" onclick="toggleTopicPin()"><i class="fas fa-thumbtack"></i> ${currentTopic.pinned?'Desfixar':'Fixar'}</button>` : ''}
+                            ${canDel ? `<button class="delete-btn" onclick="removeTopic()"><i class="fas fa-trash"></i> Excluir</button>` : ''}
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        function renderReplies() {
+            const div = document.getElementById('repliesContainer');
+            if (!currentReplies.length) {
+                div.innerHTML = '<div class="empty-replies"><i class="fas fa-comment-dots"></i><p>Nenhuma resposta ainda. Seja o primeiro!</p></div>';
+                return;
+            }
+            div.innerHTML = currentReplies.map(r => {
+                const canDel = isAdmin(currentUser) || isMod(currentUser) || (currentUser && currentUser.nickname === r.author);
+                return `
+                    <div class="post-container" id="reply-${r.id}">
+                        <div class="post-header">
+                            <div class="post-author-info">
+                                <img src="https://mc-heads.net/avatar/128/${escapeHtml(r.author)}"
+                                     onerror="this.src='https://mc-heads.net/avatar/128/Steve'"
+                                     class="post-author-head">
+                                <span class="post-author-nick">${escapeHtml(r.author)}</span>
+                                <span class="post-author-rank">${r.author === 'uNyko' ? 'Fundador' : 'Membro'}</span>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-body">${escapeHtml(r.content).replace(/\n/g,'<br>')}</div>
+                            </div>
+                        </div>
+                        <div class="post-footer">
+                            Respondido em ${formatDate(r.created_at)}
+                            ${canDel ? `<div class="topic-actions"><button class="delete-btn" onclick="removeReply(${r.id})"><i class="fas fa-trash"></i> Excluir</button></div>` : ''}
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        async function loadTopic() {
+            const id = new URLSearchParams(window.location.search).get('id');
+            if (!id) {
+                document.getElementById('mainPost').innerHTML = '<div style="text-align:center;padding:40px;color:#888;">ID do tópico não informado.</div>';
+                return;
+            }
+
+            document.getElementById('mainPost').innerHTML = '<div style="text-align:center;padding:40px;"><i class="fas fa-spinner fa-spin" style="color:var(--primary);font-size:2rem;"></i></div>';
+
+            try {
+                const data = await forumAPI.getTopicById(id);
+                if (!data) throw new Error('Não encontrado');
+                currentTopic  = data.topic;
+                currentReplies = data.replies || [];
+                renderTopic();
+                renderReplies();
+            } catch (e) {
+                document.getElementById('mainPost').innerHTML = '<div style="text-align:center;padding:40px;color:#f44;">Erro ao carregar tópico. Verifique se o servidor está rodando.</div>';
+                document.getElementById('replyBox').style.display = 'none';
+            }
+        }
+
+        async function submitReply() {
+            if (!currentUser) { window.openLogin && window.openLogin(); return; }
+            const content = document.getElementById('replyContent').value.trim();
+            if (!content) return alert('Digite sua resposta!');
+
+            const btn = document.getElementById('submitReplyBtn');
+            btn.disabled = true; btn.textContent = 'Enviando...';
+
+            const r = await forumAPI.addReply(currentTopic.id, content);
+            btn.disabled = false; btn.textContent = 'Enviar Resposta';
+
+            if (r.error) return alert(r.error);
+            document.getElementById('replyContent').value = '';
+            currentReplies.push(r.reply);
+            renderReplies();
+        }
+
+        async function removeTopic() {
+            if (!confirm('Excluir este tópico e todas as respostas?')) return;
+            const r = await forumAPI.deleteTopic(currentTopic.id);
+            if (r.error) return alert(r.error);
+            window.location.href = `/forum-category?cat=${currentTopic.category}`;
+        }
+
+        async function toggleTopicLock() {
+            const r = await forumAPI.lockTopic(currentTopic.id, !currentTopic.locked);
+            if (r.error) return alert(r.error);
+            currentTopic.locked = !currentTopic.locked;
+            renderTopic();
+        }
+
+        async function toggleTopicPin() {
+            const r = await forumAPI.pinTopic(currentTopic.id, !currentTopic.pinned);
+            if (r.error) return alert(r.error);
+            currentTopic.pinned = !currentTopic.pinned;
+            renderTopic();
+        }
+
+        async function editTopicContent() {
+            const newTitle   = prompt('Título:', currentTopic.title);
+            if (newTitle === null) return;
+            const newContent = prompt('Conteúdo:', currentTopic.content);
+            if (newContent === null) return;
+            const r = await forumAPI.editTopic(currentTopic.id, newTitle, newContent);
+            if (r.error) return alert(r.error);
+            currentTopic.title   = newTitle;
+            currentTopic.content = newContent;
+            renderTopic();
+        }
+
+        async function removeReply(id) {
+            if (!confirm('Excluir esta resposta?')) return;
+            const r = await forumAPI.deleteReply(id);
+            if (r.error) return alert(r.error);
+            currentReplies = currentReplies.filter(x => x.id !== id);
+            renderReplies();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const stored = localStorage.getItem('sparta_current_user');
+                if (stored) currentUser = typeof CryptoUtils !== 'undefined' ? CryptoUtils.decrypt(stored) : JSON.parse(stored);
+            } catch (e) {}
+
+            if (typeof window.openLogin !== 'function') {
+                window.openLogin    = () => document.getElementById('loginOverlay')?.classList.add('active');
+                window.openRegister = () => document.getElementById('registerOverlay')?.classList.add('active');
+                window.openSideMenu = () => { document.getElementById('sideMenu')?.classList.add('active'); document.getElementById('menuOverlay')?.classList.add('active'); };
+                window.closeAllModals = () => ['loginOverlay','registerOverlay','sideMenu','menuOverlay'].forEach(id => document.getElementById(id)?.classList.remove('active'));
+            }
+            document.getElementById('loginBtn')?.addEventListener('click', e => { e.preventDefault(); window.openLogin(); });
+            document.getElementById('registerBtn')?.addEventListener('click', e => { e.preventDefault(); window.openRegister(); });
+            document.getElementById('menuToggle')?.addEventListener('click', e => { e.preventDefault(); window.openSideMenu(); });
+            document.querySelectorAll('.auth-close, #menuClose').forEach(b => b.addEventListener('click', () => window.closeAllModals()));
+            document.querySelectorAll('.auth-overlay, #menuOverlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) window.closeAllModals(); }));
+            document.getElementById('switchToRegister')?.addEventListener('click', e => { e.preventDefault(); window.openRegister(); });
+            document.getElementById('switchToLogin')?.addEventListener('click', e => { e.preventDefault(); window.openLogin(); });
+
+            document.getElementById('submitReplyBtn')?.addEventListener('click', submitReply);
+
+            loadTopic();
+        });
+    </script>
+</body>
+</html>

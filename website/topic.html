@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartaMC - Tópico</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container" onclick="window.location.href='/'">
+            <img src="images/logo.png" alt="Logo" class="header-logo-img">
+            <span class="brand-name">SpartaMC</span>
+        </div>
+        <div class="header-buttons">
+            <button class="cart-btn" onclick="window.location.href='/'"><i class="fas fa-home"></i> Início</button>
+            <div id="userProfile" class="user-profile" style="display: none;">
+                <img id="userSkinHead" src="" alt="Skin" class="user-skin-head">
+                <span id="userNickname" class="user-nickname"></span>
+                <i class="fas fa-chevron-down dropdown-arrow"></i>
+                
+                <div class="profile-dropdown" id="profileDropdown">
+                    <div class="profile-dropdown-header">
+                        <img id="dropdownSkinHead" src="" alt="Skin">
+                        <div>
+                            <div class="name" id="dropdownUserName"></div>
+                            <div class="email" id="dropdownUserEmail"></div>
+                                <div id="dropdownUserRank" style="margin-top:4px;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:5px;display:none;"></div>
+                        </div>
+                    </div>
+                    <a href="/profile" class="profile-dropdown-item" id="viewProfileBtn">
+                            <i class="fas fa-user"></i> Ver Perfil
+                        </a>
+                        <a href="/settings" class="profile-dropdown-item" id="settingsBtn">
+                            <i class="fas fa-cog"></i> Configurações
+                        </a>
+                        <button class="profile-dropdown-item logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="content" style="margin-top: 100px;">
+        <div class="posts-section" style="max-width: 900px; margin: 0 auto; background: var(--bg-card); padding: 40px; border-radius: 24px;">
+            <div id="topicContent">
+                <div class="post-meta">
+                    <span id="topicDate"><i class="far fa-calendar-alt"></i> 27/03/2026</span>
+                    <span id="topicAuthor"><i class="fas fa-user"></i> uNyko</span>
+                </div>
+                <h1 id="topicTitle" style="font-size: 2.5rem; margin: 20px 0; color: var(--primary);">Carregando tópico...</h1>
+                <div class="post-image" style="aspect-ratio: 21/9; margin-bottom: 30px;">
+                    <img id="topicImage" src="images/banner.png" alt="Banner">
+                </div>
+                <div id="topicBody" style="font-size: 1.1rem; line-height: 1.8; color: #ddd;">
+                    <p>Carregando conteúdo do tópico...</p>
+                </div>
+            </div>
+            <hr style="border: 0; border-top: 1px solid #333; margin: 40px 0;">
+            <button class="auth-submit-btn" onclick="window.location.href='/'">Voltar para o Início</button>
+        </div>
+    </div>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ranks.js"></script>
+    <script src="js/profile-dropdown.js"></script>
+    <script>
+        // Simulação de carregamento de dados do tópico via URL
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+
+            const topics = {
+                'equipe': {
+                    title: 'Vagas na Equipe - A comunidade te espera!',
+                    date: '27/03/2026',
+                    author: 'uNyko',
+                    image: 'images/equipe.png',
+                    body: `
+                        <p>Olá, guerreiros de Esparta! Estamos entusiasmados em anunciar que as portas da nossa equipe estão abertas novamente. Se você sempre quis ajudar a manter a ordem, criar construções épicas ou dar suporte aos jogadores, esta é a sua chance!</p>
+                        <br>
+                        <h3>Cargos Disponíveis:</h3>
+                        <ul>
+                            <li><strong>Moderador:</strong> Responsável por manter a ordem e punir infratores.</li>
+                            <li><strong>Helper:</strong> Focado em tirar dúvidas e auxiliar novos jogadores.</li>
+                            <li><strong>Builder:</strong> Para os mestres da construção que querem criar novos mapas.</li>
+                        </ul>
+                        <br>
+                        <p>Para se candidatar, basta acessar a nossa página de recrutamento e preencher o formulário oficial. Todas as candidaturas serão analisadas pela nossa administração e os selecionados serão contatados via Discord.</p>
+                        <br>
+                        <p><strong>Boa sorte a todos os candidatos!</strong></p>
+                    `
+                },
+                'update': {
+                    title: 'Grande Atualização: Nova Loja e Sistema de PIX!',
+                    date: '26/03/2026',
+                    author: 'Admin',
+                    image: 'images/banner.png',
+                    body: `
+                        <p>O SpartaMC acaba de dar um grande passo rumo ao futuro! Implementamos um sistema de loja totalmente automatizado com pagamentos via PIX.</p>
+                        <br>
+                        <p>Agora você pode adquirir seus Ranks, Cash e Unbans de forma instantânea. O sistema gera um QR Code na hora e, assim que o pagamento é confirmado, os itens são entregues automaticamente na sua conta dentro do servidor.</p>
+                        <br>
+                        <p>Confira as novidades na nossa aba de Loja e aproveite o Rank BETA que já está disponível por tempo limitado!</p>
+                    `
+                }
+            };
+
+            const topic = topics[id] || topics['update'];
+            document.getElementById('topicTitle').textContent = topic.title;
+            document.getElementById('topicDate').innerHTML = `<i class="far fa-calendar-alt"></i> ${topic.date}`;
+            document.getElementById('topicAuthor').innerHTML = `<i class="fas fa-user"></i> ${topic.author}`;
+            document.getElementById('topicImage').src = topic.image;
+            document.getElementById('topicBody').innerHTML = topic.body;
+            document.title = `SpartaMC - ${topic.title}`;
+        });
+    </script>
+</body>
+</html>

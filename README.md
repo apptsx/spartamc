@@ -17,6 +17,21 @@ Conjunto de plugins Java/Kotlin que formam uma **rede de minigames** para Minecr
 | `duels` | Plugin (Spigot) | Minigame Duels |
 | `pvp` | Plugin (Spigot) | Minigame PvP (arenas, lava, FPS) |
 
+## Website
+
+A pasta [`website/`](website/) contém o site da rede (HTML/CSS/JS + backend Node.js/Express).
+
+- Front-end: páginas estáticas (`index.html`, `shop.html`, `forum.html`, `equipe.html`, etc.)
+- Backend: `website/server/` (Express + MySQL; bot do Discord, integração Mercado Pago e OAuth2 via variáveis de ambiente)
+- Configuração central: [**`website/config.json`**](website/config.json) (nome, webhooks do Discord, IDs de OAuth)
+- Para rodar:
+  ```bash
+  cd website/server
+  npm install
+  cp .env.example .env   # preencha as credenciais
+  npm start
+  ```
+
 ## Requisitos
 
 - **Java 21**+

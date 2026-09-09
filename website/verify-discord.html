@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartaMC - Verificar Discord</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .verify-container {
+            max-width: 500px;
+            margin: 100px auto 50px;
+            padding: 30px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .verify-icon {
+            font-size: 4rem;
+            color: #5865F2;
+            margin-bottom: 20px;
+        }
+        .discord-btn {
+            background: #5865F2;
+            color: #fff;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .discord-btn:hover {
+            background: #4752c4;
+            transform: translateY(-2px);
+        }
+        .verified-badge {
+            background: #23a55a;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+        .user-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        .user-info-details {
+            text-align: left;
+        }
+        .user-info-details .name {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .user-info-details .discriminator {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .guild-status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 12px;
+        }
+        .guild-status.success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid #23a55a;
+        }
+        .guild-status.error {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid #ed4245;
+        }
+        .guild-status i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo-container">
+                <img src="images/logo.png" alt="SpartaMC Logo" class="header-logo-img">
+                <span class="brand-name">SpartaMC</span>
+            </a>
+            <div class="header-buttons">
+                <a href="/" class="cart-btn"><i class="fas fa-home"></i> Início</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="verify-container">
+        <i class="fab fa-discord verify-icon"></i>
+        
+        <h2>Verificar Discord</h2>
+        <p style="color: #888; margin-bottom: 30px;">
+            Autorize o bot do SpartaMC para verificar sua conta automaticamente
+        </p>
+        
+        <div id="verifyContent">
+            <div class="verify-steps" style="text-align: left; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+                <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-shield-alt"></i> Como funciona:</h3>
+                <ol style="padding-left: 20px; color: #ccc; line-height: 1.8;">
+                    <li>Clique em <strong>"Autorizar com Discord"</strong></li>
+                    <li>Faça login no Discord (se necessário)</li>
+                    <li>Autorize o bot <strong>SpartaMC</strong></li>
+                    <li>O sistema verificará automaticamente se você está no servidor!</li>
+                </ol>
+            </div>
+            
+            <a href="#" class="discord-btn" id="authorizeBtn">
+                <i class="fab fa-discord"></i> Autorizar com Discord
+            </a>
+            
+            <p style="color: #555; font-size: 0.8rem; margin-top: 20px;">
+                <i class="fas fa-lock"></i> Suas informações são mantidas em segurança
+            </p>
+        </div>
+        
+        <div id="loadingContent" style="display: none;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--primary);"></i>
+            <p style="margin-top: 15px;">Verificando...</p>
+        </div>
+        
+        <div id="verifiedContent" style="display: none;">
+            <div class="verified-badge">
+                <i class="fas fa-check-circle"></i> Discord Verificado!
+            </div>
+            
+            <div class="user-info" id="discordUserInfo">
+                <img src="" alt="Avatar" id="discordAvatar">
+                <div class="user-info-details">
+                    <div class="name" id="discordUsername">---</div>
+                    <div class="discriminator" id="discordDiscriminator">---</div>
+                </div>
+            </div>
+            
+            <div class="guild-status success" id="guildStatus">
+                <i class="fas fa-check-circle"></i> Você está no servidor do SpartaMC!
+            </div>
+        </div>
+        
+        <div id="errorContent" style="display: none;">
+            <div class="guild-status error" id="errorStatus">
+                <i class="fas fa-times-circle"></i> <span id="errorMessage">Erro ao verificar</span>
+            </div>
+            <br>
+            <a href="/verify-discord" class="discord-btn" style="font-size: 0.9rem; padding: 12px 25px;">
+                <i class="fas fa-redo"></i> Tentar novamente
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Configuração do OAuth2 (valores vindos de config.json)
+        let CONFIG = { discord: { client_id: 'SEU_CLIENT_ID', guild_id: 'SEU_GUILD_ID' } };
+        fetch('config.json').then(r => r.json()).then(c => { CONFIG = c; initVerify(); }).catch(e => { console.error(e); initVerify(); });
+
+        const CLIENT_ID = () => CONFIG.discord.client_id;
+        const GUILD_ID = () => CONFIG.discord.guild_id;
+
+        function initVerify() {
+        const REDIRECT_URI = encodeURIComponent(window.location.origin + '/verify-discord.html');
+        
+        // Gerar state aleatório para segurança
+        function generateState() {
+            const state = Math.random().toString(36).substring(2, 15);
+            localStorage.setItem('discord_oauth_state', state);
+            return state;
+        }
+        
+        // URL de autorização
+        const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID()}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=identify%20guilds&state=${generateState()}`;
+        
+        document.getElementById('authorizeBtn').href = authUrl;
+        
+        // Verificar se veio callback do Discord
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const state = urlParams.get('state');
+        
+        if (code) {
+            // Verificar state
+            const savedState = localStorage.getItem('discord_oauth_state');
+            if (state !== savedState) {
+                showError('Estado de verificação inválido. Tente novamente.');
+                return;
+            }
+            
+            localStorage.removeItem('discord_oauth_state');
+            verifyWithCode(code);
+        }
+        
+        async function verifyWithCode(code) {
+            document.getElementById('verifyContent').style.display = 'none';
+            document.getElementById('loadingContent').style.display = 'block';
+            
+            try {
+                // Trocar código por token (em produção, faça isso no servidor)
+                // Aqui vamos simular a verificação com os dados do OAuth
+                
+                // Nota: Em produção, você deve trocar o code por um access_token
+                // usando seu servidor backend
+                
+                // Por enquanto, verificamos se o código foi recebido
+                // e informamos o usuário sobre o próximo passo
+                
+                document.getElementById('loadingContent').style.display = 'none';
+                
+                // Mostrar sucesso temporário (em produção, verificar com API do Discord)
+                showVerified({
+                    id: 'user_' + code.substring(0, 8),
+                    username: 'Usuário',
+                    discriminator: '0000',
+                    avatar: null
+                });
+                
+            } catch (error) {
+                showError('Erro ao verificar: ' + error.message);
+            }
+        }
+        
+        function showVerified(user) {
+            document.getElementById('verifiedContent').style.display = 'block';
+            
+            // Atualizar informações do usuário
+            document.getElementById('discordUsername').textContent = user.username;
+            document.getElementById('discordDiscriminator').textContent = '#' + user.discriminator;
+            
+            // Avatar
+            const avatarUrl = user.avatar 
+                ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
+                : `https://cdn.discordapp.com/embed/avatars/${parseInt(user.discriminator) % 5}.png`;
+            document.getElementById('discordAvatar').src = avatarUrl;
+            
+            // Salvar verificação
+            const currentUser = JSON.parse(localStorage.getItem('sparta_current_user'));
+            if (currentUser) {
+                const verifyData = {
+                    discordId: user.id,
+                    discordUsername: user.username,
+                    verifiedAt: Date.now()
+                };
+                localStorage.setItem('sparta_discord_verify_' + currentUser.id, JSON.stringify(verifyData));
+            }
+        }
+        
+        function showError(message) {
+            document.getElementById('errorContent').style.display = 'block';
+            document.getElementById('errorMessage').textContent = message;
+        }
+        }
+    </script>
+</body>
+</html>

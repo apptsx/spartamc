@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpartaMC - Equipe</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .staff-section { margin-bottom: 50px; }
+        .staff-title { 
+            font-size: 1.5rem; 
+            font-weight: 900; 
+            margin-bottom: 25px; 
+            padding-left: 15px; 
+            border-left: 5px solid var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .staff-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 20px; 
+        }
+        .staff-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .staff-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .staff-head {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            background: #1a1a1a;
+            padding: 5px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .staff-nick {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .staff-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .staff-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 0.6rem;
+            font-weight: 900;
+            padding: 3px 8px;
+            border-radius: 5px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo-container">
+                <img src="images/logo.png" alt="SpartaMC Logo" class="header-logo-img">
+                <span class="brand-name">SpartaMC</span>
+            </a>
+            <div class="header-buttons">
+                <div id="authButtons" class="auth-buttons">
+                    <button class="login-btn" id="loginBtn">Login</button>
+                    <button class="register-btn" id="registerBtn">Registrar</button>
+                </div>
+                <div id="userProfile" class="user-profile" style="display: none;">
+                    <img id="userSkinHead" src="" alt="Skin" class="user-skin-head">
+                    <span id="userNickname" class="user-nickname"></span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-dropdown-header">
+                            <img id="dropdownSkinHead" src="" alt="Skin">
+                            <div>
+                                <div class="name" id="dropdownUserName"></div>
+                                <div class="email" id="dropdownUserEmail"></div>
+                                <div id="dropdownUserRank" style="margin-top:4px;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:5px;display:none;"></div>
+                            </div>
+                        </div>
+                        <a href="/profile" class="profile-dropdown-item" id="viewProfileBtn">
+                            <i class="fas fa-user"></i> Ver Perfil
+                        </a>
+                        <a href="/verify-discord" class="profile-dropdown-item" id="verifyDiscordBtn">
+                            <i class="fab fa-discord"></i> Verificar Discord
+                        </a>
+                        <a href="/settings" class="profile-dropdown-item" id="settingsBtn">
+                            <i class="fas fa-cog"></i> Configurações
+                        </a>
+                        <a href="/admin-staff" class="profile-dropdown-item" id="adminStaffBtn" style="display: none;">
+                            <i class="fas fa-users-cog"></i> Gerenciar Staff
+                        </a>
+                        <button class="profile-dropdown-item logout" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </button>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Lateral -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h2>MENU SPARTAMC</h2>
+            <button class="side-menu-close" id="menuClose">✕</button>
+        </div>
+        <div class="side-menu-links">
+            <a href="/" class="side-link"><i class="fas fa-home"></i> Início</a>
+            <a href="/shop" class="side-link"><i class="fas fa-shopping-cart"></i> Loja Oficial</a>
+            <a href="/forum" class="side-link"><i class="fas fa-comments"></i> Fórum Oficial</a>
+            <a href="/equipe" class="side-link"><i class="fas fa-users"></i> Equipe</a>
+            <a href="/recrutamento" class="side-link"><i class="fas fa-user-plus"></i> Recrutamento</a>
+        </div>
+        <div style="margin-top: auto; padding: 20px; border-top: 1px solid var(--border);">
+            <button class="cart-btn" id="cartBtn" style="width: 100%; justify-content: center;">
+                <i class="fas fa-shopping-basket"></i> Ver Carrinho (<span id="cartCount">0</span>)
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" style="height: 250px;">
+        <img src="images/banner.png" alt="Sparta Banner" class="banner-image">
+        <div class="hero-logo-wrapper">
+            <h1 style="font-size: 2.5rem; font-weight: 900; text-shadow: 0 0 20px rgba(0,0,0,0.8);">NOSSA <span class="highlight">EQUIPE</span></h1>
+            <p style="color: #ccc; font-weight: 600;">Conheça os responsáveis pelo SpartaMC!</p>
+        </div>
+    </section>
+
+    <!-- Conteúdo -->
+    <div class="container">
+        <div id="equipeContainer">
+            <div style="text-align: center; padding: 50px;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--primary);"></i>
+                <p style="margin-top: 15px; color: #888;">Carregando equipe...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <img src="images/logo.png" alt="Sparta Logo" class="footer-logo-img">
+        <span class="footer-title">SpartaMC</span>
+        <p class="footer-description">Apoie o SpartaMC adquirindo produtos em nossa loja oficial.</p>
+    </footer>
+
+    <!-- Modais (Login/Register) -->
+    <div class="auth-overlay" id="loginOverlay">
+        <div class="auth-modal">
+            <button class="auth-close">✕</button>
+            <div class="auth-modal-header"><h2>Login</h2></div>
+            <form id="loginForm">
+                <div class="form-group"><label>E-mail</label><input type="email" id="loginEmail" required></div>
+                <div class="form-group"><label>Senha</label><input type="password" id="loginPassword" required></div>
+                <button type="submit" class="auth-submit-btn">Entrar</button>
+                <p style="text-align:center; margin-top:15px; font-size:0.8rem; color:#555;">Não tem conta? <a href="#" id="switchToRegister" style="color:var(--primary);">Registre-se</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="auth-overlay" id="registerOverlay">
+        <div class="auth-modal">
+            <button class="auth-close">✕</button>
+            <div class="auth-modal-header"><h2>Registrar</h2></div>
+            <form id="registerForm">
+                <div class="form-group"><label>Nickname</label><input type="text" id="regNickname" required></div>
+                <div class="form-group"><label>E-mail</label><input type="email" id="regEmail" required></div>
+                <div class="form-group"><label>Senha</label><input type="password" id="regPassword" required></div>
+                <div class="form-group"><label>Confirmar Senha</label><input type="password" id="regConfirmPassword" required></div>
+                <button type="submit" class="auth-submit-btn">Criar Conta</button>
+                <p style="text-align:center; margin-top:15px; font-size:0.8rem; color:#555;">Já tem conta? <a href="#" id="switchToLogin" style="color:var(--primary);">Faça Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Carrinho Lateral -->
+    <div class="auth-overlay" id="cartOverlay"></div>
+    <div class="cart-modal" id="cartModal">
+        <div style="padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="font-size: 1.2rem;">Seu Carrinho</h2>
+            <button id="cartClose" style="background:none; border:none; color:#555; font-size:1.2rem; cursor:pointer;">✕</button>
+        </div>
+        <div id="cartItemsList" style="flex: 1; overflow-y: auto;"></div>
+        <div style="padding: 20px; border-top: 1px solid var(--border); background: rgba(255,255,255,0.02);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 700;">
+                <span>Total:</span>
+                <span id="cartTotalValue" style="color: var(--primary);">R$ 0,00</span>
+            </div>
+            <button class="auth-submit-btn" id="cartGoBtn">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/staff.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/ranks.js"></script>
+    <script src="js/profile-dropdown.js"></script>
+    <script>
+        // Carregar dados da equipe
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('data/equipe.json')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('equipeContainer');
+                    container.innerHTML = data.cargos.map(cargo => `
+                        <div class="staff-section">
+                            <h2 class="staff-title" style="border-color: ${cargo.cor}; color: ${cargo.cor};">${cargo.nome}</h2>
+                            <div class="staff-grid">
+                                ${cargo.membros.length > 0 ? cargo.membros.map(membro => `
+                                    <div class="staff-card">
+                                        <div class="staff-badge" style="background: ${cargo.cor}; color: #000;">${cargo.nome}</div>
+                                        <img src="https://mc-heads.net/avatar/128/${membro.nickname}" 
+                                             onerror="this.src='https://mc-heads.net/avatar/128/Steve'" 
+                                             alt="${membro.nickname}" 
+                                             class="staff-head">
+                                        <span class="staff-nick">${membro.nickname}</span>
+                                        <p class="staff-desc">${membro.descricao || 'Membro da equipe'}</p>
+                                    </div>
+                                `).join('') : '<div style="text-align:center; padding:20px; color:#666;">Nenhum membro neste cargo</div>'}
+                            </div>
+                        </div>
+                    `).join('');
+                })
+                .catch(err => {
+                    console.error('Erro ao carregar equipe:', err);
+                    document.getElementById('equipeContainer').innerHTML = '<p style="text-align:center; color:red;">Erro ao carregar os dados da equipe.</p>';
+                });
+        });
+
+        // Script para garantir que os eventos dos botões funcionem
+        (function() {
+            setTimeout(function() {
+                const loginBtn = document.getElementById('loginBtn');
+                const registerBtn = document.getElementById('registerBtn');
+                const menuToggle = document.getElementById('menuToggle');
+                const cartBtn = document.getElementById('cartBtn');
+                
+                if (typeof window.openLogin !== 'function') {
+                    window.openLogin = function() { document.getElementById('loginOverlay')?.classList.add('active'); };
+                    window.openRegister = function() { document.getElementById('registerOverlay')?.classList.add('active'); };
+                    window.openSideMenu = function() {
+                        document.getElementById('sideMenu')?.classList.add('active');
+                        document.getElementById('menuOverlay')?.classList.add('active');
+                    };
+                    window.openCart = function() {
+                        document.getElementById('cartModal')?.classList.add('active');
+                        document.getElementById('cartOverlay')?.classList.add('active');
+                    };
+                    window.closeAllModals = function() {
+                        ['loginOverlay', 'registerOverlay', 'cartModal', 'cartOverlay', 'sideMenu', 'menuOverlay'].forEach(id => {
+                            document.getElementById(id)?.classList.remove('active');
+                        });
+                    };
+                }
+                
+                if (loginBtn) loginBtn.onclick = function(e) { e.preventDefault(); window.openLogin(); };
+                if (registerBtn) registerBtn.onclick = function(e) { e.preventDefault(); window.openRegister(); };
+                if (menuToggle) menuToggle.onclick = function(e) { e.preventDefault(); window.openSideMenu(); };
+                if (cartBtn) cartBtn.onclick = function(e) { e.preventDefault(); window.openCart(); };
+                
+                document.querySelectorAll('.auth-close, #cartClose, #menuClose').forEach(btn => {
+                    btn.onclick = function() { window.closeAllModals(); };
+                });
+                document.querySelectorAll('.auth-overlay, #menuOverlay').forEach(overlay => {
+                    overlay.onclick = function(e) { if (e.target === overlay) window.closeAllModals(); };
+                });
+                
+                const switchToRegister = document.getElementById('switchToRegister');
+                if (switchToRegister) switchToRegister.onclick = function(e) { e.preventDefault(); window.openRegister(); };
+                const switchToLogin = document.getElementById('switchToLogin');
+                if (switchToLogin) switchToLogin.onclick = function(e) { e.preventDefault(); window.openLogin(); };
+            }, 100);
+        })();
+    </script>
+</body>
+</html>
