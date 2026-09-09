@@ -1,0 +1,39 @@
+# Gradle / build artifacts
+build/
+out/
+**/build/
+**/bin/
+**/out/
+.gradle/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# Artefatos de runtime / servidores (logs, mundos, jar, cache)
+server/
+worlds/
+logs/
+*.log
+cache/
+modules/
+
+# Dependências binárias de terceiros (preencha ./libs manualmente)
+libs/*.jar
+libs/pontes/
+
+# Dumps e dados locais
+dump.rdb
+*.rdb
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Arquivos locais
+"ll openjdk-17"

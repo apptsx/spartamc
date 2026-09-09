@@ -1,0 +1,33 @@
+modes:
+  Solo:
+    directory: solo
+    min: 8
+    max: 8
+  Duo:
+    directory: duo
+    min: 8
+    max: 8
+  Trio:
+    directory: trio
+    min: 8
+    max: 8
+  Quartet:
+    directory: quartet
+    min: 8
+    max: 8
+  SoloVersus:
+    directory: soloversus
+    min: 8
+    max: 8
+  DuoVersus:
+    directory: duoversus
+    min: 8
+    max: 8
+  TrioVersus:
+    directory: trioversus
+    min: 8
+    max: 8
+  QuartetVersus:
+    directory: quartetversus
+    min: 8
+    max: 8

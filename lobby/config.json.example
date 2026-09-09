@@ -1,0 +1,68 @@
+{
+  "server": "HUB",
+  "locations": [
+    {
+      "name": "social_tiktok",
+      "world": "world",
+      "x": 0.5,
+      "y": 64.0,
+      "z": 0.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "social_discord",
+      "world": "world",
+      "x": 5.5,
+      "y": 64.0,
+      "z": 0.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "npc_bedwars",
+      "world": "world",
+      "x": 10.5,
+      "y": 64.0,
+      "z": 0.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "npc_skywars",
+      "world": "world",
+      "x": 15.5,
+      "y": 64.0,
+      "z": 0.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "npc_duels",
+      "world": "world",
+      "x": 20.5,
+      "y": 64.0,
+      "z": 0.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "npc_pvp",
+      "world": "world",
+      "x": 25.5,
+      "y": 64.0,
+      "z": 0.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "npc_hg",
+      "world": "world",
+      "x": 30.5,
+      "y": 64.0,
+      "z": 0.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    }
+  ]
+}

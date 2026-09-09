@@ -1,0 +1,6 @@
+name: Core
+authors: [nyko supremo]
+version: 0.0.1
+main: com.minecraft.core.bukkit.BukkitCore
+depend:
+  - ProtocolLib

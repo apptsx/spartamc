@@ -1,0 +1,18 @@
+package com.minecraft.core.api.collectible.type.balloon.list;
+
+import com.minecraft.core.api.collectible.rarity.CollectibleRarity;
+import com.minecraft.core.api.collectible.type.balloon.BalloonCollectible;
+
+import java.util.ArrayList;
+
+public class GoBalloon extends BalloonCollectible {
+
+    public GoBalloon() {
+        super("Gosmento", CollectibleRarity.RARE, new ArrayList<>(), 1726494017429L);
+
+        addFrames("eyJ0aW1lc3RhbXAiOjE1MTMzMDY1ODIxMjcsInByb2ZpbGVJZCI6IjQxZDNhYmMyZDc0OTQwMGM5MDkwZDU0MzRkMDM4MzFiIiwicHJvZmlsZU5hbWUiOiJNZWdha2xvb24iLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2RiYTQ0YTU2YzI2NzVkNjQ3Nzg4NTEzZjlmOWFlN2E1OGJhY2RiM2ZjZmI5ZWY4YTU5Mzc2ODkxNzJiYTgifX19",
+                "eyJ0aW1lc3RhbXAiOjE1MTMzMDY2NTA0ODMsInByb2ZpbGVJZCI6IjQxZDNhYmMyZDc0OTQwMGM5MDkwZDU0MzRkMDM4MzFiIiwicHJvZmlsZU5hbWUiOiJNZWdha2xvb24iLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2U3NWM4N2JiMWM0NWM0ZmNiZGJkYmI5YWQ4MThmY2E5OWY1ODJiOThlMWMwNjgzOTQ5MWY3NmVmY2ZkMjRlYzgifX19",
+                "eyJ0aW1lc3RhbXAiOjE1MTMzMDY3MTg4MTUsInByb2ZpbGVJZCI6IjQxZDNhYmMyZDc0OTQwMGM5MDkwZDU0MzRkMDM4MzFiIiwicHJvZmlsZU5hbWUiOiJNZWdha2xvb24iLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2YzNmFkNTViNWU5NDQ5ZTk5NmM1ZDdmNzQ5ZDdmMzQ0Njc5ZDdkNWUyNGM3ZjA5NjI4ODg0MjM1YiJ9fX0=",
+                "eyJ0aW1lc3RhbXAiOjE1MTMzMDY3ODcyNDgsInByb2ZpbGVJZCI6IjQxZDNhYmMyZDc0OTQwMGM5MDkwZDU0MzRkMDM4MzFiIiwicHJvZmlsZU5hbWUiOiJNZWdha2xvb24iLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzdhNTRhZGEzNGFiY2Y2ZjJhMWJkZGFlYTExZmM3MjFlMjRkYjE1YmFjMzEzN2IxMmRjYTczMjQ2MTQyMDNiNmUifX19");
+    }
+}

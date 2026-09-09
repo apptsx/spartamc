@@ -1,0 +1,15 @@
+name: Lobby
+version: 1.0.0
+main: com.minecraft.lobby.Lobby
+depend: [ProtocolLib]
+softdepend: [PandaSpigot, Zartema]
+authors: [nyko supremo]
+description: Plugin de lobby da Sparta
+
+commands:
+  setter:
+    description: Comando para setar localizações (NPCs, spawn, leaderboards)
+    usage: /<command> <npc|spawn|lb> [tipo]
+  parkour:
+    description: Comando do parkour
+    usage: /<command> [leave|status]

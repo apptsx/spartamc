@@ -1,0 +1,20 @@
+package com.minecraft.arcade.pvp.arcade.list.arena.objects.kit.list;
+
+import com.minecraft.arcade.pvp.arcade.list.arena.objects.kit.Kit;
+import com.minecraft.arcade.pvp.arcade.list.arena.objects.kit.enums.KitStyle;
+import com.minecraft.core.account.context.objects.rank.type.RankType;
+import com.minecraft.core.api.item.Item;
+import org.bukkit.Material;
+
+import java.util.Collections;
+
+public class AntiStomper extends Kit {
+
+    public AntiStomper() {
+        super("AntiStomper", Item.of(Material.CHAINMAIL_BOOTS), KitStyle.STRATEGY,
+                Collections.singletonList("§7Não seja stompado."));
+
+        setRanks(RankType.VIP);
+        setPrice(15000);
+    }
+}

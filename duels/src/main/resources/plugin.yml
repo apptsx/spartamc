@@ -1,0 +1,6 @@
+name: duels
+version: 0.0.1
+authors: [nyko supremo]
+main: com.minecraft.arcade.duels.Duels
+depend:
+  - SlimeWorldManager

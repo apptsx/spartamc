@@ -1,0 +1,17 @@
+{
+  "server": "HUB",
+  "locations": [
+    { "name": "spawn",      "x": 37.511, "y": 77.0,  "z": -1.503, "yaw": 90.0,  "pitch": 0.0 },
+    { "name": "npc_sw",     "x": 7.596,  "y": 76.0,  "z": 3.525,  "yaw": 270.0, "pitch": 0.0 },
+    { "name": "npc_bw",     "x": 5.463,  "y": 76.0,  "z": 0.474,  "yaw": 270.0, "pitch": 0.0 },
+    { "name": "npc_duels",  "x": 5.455,  "y": 76.0,  "z": -3.493, "yaw": 270.0, "pitch": 0.0 },
+    { "name": "npc_tb",     "x": 7.490,  "y": 76.0,  "z": -6.522, "yaw": 270.0, "pitch": 0.0 },
+    { "name": "npc_ew",     "x": 3.393,  "y": 75.5,  "z": -1.405, "yaw": 270.0, "pitch": 0.0 },
+    { "name": "npc_hg",     "x": 9.393,  "y": 75.5,  "z": -1.405, "yaw": 270.0, "pitch": 0.0 },
+    { "name": "npc_pvp",    "x": 11.5,   "y": 76.0,  "z": 0.5,    "yaw": 270.0, "pitch": 0.0 },
+    { "name": "npc_shop",   "x": -4.5,   "y": 100.0, "z": 6.5,    "yaw": 130.0, "pitch": 0.0 },
+    { "name": "npc_patchlogs", "x": 0.0,   "y": 77.0,  "z": 0.0,   "yaw": 0.0,   "pitch": 0.0 },
+    { "name": "leaderboard_punitions", "x": -15.0, "y": 77.0, "z": 0.0, "yaw": 0.0, "pitch": 0.0 },
+    { "name": "leaderboard_wools", "x": -20.0, "y": 77.0, "z": 0.0, "yaw": 0.0, "pitch": 0.0 }
+  ]
+}

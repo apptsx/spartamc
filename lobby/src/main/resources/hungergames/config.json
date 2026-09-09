@@ -1,0 +1,15 @@
+{
+  "server": "HUB_HUNGERGAMES",
+  "locations": [
+    { "name": "spawn",      "x": 24.514, "y": 137.5, "z": 12.537, "yaw": 0.0,   "pitch": 0.0 },
+    { "name": "npc_hgmix", "x": 30.519, "y": 138.0, "z": 0.509,   "yaw": 90.0,  "pitch": 0.0 },
+    { "name": "npc_scrim", "x": 28.456, "y": 138.0, "z": 6.518,   "yaw": 90.0,  "pitch": 0.0 },
+    { "name": "npc_event", "x": 28.541, "y": 138.0, "z": -5.536, "yaw": 90.0,  "pitch": 0.0 },
+    { "name": "leaderboard_wins",    "x": 20.505, "y": 140.5, "z": 13.623, "yaw": -90.0, "pitch": 0.6 },
+    { "name": "leaderboard_kills",   "x": 16.407, "y": 140.5, "z": 12.468, "yaw": -90.0, "pitch": 0.6 },
+    { "name": "leaderboard_winstreak", "x": 16.505, "y": 142.0, "z": -11.491, "yaw": 0.0,   "pitch": 0.0 },
+    { "name": "npc_top_1", "x": 16.505, "y": 139.0, "z": -11.491, "yaw": 0.0, "pitch": 0.0 },
+    { "name": "npc_top_2", "x": 14.475, "y": 138.0, "z": -11.523, "yaw": 0.0, "pitch": 0.0 },
+    { "name": "npc_top_3", "x": 18.464, "y": 137.0, "z": -11.362, "yaw": 0.0, "pitch": 0.0 }
+  ]
+}

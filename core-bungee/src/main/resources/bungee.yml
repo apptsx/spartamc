@@ -1,0 +1,4 @@
+name: core-bungee
+author: nyko supremo
+version: 1.0.0
+main: com.minecraft.core.bungee.BungeeCore

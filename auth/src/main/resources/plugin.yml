@@ -1,0 +1,6 @@
+name: Auth
+authors: [nyko supremo]
+version: 0.0.1
+main: com.minecraft.auth.Auth
+depends: [ProtocolLib, Core, CoreBukkit]
+loadbefore: [ProtocolLib]

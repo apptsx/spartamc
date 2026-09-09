@@ -1,0 +1,6 @@
+name: bedwars
+authors: [nyko supremo]
+version: 0.0.1
+main: com.minecraft.arcade.bedwars.BedWars
+depend:
+  - SlimeWorldManager

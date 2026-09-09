@@ -1,0 +1,18 @@
+{
+  "server": "HUB_BEDWARS",
+  "locations": [
+    { "name": "spawn",      "x": 0.5,   "y": 50.0, "z": -0.5,  "yaw": 0.0,   "pitch": 0.0 },
+    { "name": "npc_stats",  "x": -3.5,  "y": 50.0, "z": 6.5,   "yaw": 145.0, "pitch": 0.0 },
+    { "name": "npc_solo",   "x": 8.5,   "y": 47.5, "z": 39.5,  "yaw": 180.0, "pitch": 0.0 },
+    { "name": "npc_duo",    "x": 4.5,   "y": 47.5, "z": 40.5,  "yaw": 180.0, "pitch": 0.0 },
+    { "name": "npc_trio",   "x": 0.5,   "y": 47.5, "z": 41.5,  "yaw": 180.0, "pitch": 0.0 },
+    { "name": "npc_quartet","x": -3.5,  "y": 47.5, "z": 40.5,  "yaw": 180.0, "pitch": 0.0 },
+    { "name": "npc_versus", "x": -7.5,  "y": 47.5, "z": 39.5,  "yaw": 180.0, "pitch": 0.0 },
+    { "name": "leaderboard_level",       "x": 23.5, "y": 47.5, "z": 27.5,  "yaw": 180.0, "pitch": 0.0 },
+    { "name": "leaderboard_wins",        "x": 24.5, "y": 47.5, "z": 35.5,  "yaw": 180.0, "pitch": 0.0 },
+    { "name": "leaderboard_kill",        "x": 24.5, "y": 47.5, "z": 39.5,  "yaw": 180.0, "pitch": 0.0 },
+    { "name": "leaderboard_bed_destruction", "x": 23.5, "y": 47.5, "z": 43.5, "yaw": 180.0, "pitch": 0.0 },
+    { "name": "leaderboard_selector",   "x": 21.5, "y": 47.0, "z": 22.5,  "yaw": 180.0, "pitch": 0.0 },
+    { "name": "leaderboard_period_selector", "x": 22.5, "y": 47.0, "z": 24.5, "yaw": 180.0, "pitch": 0.0 }
+  ]
+}

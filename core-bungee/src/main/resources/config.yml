@@ -1,0 +1,32 @@
+# Configurações do Discord
+# IMPORTANTE: o bot agora é configurado por variáveis de ambiente:
+#   SPARTA_DISCORD_TOKEN                -> token do bot
+#   SPARTA_DISCORD_SERVER_ID            -> ID do servidor (guild)
+#   SPARTA_DISCORD_PUNISHMENTS_CHANNEL  -> canal de punições
+#   SPARTA_DISCORD_RANKS_CHANNEL        -> canal de mudanças de rank
+#   SPARTA_DISCORD_STAFF_CHAT_CHANNEL   -> canal do staff chat
+#   SPARTA_DISCORD_SHOP_CHANNEL         -> canal de pedidos da loja
+#   SPARTA_DISCORD_REPORTS_CHANNEL      -> canal de reports
+discord:
+  # Token do bot do Discord (pegue em https://discord.com/developers/applications)
+  bot-token: "${SPARTA_DISCORD_TOKEN}"
+
+  # ID do servidor Discord (guild)
+  server-id: "${SPARTA_DISCORD_SERVER_ID}"
+
+  # Canal de punições (onde será enviada a embed)
+  punishments-channel: "${SPARTA_DISCORD_PUNISHMENTS_CHANNEL}"
+
+  # Configurações de atividade do bot
+  activity:
+    # Texto da atividade (use {players} para mostrar jogadores online)
+    text: "{players} jogando!"
+
+    # Atividade padrão caso não consiga obter número de jogadores
+    default: "spartamc.com.br"
+
+    # Tipo de atividade: PLAYING, STREAMING, LISTENING, WATCHING, COMPETING
+    type: "PLAYING"
+
+    # Estado do bot: ONLINE, IDLE, DND, INVISIBLE
+    status: "IDLE"

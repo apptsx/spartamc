@@ -1,0 +1,6 @@
+name: pvp
+version: 0.0.1
+authors: [nyko supremo]
+main: com.minecraft.arcade.pvp.PvP
+depend:
+  - SlimeWorldManager
