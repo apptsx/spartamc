@@ -1,0 +1,39 @@
+# Binários: somente 1 server.jar de referência é versionado (veja README.md)
+*.jar
+!lobby/server.jar
+
+# Plugins buildados (construa a partir da source em ../)
+plugins/*.jar
+plugins/protocol.jar
+plugins/slime.jar
+plugins/spark-*.jar
+
+# Runtime e caches
+logs/
+cache/
+modules/
+dump.rdb
+*.rdb
+usercache.json
+banned-ips.json
+banned-players.json
+whitelist.json
+ops.json
+permissions.yml
+commands.yml
+help.yml
+eula.txt
+.console_history
+crash-reports/
+**/Task
+
+# Estado de jogadores (PII gerado em runtime) — os mundos são versionados,
+# mas não playerdata/stats/usercache individuais
+**/playerdata/
+**/stats/
+**/data/player_*
+**/world*/playerdata/
+**/world*/stats/
+
+# Rate limiting do Bungee (UUID gerado por máquina)
+# (stats em config.yml é mantido como UUID local)

@@ -1,0 +1,210 @@
+worlds:
+    soup-china:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    soup-farmland:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    soup-lighthouse:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    soup-mansion:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    soup-temple:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    sumo-frozen-valley:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    sumo-medieval:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    sumo-ocean:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    sumo-spruce-mountains:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    sumo-vulcano:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    simulator-caverna:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    uhc-caverna:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    gladiator-normal:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    nodebuff-farmland:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    boxing-farmland:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    fireball-cordilheiras:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    chamber-farmland:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    thebridge-farol:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false
+    skywars-japao:
+        source: file
+        spawn: 100, 100, 100
+        difficulty: normal
+        allowMonsters: false
+        allowAnimals: false
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false

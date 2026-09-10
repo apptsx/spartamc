@@ -1,0 +1,42 @@
+{
+  "name": "Vulcano",
+  "build_limit": 0,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 100.5,
+      "y": 100,
+      "z": 100.5,
+      "yaw": 0.2,
+      "pitch": -0
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "red_spawn",
+      "x": 100.468,
+      "y": 100,
+      "z": 107.499,
+      "yaw": 179.8,
+      "pitch": -0.3
+    },
+    {
+      "name": "blue_spawn",
+      "x": 100.471,
+      "y": 100,
+      "z": 93.459,
+      "yaw": 0.1,
+      "pitch": -0.3
+    }
+  ]
+}

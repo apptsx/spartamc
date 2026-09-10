@@ -1,0 +1,58 @@
+{
+  "name": "Frozen Valley",
+  "build_limit": 0,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 100.5,
+      "y": 100,
+      "z": 100.5,
+      "yaw": 0.3,
+      "pitch": -0.7
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "red_spawn",
+      "x": 100.522,
+      "y": 100,
+      "z": 108.491,
+      "yaw": 179.7,
+      "pitch": 0
+    },
+    {
+      "name": "blue_spawn",
+      "x": 100.496,
+      "y": 100,
+      "z": 92.458,
+      "yaw": 0.2,
+      "pitch": -0.3
+    },
+    {
+      "name": "leaderboard_wins",
+      "x": 102.487,
+      "y": 101.5,
+      "z": 100.528,
+      "yaw": -0.1,
+      "pitch": -0
+    },
+    {
+      "name": "leaderboard_winstreak",
+      "x": 98.482,
+      "y": 101.5,
+      "z": 100.552,
+      "yaw": -0.1,
+      "pitch": 0.45
+    }
+  ]
+}

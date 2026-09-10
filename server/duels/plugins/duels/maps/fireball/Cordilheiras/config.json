@@ -1,0 +1,70 @@
+{
+  "name": "Cordilheiras",
+  "build_limit": 30,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 0.51,
+      "y": 70,
+      "z": 0.545,
+      "yaw": 179.803,
+      "pitch": -1.95
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "red_spawn",
+      "x": 0.49,
+      "y": 71,
+      "z": 146.545,
+      "yaw": -180.2,
+      "pitch": -1.55
+    },
+    {
+      "name": "red_bed",
+      "x": 9,
+      "y": 71,
+      "z": 140
+    },
+    {
+      "name": "blue_spawn",
+      "x": 0.48,
+      "y": 71,
+      "z": -145.476,
+      "yaw": -0.2,
+      "pitch": -1.7
+    },
+    {
+      "name": "blue_bed",
+      "x": -9,
+      "y": 71,
+      "z": -140
+    },
+    {
+      "name": "leaderboard_winstreak",
+      "x": -2.524,
+      "y": 71.5,
+      "z": -4.435,
+      "yaw": -0.197,
+      "pitch": -0.3
+    },
+    {
+      "name": "leaderboard_wins",
+      "x": 3.493,
+      "y": 71.5,
+      "z": -4.479,
+      "yaw": -0.047,
+      "pitch": -2.4
+    }
+  ]
+}

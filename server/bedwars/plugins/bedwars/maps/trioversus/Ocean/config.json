@@ -1,0 +1,138 @@
+{
+  "name": "Ocean",
+  "lore": [
+    "Navegue num oceano,",
+    "bem vasto."
+  ],
+  "normal": true,
+  "build_limit": 20,
+  "area_protection": {
+    "frontAndBack": 9,
+    "up": 7,
+    "side": 5
+  },
+  "island_area": {
+    "frontAndBack": 29,
+    "up": 0,
+    "sides": 15
+  },
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 0.464,
+      "y": 110,
+      "z": 0.430,
+      "yaw": -179.8,
+      "pitch": -3.1
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "ore_generator_diamond_1",
+      "x": 33,
+      "y": 38,
+      "z": 0
+    },
+    {
+      "name": "ore_generator_diamond_2",
+      "x": -33,
+      "y": 38,
+      "z": 0
+    },
+    {
+      "name": "ore_generator_emerald_1",
+      "x": 0,
+      "y": 39,
+      "z": -8
+    },
+    {
+      "name": "ore_generator_emerald_2",
+      "x": 0,
+      "y": 39,
+      "z": 8
+    },
+    {
+      "name": "red_spawn",
+      "x": -70.491,
+      "y": 39.062,
+      "z": 0.482,
+      "yaw": 269.96,
+      "pitch": -0.45,
+      "axisX": true
+    },
+    {
+      "name": "red_bed",
+      "x": -58,
+      "y": 39,
+      "z": 0
+    },
+    {
+      "name": "npc_shop_red",
+      "x": -68.51,
+      "y": 39,
+      "z": -4.58,
+      "yaw": 359.952,
+      "pitch": -1.5
+    },
+    {
+      "name": "npc_upgrade_red",
+      "x": -68.5,
+      "y": 39,
+      "z": 5.491,
+      "yaw": 180.099,
+      "pitch": -0.9
+    },
+    {
+      "name": "generator_red",
+      "x": -73,
+      "y": 38,
+      "z": 0
+    },
+    {
+      "name": "blue_spawn",
+      "x": 71.498,
+      "y": 39.062,
+      "z": 0.497,
+      "yaw": 89.815,
+      "pitch": -1.05
+    },
+    {
+      "name": "blue_bed",
+      "x": 58,
+      "y": 39,
+      "z": 0
+    },
+    {
+      "name": "npc_shop_blue",
+      "x": 69.471,
+      "y": 39,
+      "z": 5.503,
+      "yaw": 180.269,
+      "pitch": -0.45
+    },
+    {
+      "name": "npc_upgrade_blue",
+      "x": 69.542,
+      "y": 39,
+      "z": -4.579,
+      "yaw": 359.972,
+      "pitch": -0
+    },
+    {
+      "name": "generator_blue",
+      "x": 73,
+      "y": 38,
+      "z": 0
+    }
+  ]
+}

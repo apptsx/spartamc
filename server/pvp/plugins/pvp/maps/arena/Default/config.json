@@ -1,0 +1,50 @@
+{
+  "name": "Default",
+  "build_limit": 0,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": -26.021,
+      "y": 196.5,
+      "z": -61.396,
+      "yaw": -0.3,
+      "pitch": 0
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "feast_spawn",
+      "x": 0.489,
+      "y": 100,
+      "z": 0.534,
+      "yaw": -358.954,
+      "pitch": 90
+    },
+    {
+      "name": "npc_hub",
+      "x": -31.527,
+      "y": 196.5,
+      "z": -58.493,
+      "yaw": -119.1,
+      "pitch": -1.05
+    },
+    {
+      "name": "leaderboard_kills",
+      "x": -16.474,
+      "y": 199.5,
+      "z": -61.509,
+      "yaw": 89.812,
+      "pitch": -0.6
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+node_modules
+config.json
+database.json
+creator_config.json
+creator_solicitacoes.json
+creator_cargos.json
+data/
+.env
+Database/Vendas/pagamentos.json
+bot.log
+*.log
+nnyko_data.json
+Database/Vendas/entregas/
+Database/Vendas/temp/

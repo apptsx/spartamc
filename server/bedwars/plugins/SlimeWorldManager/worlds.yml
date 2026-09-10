@@ -1,0 +1,12 @@
+worlds:
+    solo-farm:
+        source: file
+        spawn: 0, 64, 0
+        difficulty: peaceful
+        allowMonsters: true
+        allowAnimals: true
+        pvp: true
+        environment: NORMAL
+        worldType: DEFAULT
+        loadOnStartup: true
+        readOnly: false

@@ -1,0 +1,223 @@
+{
+  "do9i1j2b3l57w": {
+    "nome": "Vip",
+    "desc": "Acesso a comandos VIP e vantagens especiais",
+    "entrega": true,
+    "assets": {
+      "icon": null,
+      "banner": null,
+      "hex": "55FF55"
+    },
+    "campos": {
+      "hbq3ad1izbsbb": {
+        "nome": "Vip",
+        "desc": "Acesso a comandos VIP e vantagens especiais",
+        "preco": "29.90",
+        "condicoes": {
+          "valorMin": null,
+          "valorMax": null,
+          "quantidadeMin": null,
+          "quantidadeMax": null,
+          "idCargo": []
+        },
+        "estoque": [],
+        "estoqueinfo": {
+          "last": null,
+          "alertas": []
+        },
+        "cargos": {
+          "add": [
+            "1500407632194699304"
+          ],
+          "rem": []
+        }
+      }
+    },
+    "criadoEm": 1778262616,
+    "cupons": {},
+    "ids": []
+  },
+  "l738r09uaof3u": {
+    "nome": "Max",
+    "desc": "Todas as vantagens VIP + recursos exclusivos",
+    "entrega": true,
+    "assets": {
+      "icon": null,
+      "banner": null,
+      "hex": "FF5555"
+    },
+    "campos": {
+      "12csxttqyiye2": {
+        "nome": "Max",
+        "desc": "Todas as vantagens VIP + recursos exclusivos",
+        "preco": "39.90",
+        "condicoes": {
+          "valorMin": null,
+          "valorMax": null,
+          "quantidadeMin": null,
+          "quantidadeMax": null,
+          "idCargo": []
+        },
+        "estoque": [],
+        "estoqueinfo": {
+          "last": null,
+          "alertas": []
+        },
+        "cargos": {
+          "add": [
+            "1500407628013244476"
+          ],
+          "rem": []
+        }
+      }
+    },
+    "criadoEm": 1778262616,
+    "cupons": {},
+    "ids": []
+  },
+  "cjl3ze5gajamp": {
+    "nome": "Max+",
+    "desc": "Pacote completo com benefícios Max + extras",
+    "entrega": true,
+    "assets": {
+      "icon": null,
+      "banner": null,
+      "hex": "FFAA00"
+    },
+    "campos": {
+      "4bvg5ozlgkfur": {
+        "nome": "1 Mês",
+        "desc": "Acesso por 1 mês",
+        "preco": "35.90",
+        "condicoes": {
+          "valorMin": null,
+          "valorMax": null,
+          "quantidadeMin": null,
+          "quantidadeMax": null,
+          "idCargo": []
+        },
+        "estoque": [],
+        "estoqueinfo": {
+          "last": null,
+          "alertas": []
+        },
+        "cargos": {
+          "add": [
+            "1500598616237015173"
+          ],
+          "rem": []
+        }
+      },
+      "prcqev7zhj7rb": {
+        "nome": "3 Meses",
+        "desc": "Acesso por 3 meses",
+        "preco": "89.90",
+        "condicoes": {
+          "valorMin": null,
+          "valorMax": null,
+          "quantidadeMin": null,
+          "quantidadeMax": null,
+          "idCargo": []
+        },
+        "estoque": [],
+        "estoqueinfo": {
+          "last": null,
+          "alertas": []
+        },
+        "cargos": {
+          "add": [
+            "1500598616237015173"
+          ],
+          "rem": []
+        }
+      },
+      "s8cbtw336i5hp": {
+        "nome": "6 Meses",
+        "desc": "Acesso por 6 meses",
+        "preco": "149.90",
+        "condicoes": {
+          "valorMin": null,
+          "valorMax": null,
+          "quantidadeMin": null,
+          "quantidadeMax": null,
+          "idCargo": []
+        },
+        "estoque": [],
+        "estoqueinfo": {
+          "last": null,
+          "alertas": []
+        },
+        "cargos": {
+          "add": [
+            "1500598616237015173"
+          ],
+          "rem": []
+        }
+      },
+      "d45pqrgl4o49w": {
+        "nome": "1 Ano",
+        "desc": "Acesso por 1 ano",
+        "preco": "249.90",
+        "condicoes": {
+          "valorMin": null,
+          "valorMax": null,
+          "quantidadeMin": null,
+          "quantidadeMax": null,
+          "idCargo": []
+        },
+        "estoque": [],
+        "estoqueinfo": {
+          "last": null,
+          "alertas": []
+        },
+        "cargos": {
+          "add": [
+            "1500598616237015173"
+          ],
+          "rem": []
+        }
+      }
+    },
+    "criadoEm": 1778262616,
+    "cupons": {},
+    "ids": []
+  },
+  "uk7y0ebrl68ou": {
+    "nome": "Beta",
+    "desc": "Acesso antecipado a novidades do servidor",
+    "entrega": true,
+    "assets": {
+      "icon": null,
+      "banner": null,
+      "hex": "5555FF"
+    },
+    "campos": {
+      "u86g70jrkfnnd": {
+        "nome": "Beta",
+        "desc": "Acesso antecipado a novidades do servidor",
+        "preco": "30.90",
+        "condicoes": {
+          "valorMin": null,
+          "valorMax": null,
+          "quantidadeMin": null,
+          "quantidadeMax": null,
+          "idCargo": []
+        },
+        "estoque": [],
+        "estoqueinfo": {
+          "last": null,
+          "alertas": []
+        },
+        "cargos": {
+          "add": [
+            "1500407626994028665"
+          ],
+          "rem": []
+        }
+      }
+    },
+    "criadoEm": 1778262616,
+    "cupons": {},
+    "ids": []
+  }
+}

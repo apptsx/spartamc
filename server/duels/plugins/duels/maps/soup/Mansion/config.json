@@ -1,0 +1,58 @@
+{
+  "name": "Mansion",
+  "build_limit": 0,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 100.475,
+      "y": 100,
+      "z": 100.468,
+      "yaw": -0.1,
+      "pitch": -1.6
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "red_spawn",
+      "x": 100.521,
+      "y": 100,
+      "z": 120.512,
+      "yaw": 179.7,
+      "pitch": -2
+    },
+    {
+      "name": "blue_spawn",
+      "x": 100.475,
+      "y": 100,
+      "z": 80.485,
+      "yaw": -0.1,
+      "pitch": -1.4
+    },
+    {
+      "name": "leaderboard_winstreak",
+      "x": 96.431,
+      "y": 101.5,
+      "z": 105.510,
+      "yaw": -179.9,
+      "pitch": -2.6
+    },
+    {
+      "name": "leaderboard_wins",
+      "x": 104.482,
+      "y": 101.5,
+      "z": 105.549,
+      "yaw": 179.7,
+      "pitch": -1.4
+    }
+  ]
+}

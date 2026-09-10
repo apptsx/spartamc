@@ -1,0 +1,70 @@
+{
+  "name": "Desert",
+  "build_limit": 15,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 0.5,
+      "y": 60.0,
+      "z": 0.5,
+      "yaw": -180.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 24.5,
+      "y": 78.5,
+      "z": -74.0
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": -26.5,
+      "y": 49.5,
+      "z": 34.5
+    },
+    {
+      "name": "red_spawn",
+      "x": 0.5,
+      "y": 60.0,
+      "z": 0.5,
+      "yaw": -180.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "blue_spawn",
+      "x": 0.5,
+      "y": 60.0,
+      "z": -38.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "red_bed",
+      "x": -6.5,
+      "y": 60.5,
+      "z": 1.5
+    },
+    {
+      "name": "blue_bed",
+      "x": 7.5,
+      "y": 60.5,
+      "z": -39.5
+    },
+    {
+      "name": "leaderboard_winstreak",
+      "x": 2.5,
+      "y": 61.5,
+      "z": -2.5,
+      "yaw": 0.0,
+      "pitch": -0.8
+    },
+    {
+      "name": "leaderboard_wins",
+      "x": -1.5,
+      "y": 61.5,
+      "z": -2.5,
+      "yaw": 0.0,
+      "pitch": -1.2
+    }
+  ]
+}

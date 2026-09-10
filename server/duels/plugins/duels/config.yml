@@ -1,0 +1,53 @@
+modes:
+  Soup:
+    directory: soup
+    min: 6
+    max: 6
+  Sumo:
+    directory: sumo
+    min: 6
+    max: 6
+  Simulator:
+    directory: simulator
+    min: 6
+    max: 6
+  UHC:
+    directory: uhc
+    min: 6
+    max: 6
+  Gladiator:
+    directory: gladiator
+    min: 6
+    max: 6
+  NoDebuff:
+    directory: nodebuff
+    min: 6
+    max: 6
+  Boxing:
+    directory: boxing
+    min: 6
+    max: 6
+  Fireball:
+    directory: fireball
+    min: 6
+    max: 6
+  Chamber:
+    directory: chamber
+    min: 6
+    max: 6
+  TheBridge:
+    directory: thebridge
+    min: 6
+    max: 6
+  PearlFight:
+    directory: pearlfight
+    min: 6
+    max: 6
+  BedFightSolo:
+    directory: bedfight
+    min: 6
+    max: 6
+  BedFightDuo:
+    directory: bedfight
+    min: 6
+    max: 6

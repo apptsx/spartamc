@@ -1,0 +1,14 @@
+# Modos do PvP
+modes:
+  Arena:
+    directory: arena
+    min: 1
+    max: 1
+  FPS:
+    directory: fps
+    min: 1
+    max: 1
+  Lava:
+    directory: lava
+    min: 1
+    max: 1

@@ -1,0 +1,381 @@
+{
+  "name": "Ocean",
+  "lore": [
+    "Simplesmente, uma",
+    "ilha oceânica."
+  ],
+  "normal": true,
+  "build_limit": 20,
+  "area_protection": {
+    "frontAndBack": 9,
+    "up": 7,
+    "side": 6
+  },
+  "island_area": {
+    "frontAndBack": 17,
+    "up": 0,
+    "sides": 10
+  },
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 0.461,
+      "y": 110,
+      "z": 0.406,
+      "yaw": 180.576,
+      "pitch": -0.75
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "ore_generator_diamond_1",
+      "x": -33,
+      "y": 59,
+      "z": 0
+    },
+    {
+      "name": "ore_generator_diamond_2",
+      "x": 0,
+      "y": 59,
+      "z": 33
+    },
+    {
+      "name": "ore_generator_diamond_3",
+      "x": 33,
+      "y": 59,
+      "z": 0
+    },
+    {
+      "name": "ore_generator_diamond_4",
+      "x": 0,
+      "y": 59,
+      "z": -33
+    },
+    {
+      "name": "ore_generator_emerald_1",
+      "x": -12,
+      "y": 61,
+      "z": -12
+    },
+    {
+      "name": "ore_generator_emerald_2",
+      "x": -12,
+      "y": 61,
+      "z": 12
+    },
+    {
+      "name": "ore_generator_emerald_3",
+      "x": 12,
+      "y": 61,
+      "z": 12
+    },
+    {
+      "name": "ore_generator_emerald_4",
+      "x": 12,
+      "y": 61,
+      "z": -12
+    },
+    {
+      "name": "red_spawn",
+      "x": 63.461,
+      "y": 60.062,
+      "z": 26.507,
+      "yaw": -270.025,
+      "pitch": -1.2
+    },
+    {
+      "name": "red_bed",
+      "x": 50,
+      "y": 60,
+      "z": 26
+    },
+    {
+      "name": "npc_shop_red",
+      "x": 61.489,
+      "y": 60,
+      "z": 31.499,
+      "yaw": -180.477,
+      "pitch": -1.5
+    },
+    {
+      "name": "npc_upgrade_red",
+      "x": 61.447,
+      "y": 60,
+      "z": 21.423,
+      "yaw": -0.326,
+      "pitch": -0.3
+    },
+    {
+      "name": "generator_red",
+      "x": 65,
+      "y": 60,
+      "z": 26
+    },
+    {
+      "name": "blue_spawn",
+      "x": 63.514,
+      "y": 60.062,
+      "z": -25.5,
+      "yaw": 90.28,
+      "pitch": -0
+    },
+    {
+      "name": "blue_bed",
+      "x": 50,
+      "y": 60,
+      "z": -26
+    },
+    {
+      "name": "npc_shop_blue",
+      "x": 61.437,
+      "y": 60,
+      "z": -20.421,
+      "yaw": 180.283,
+      "pitch": 0.6
+    },
+    {
+      "name": "npc_upgrade_blue",
+      "x": 61.491,
+      "y": 60,
+      "z": -30.422,
+      "yaw": 359.983,
+      "pitch": 0.3
+    },
+    {
+      "name": "generator_blue",
+      "x": 65,
+      "y": 60,
+      "z": -26
+    },
+    {
+      "name": "cyan_spawn",
+      "x": -62.512,
+      "y": 60.062,
+      "z": -25.498,
+      "yaw": -90.05,
+      "pitch": -0.3,
+      "axisX": true
+    },
+    {
+      "name": "cyan_bed",
+      "x": -50,
+      "y": 60,
+      "z": -26
+    },
+    {
+      "name": "npc_shop_cyan",
+      "x": -60.469,
+      "y": 60,
+      "z": -30.474,
+      "yaw": 0.099,
+      "pitch": -1.05
+    },
+    {
+      "name": "npc_upgrade_cyan",
+      "x": -60.544,
+      "y": 60,
+      "z": -20.494,
+      "yaw": 180.1,
+      "pitch": -0.45
+    },
+    {
+      "name": "generator_cyan",
+      "x": -65,
+      "y": 60,
+      "z": -26
+    },
+    {
+      "name": "pink_spawn",
+      "x": -62.458,
+      "y": 60.062,
+      "z": 26.527,
+      "yaw": 269.951,
+      "pitch": -0.9,
+      "axisX": true
+    },
+    {
+      "name": "pink_bed",
+      "x": -50,
+      "y": 60,
+      "z": 26
+    },
+    {
+      "name": "npc_shop_pink",
+      "x": -60.476,
+      "y": 60,
+      "z": 21.456,
+      "yaw": 0.104,
+      "pitch": -0
+    },
+    {
+      "name": "npc_upgrade_pink",
+      "x": -60.492,
+      "y": 60,
+      "z": 31.584,
+      "yaw": 180.109,
+      "pitch": -0.15
+    },
+    {
+      "name": "generator_pink",
+      "x": -65,
+      "y": 60,
+      "z": 26
+    },
+    {
+      "name": "orange_spawn",
+      "x": 26.482,
+      "y": 60.062,
+      "z": -62.408,
+      "yaw": 359.857,
+      "pitch": 0.75,
+      "axisX": true
+    },
+    {
+      "name": "orange_bed",
+      "x": 26,
+      "y": 60,
+      "z": -50
+    },
+    {
+      "name": "npc_shop_orange",
+      "x": 31.521,
+      "y": 60,
+      "z": -60.447,
+      "yaw": 89.983,
+      "pitch": -0.75
+    },
+    {
+      "name": "npc_upgrade_orange",
+      "x": 21.484,
+      "y": 60,
+      "z": -60.504,
+      "yaw": 269.838,
+      "pitch": -0
+    },
+    {
+      "name": "generator_orange",
+      "x": 26,
+      "y": 60,
+      "z": -65
+    },
+    {
+      "name": "gray_spawn",
+      "x": -25.508,
+      "y": 60.062,
+      "z": -62.559,
+      "yaw": 359.802,
+      "pitch": -0,
+      "axisX": true
+    },
+    {
+      "name": "gray_bed",
+      "x": -26,
+      "y": 60,
+      "z": -50
+    },
+    {
+      "name": "npc_shop_gray",
+      "x": -20.498,
+      "y": 60,
+      "z": -60.491,
+      "yaw": 89.95,
+      "pitch": -0.3
+    },
+    {
+      "name": "npc_upgrade_gray",
+      "x": -30.463,
+      "y": 60,
+      "z": -60.571,
+      "yaw": 270.249,
+      "pitch": -0.45
+    },
+    {
+      "name": "generator_gray",
+      "x": -26,
+      "y": 60,
+      "z": -65
+    },
+    {
+      "name": "yellow_spawn",
+      "x": 26.522,
+      "y": 60.062,
+      "z": 63.464,
+      "yaw": 179.518,
+      "pitch": -0.6
+    },
+    {
+      "name": "yellow_bed",
+      "x": 26,
+      "y": 60,
+      "z": 50
+    },
+    {
+      "name": "npc_shop_yellow",
+      "x": 21.593,
+      "y": 60,
+      "z": 61.522,
+      "yaw": 269.965,
+      "pitch": -0.3
+    },
+    {
+      "name": "npc_upgrade_yellow",
+      "x": 31.534,
+      "y": 60,
+      "z": 61.439,
+      "yaw": 89.974,
+      "pitch": -0.15
+    },
+    {
+      "name": "generator_yellow",
+      "x": 26,
+      "y": 60,
+      "z": 65
+    },
+    {
+      "name": "green_spawn",
+      "x": -25.465,
+      "y": 60.062,
+      "z": 63.461,
+      "yaw": 180.718,
+      "pitch": 0.15
+    },
+    {
+      "name": "green_bed",
+      "x": -26,
+      "y": 60,
+      "z": 50
+    },
+    {
+      "name": "npc_shop_green",
+      "x": -30.579,
+      "y": 60,
+      "z": 61.451,
+      "yaw": 270.266,
+      "pitch": -0.75
+    },
+    {
+      "name": "npc_upgrade_green",
+      "x": -20.483,
+      "y": 60,
+      "z": 61.508,
+      "yaw": 89.961,
+      "pitch": -0.301
+    },
+    {
+      "name": "generator_green",
+      "x": -26,
+      "y": 60,
+      "z": 65
+    }
+  ]
+}

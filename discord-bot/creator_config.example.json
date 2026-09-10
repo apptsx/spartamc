@@ -1,0 +1,8 @@
+{
+  "SEU_GUILD_ID": {
+    "logChannelId": "SEU_CANAL_LOG",
+    "creatorRoleId": "SEU_CARGO_CREATOR",
+    "configuredBy": "SEU_USER_ID",
+    "configuredAt": "2026-01-01T00:00:00.000Z"
+  }
+}

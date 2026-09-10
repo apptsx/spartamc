@@ -1,0 +1,82 @@
+{
+  "name": "Japao",
+  "build_limit": 0,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 100.46,
+      "y": 100,
+      "z": 100.494,
+      "yaw": 89.928,
+      "pitch": 0.9
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "red_spawn",
+      "x": 68.652,
+      "y": 94,
+      "z": 100.509,
+      "yaw": 269.78,
+      "pitch": -0.15
+    },
+    {
+      "name": "red_chest_1",
+      "x": 63,
+      "y": 94,
+      "z": 100
+    },
+    {
+      "name": "red_chest_2",
+      "x": 68,
+      "y": 90,
+      "z": 102
+    },
+    {
+      "name": "blue_spawn",
+      "x": 132.416,
+      "y": 94,
+      "z": 100.485,
+      "yaw": 89.928,
+      "pitch": -2.25
+    },
+    {
+      "name": "blue_chest_1",
+      "x": 137,
+      "y": 94,
+      "z": 101
+    },
+    {
+      "name": "blue_chest_2",
+      "x": 132,
+      "y": 90,
+      "z": 99
+    },
+    {
+      "name": "leaderboard_winstreak",
+      "x": 94.453,
+      "y": 101.5,
+      "z": 96.436,
+      "yaw": 270.078,
+      "pitch": -2.85
+    },
+    {
+      "name": "leaderboard_wins",
+      "x": 94.497,
+      "y": 101.5,
+      "z": 104.492,
+      "yaw": 269.929,
+      "pitch": -2.1
+    }
+  ]
+}

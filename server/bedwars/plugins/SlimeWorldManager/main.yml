@@ -1,0 +1,4 @@
+enable_async_world_gen: false
+updater:
+    enabled: true
+    onjoinmessage: true

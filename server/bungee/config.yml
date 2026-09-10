@@ -1,0 +1,87 @@
+network_compression_threshold: 256
+remote_ping_timeout: 5000
+online_mode: true
+remote_ping_cache: -1
+forge_support: true
+max_packets_per_second: 4096
+ip_forward: true
+disabled_commands:
+- disabledcommandhere
+max_packets_data_per_second: 3.3554432E7
+player_limit: -1
+reject_transfers: false
+connection_throttle: 4000
+connection_throttle_limit: 3
+prevent_proxy_connections: false
+log_commands: false
+log_pings: true
+groups:
+  md_5:
+  - admin
+stats: 3df4abd0-f494-4c2c-893c-fb873040b6e3
+servers:
+  Ponte:
+    address: SEU_IP:25577
+    motd: kejx1111
+    restricted: false
+  auth:
+    address: SEU_IP:25569
+    motd: oi
+    restricted: false
+  bedwars-1:
+    address: SEU_IP:30002
+    motd: '&cBedWars 1'
+    restricted: false
+  duels:
+    address: SEU_IP:25574
+    motd: seila
+    restricted: false
+  hub:
+    address: SEU_IP:25570
+    motd: '&aHub 1'
+    restricted: false
+  hub-bedwars:
+    address: SEU_IP:30000
+    motd: '&bBedwars Hub 1'
+    restricted: false
+  hub-duels:
+    address: SEU_IP:25573
+    motd: seila
+    restricted: false
+  hub-pvp:
+    address: SEU_IP:25575
+    motd: kskx
+    restricted: false
+  pvp:
+    address: SEU_IP:25576
+    motd: kejx
+    restricted: false
+permissions:
+  admin:
+  - bungeecord.command.alert
+  - bungeecord.command.end
+  - bungeecord.command.ip
+  - bungeecord.command.reload
+  - bungeecord.command.kick
+  default:
+  - bungeecord.command.server
+  - bungeecord.command.list
+listeners:
+- bind_local_address: true
+  force_default_server: true
+  forced_hosts: {}
+  host: 0.0.0.0:25565
+  max_players: 1000
+  motd: '&aProxy SpartaMC'
+  ping_passthrough: false
+  priorities:
+  - hub
+  - auth
+  proxy_protocol: false
+  query_enabled: true
+  query_port: 25565
+  tab_list: GLOBAL_PING
+  tab_size: 60
+enforce_secure_profile: false
+server_connect_timeout: 5000
+timeout: 30000

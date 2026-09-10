@@ -1,0 +1,41 @@
+ball:
+  physics-version: 34
+  attack-forward: 0.43
+  attack-up: 0.4
+  attack-player-forward: 0.03
+  attack-player-up: 0.0
+  lift-forward: 0.37
+  lift-up: 0.48
+  serve-forward: 0.37
+  serve-up: 0.48
+  serve-height: 1.65
+  gravity: 0.03
+  air-drag: 0.988
+  max-speed: 0.65
+  max-up: 0.55
+  min-side-hit-distance: 0.55
+  under-ball-y-diff: 0.65
+  spin-yaw-per-tick: 7
+  wall-margin: 0.35
+  wall-bounce: 0.82
+  wall-up: 0.18
+  name: '&fBola de Vôlei'
+  armorstand-visible: false
+  orange-wool-data: 1
+  texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODkzNmJjNzIxNDNlNjcyOTAxZjY5ZTJhNmI1ZWMzOTMyOGU1MWYxMGIzY2MyNTJjMTJmM2Y4ZjUzZTQ3NmZhYiJ9fX0=
+messages:
+  prefix: '§6§lVOLEI §7» '
+teams:
+  max-players: 2
+game:
+  points-to-win: 15
+  countdown-min: 30
+  countdown-full: 10
+arena:
+  min-y: 0
+border:
+  push-force: 0.3
+  push-up: 0.02
+  safe-margin: 0.45
+queue:
+  leave-item-name: '&cSair da fila'

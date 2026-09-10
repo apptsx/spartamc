@@ -1,0 +1,58 @@
+{
+  "name": "Caverna",
+  "build_limit": 7,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 101.527,
+      "y": 100,
+      "z": 99.449,
+      "yaw": -90.1,
+      "pitch": 1.6
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "red_spawn",
+      "x": 107.382,
+      "y": 100,
+      "z": 100.586,
+      "yaw": 90.6,
+      "pitch": 3.1
+    },
+    {
+      "name": "blue_spawn",
+      "x": 96.515,
+      "y": 100,
+      "z": 100.496,
+      "yaw": -90.3,
+      "pitch": 3.3
+    },
+    {
+      "name": "leaderboard_winstreak",
+      "x": 100.5,
+      "y": 101,
+      "z": 100.5,
+      "yaw": 0,
+      "pitch": -1.4
+    },
+    {
+      "name": "leaderboard_wins",
+      "x": 102.461,
+      "y": 101.5,
+      "z": 95.275,
+      "yaw": -0.8,
+      "pitch": -1.8
+    }
+  ]
+}

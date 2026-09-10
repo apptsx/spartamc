@@ -1,0 +1,70 @@
+{
+  "name": "Farol",
+  "build_limit": 25,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 100.494,
+      "y": 100,
+      "z": 100.515,
+      "yaw": -90.15,
+      "pitch": -2.85
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "red_spawn",
+      "x": 132.513,
+      "y": 104,
+      "z": 100.476,
+      "yaw": -270.3,
+      "pitch": -2.4
+    },
+    {
+      "name": "red_portal",
+      "x": 128.54,
+      "y": 97.894,
+      "z": 100.447
+    },
+    {
+      "name": "blue_spawn",
+      "x": 68.56,
+      "y": 104,
+      "z": 100.47,
+      "yaw": -90.15,
+      "pitch": -3.15
+    },
+    {
+      "name": "blue_portal",
+      "x": 72.188,
+      "y": 97.886,
+      "z": 100.487
+    },
+    {
+      "name": "leaderboard_winstreak",
+      "x": 103.532,
+      "y": 101.5,
+      "z": 106.520,
+      "yaw": 179.7,
+      "pitch": -0.8
+    },
+    {
+      "name": "leaderboard_wins",
+      "x": 97.456,
+      "y": 101.5,
+      "z": 106.478,
+      "yaw": 179.7,
+      "pitch": -1.2
+    }
+  ]
+}

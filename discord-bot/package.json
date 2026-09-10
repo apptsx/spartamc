@@ -1,0 +1,23 @@
+{
+  "name": "sparta-bot",
+  "version": "1.0.0",
+  "description": "Bot da Sparta MC",
+  "main": "Index.js",
+  "scripts": {
+    "start": "node Index.js",
+    "deploy": "bash deploy.sh"
+  },
+  "dependencies": {
+    "@discordjs/voice": "^0.16.1",
+    "axios": "^1.13.6",
+    "bcryptjs": "^3.0.3",
+    "canvas": "^2.11.2",
+    "discord.js": "^14.25.1",
+    "jimp": "^1.6.1",
+    "mysql2": "^3.18.2",
+    "play-dl": "^1.9.7",
+    "sharp": "^0.34.5",
+    "undici": "^5.29.0",
+    "yaml": "^2.8.2"
+  }
+}

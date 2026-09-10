@@ -1,0 +1,42 @@
+{
+  "name": "Medieval",
+  "build_limit": 0,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 100.5,
+      "y": 100,
+      "z": 100.5,
+      "yaw": 0,
+      "pitch": 0.6
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "red_spawn",
+      "x": 100.504,
+      "y": 100,
+      "z": 108.527,
+      "yaw": 179.7,
+      "pitch": 0.4
+    },
+    {
+      "name": "blue_spawn",
+      "x": 100.479,
+      "y": 100,
+      "z": 92.465,
+      "yaw": -0.1,
+      "pitch": 0.4
+    }
+  ]
+}

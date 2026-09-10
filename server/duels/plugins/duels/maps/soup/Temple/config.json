@@ -1,0 +1,58 @@
+{
+  "name": "Temple",
+  "build_limit": 0,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 100.5,
+      "y": 100,
+      "z": 100.5,
+      "yaw": 179.5,
+      "pitch": -2.5
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "red_spawn",
+      "x": 100.477,
+      "y": 100,
+      "z": 80.442,
+      "yaw": 0.1,
+      "pitch": -1.7
+    },
+    {
+      "name": "blue_spawn",
+      "x": 100.505,
+      "y": 100,
+      "z": 120.471,
+      "yaw": 179.8,
+      "pitch": -1.8
+    },
+    {
+      "name": "leaderboard_winstreak",
+      "x": 96.508,
+      "y": 101.5,
+      "z": 94.488,
+      "yaw": -0.3,
+      "pitch": -1.2
+    },
+    {
+      "name": "leaderboard_wins",
+      "x": 104.525,
+      "y": 101.5,
+      "z": 94.551,
+      "yaw": 0.3,
+      "pitch": -1.5
+    }
+  ]
+}

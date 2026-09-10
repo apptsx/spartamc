@@ -1,0 +1,152 @@
+{
+  "server": "HUB_BEDWARS",
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 0.5,
+      "y": 67.0,
+      "z": -48.5,
+      "yaw": 180.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "emerald_1",
+      "x": 0,
+      "y": 50,
+      "z": -13
+    },
+    {
+      "name": "emerald_2",
+      "x": -18,
+      "y": 46,
+      "z": 11
+    },
+    {
+      "name": "emerald_3",
+      "x": 14,
+      "y": 46,
+      "z": 18
+    },
+    {
+      "name": "emerald_4",
+      "x": -15,
+      "y": 46,
+      "z": 45
+    },
+    {
+      "name": "npc_top_1",
+      "x": -23.514,
+      "y": 48,
+      "z": 33.52,
+      "yaw": 269.459,
+      "pitch": -0.15
+    },
+    {
+      "name": "npc_top_2",
+      "x": -23.491,
+      "y": 47.5,
+      "z": 30.483,
+      "yaw": 269.612,
+      "pitch": -1.35
+    },
+    {
+      "name": "npc_top_3",
+      "x": -23.428,
+      "y": 47.5,
+      "z": 36.518,
+      "yaw": 269.607,
+      "pitch": -0
+    },
+    {
+      "name": "npc_manoel",
+      "x": -42.575,
+      "y": 47.5,
+      "z": 0.102,
+      "yaw": -89.8,
+      "pitch": -1.2
+    },
+    {
+      "name": "leaderboard_level",
+      "x": -19.5,
+      "y": 70.3,
+      "z": -40.5,
+      "yaw": 89.875,
+      "pitch": -0.789
+    },
+    {
+      "name": "leaderboard_rank",
+      "x": -20.5,
+      "y": 70.3,
+      "z": -44.5,
+      "yaw": 89.573,
+      "pitch": -0.339
+    },
+    {
+      "name": "leaderboard_wins",
+      "x": -21.5,
+      "y": 70.3,
+      "z": -48.5,
+      "yaw": 90.171,
+      "pitch": -0.789
+    },
+    {
+      "name": "leaderboard_kill",
+      "x": -20.5,
+      "y": 70.3,
+      "z": -52.5,
+      "yaw": 89.12,
+      "pitch": 1.312
+    },
+          { "name": "leaderboard_bed_destruction", "x": -19.5, "y": 70.3, "z": -56.5, "yaw": 180.0, "pitch": 0.0 },
+          { "name": "leaderboard_selector",   "x": -12.5, "y": 68.5, "z": -60.5,  "yaw": 180.0, "pitch": 0.0 },
+    { "name": "leaderboard_period_selector", "x": -9.5, "y": 67.5, "z": -61.5, "yaw": 180.0, "pitch": 0.0 },
+    {
+      "name": "npc_stats",
+      "x": -3.5,
+      "y": 67.0,
+      "z": -52.5,
+      "yaw": -45.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "npc_solo",
+      "x": -7.5,
+      "y": 67.3,
+      "z": -67.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "npc_duo",
+      "x": -3.5,
+      "y": 67.3,
+      "z": -68.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "npc_trio",
+      "x": 0.5,
+      "y": 67.3,
+      "z": -69.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "npc_quartet",
+      "x": 4.5,
+      "y": 67.3,
+      "z": -68.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "name": "npc_versus",
+      "x": 8.5,
+      "y": 67.3,
+      "z": -67.5,
+      "yaw": 0.0,
+      "pitch": 0.0
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "name": "Farmland",
+  "build_limit": 0,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 100.5,
+      "y": 100,
+      "z": 100.5,
+      "yaw": 0,
+      "pitch": -1.1
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "red_spawn",
+      "x": 100.5,
+      "y": 100,
+      "z": 120.442,
+      "yaw": 179.8,
+      "pitch": -1.5
+    },
+    {
+      "name": "blue_spawn",
+      "x": 100.486,
+      "y": 100,
+      "z": 80.490,
+      "yaw": 0.1,
+      "pitch": -1.1
+    },
+    {
+      "name": "leaderboard_winstreak",
+      "x": 103.532,
+      "y": 101.5,
+      "z": 106.520,
+      "yaw": 179.7,
+      "pitch": -0.8
+    },
+    {
+      "name": "leaderboard_wins",
+      "x": 97.456,
+      "y": 101.5,
+      "z": 106.478,
+      "yaw": 179.7,
+      "pitch": -1.2
+    }
+  ]
+}

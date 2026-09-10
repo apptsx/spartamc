@@ -1,0 +1,42 @@
+{
+  "name": "Ocean",
+  "build_limit": 0,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 100.5,
+      "y": 100,
+      "z": 100.5,
+      "yaw": -0.1,
+      "pitch": -0.3
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "red_spawn",
+      "x": 100.5,
+      "y": 100,
+      "z": 107.537,
+      "yaw": 179.9,
+      "pitch": -0.5
+    },
+    {
+      "name": "blue_spawn",
+      "x": 100.524,
+      "y": 100,
+      "z": 93.490,
+      "yaw": 0.1,
+      "pitch": -0.2
+    }
+  ]
+}

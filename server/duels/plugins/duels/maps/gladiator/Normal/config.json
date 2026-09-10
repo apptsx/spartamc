@@ -1,0 +1,58 @@
+{
+  "name": "Normal",
+  "build_limit": 10,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 100.0,
+      "y": 50,
+      "z": 100.0,
+      "yaw": 180.5,
+      "pitch": 0.1
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 100,
+      "y": 100,
+      "z": 100
+    },
+    {
+      "name": "red_spawn",
+      "x": 106.488,
+      "y": 50.0,
+      "z": 107.475,
+      "yaw": 135.0,
+      "pitch": -0.8
+    },
+    {
+      "name": "blue_spawn",
+      "x": 93.504,
+      "y": 50.0,
+      "z": 94.421,
+      "yaw": -45.0,
+      "pitch": -0.9
+    },
+    {
+      "name": "leaderboard_winstreak",
+      "x": 101.5,
+      "y": 51.5,
+      "z": 97.5,
+      "yaw": 0.0,
+      "pitch": -1.4
+    },
+    {
+      "name": "leaderboard_wins",
+      "x": 98.461,
+      "y": 51.5,
+      "z": 97.5,
+      "yaw": -0.8,
+      "pitch": -1.8
+    }
+  ]
+}

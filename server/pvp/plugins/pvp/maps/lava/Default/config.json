@@ -1,0 +1,74 @@
+{
+  "name": "Default",
+  "build_limit": 60,
+  "locations": [
+    {
+      "name": "spawn",
+      "x": 100.5,
+      "y": 100,
+      "z": 100.5,
+      "yaw": 0.3,
+      "pitch": -1.4
+    },
+    {
+      "name": "map_limit_pos1",
+      "x": -35.546,
+      "y": 91.27197,
+      "z": 114.718
+    },
+    {
+      "name": "map_limit_pos2",
+      "x": 113.990,
+      "y": 14.16113,
+      "z": -70.781
+    },
+    {
+      "name": "leaderboard_levels",
+      "x": 91.463,
+      "y": 101.5,
+      "z": 106.521,
+      "yaw": -129.151,
+      "pitch": -0.3
+    },
+    {
+      "name": "npc_hub",
+      "x": 105.48,
+      "y": 100,
+      "z": 95.538,
+      "yaw": 44.694,
+      "pitch": -0.45
+    },
+    {
+      "name": "difficulty_easy",
+      "x": 100.491,
+      "y": 100,
+      "z": 156.481,
+      "yaw": -180.302,
+      "pitch": -0.75
+    },
+    {
+      "name": "difficulty_medium",
+      "x": 156.505,
+      "y": 100,
+      "z": 128.537,
+      "yaw": 179.991,
+      "pitch": -2.1
+    },
+    {
+      "name": "difficulty_hard",
+      "x": 4.541,
+      "y": 89,
+      "z": 162.511,
+      "yaw": 269.691,
+      "pitch": -1.35
+    },
+    {
+      "name": "difficulty_extreme",
+      "x": 224.488,
+      "y": 79,
+      "z": -26.48,
+      "yaw": -0.157,
+      "pitch": -0.15
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+ball:
+  physics-version: 34
+  attack-forward: 0.43
+  attack-up: 0.4
+  attack-player-forward: 0.03
+  attack-player-up: 0.0
+  lift-forward: 0.37
+  lift-up: 0.48
+  serve-forward: 0.37
+  serve-up: 0.48
+  serve-height: 1.65
+  gravity: 0.03
+  air-drag: 0.988
+  max-speed: 0.65
+  max-up: 0.55
+  min-side-hit-distance: 0.55
+  under-ball-y-diff: 0.65
+  spin-yaw-per-tick: 7
+  wall-margin: 0.35
+  wall-bounce: 0.82
+  wall-up: 0.18
+  name: '&fBola de Vôlei'
+  armorstand-visible: false
+  orange-wool-data: 1
+  texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODkzNmJjNzIxNDNlNjcyOTAxZjY5ZTJhNmI1ZWMzOTMyOGU1MWYxMGIzY2MyNTJjMTJmM2Y4ZjUzZTQ3NmZhYiJ9fX0=
+messages:
+  prefix: '§6§lVOLEI §7» '
+teams:
+  max-players: 2
+game:
+  points-to-win: 15
+  countdown-min: 30
+  countdown-full: 10
+arena:
+  min-y: 0
+  blue:
+    pos1:
+      world: world
+      x: -297.4791038673182
+      y: 80.0
+      z: 294.53497807981955
+      yaw: 298.7485
+      pitch: 24.673317
+    pos2:
+      world: world
+      x: -286.39288263208726
+      y: 89.27827913543608
+      z: 302.4238050166396
+      yaw: 86.06299
+      pitch: 89.87521
+    spawn:
+      world: world
+      x: -292.03344088125453
+      y: 80.0
+      z: 298.67836716684036
+      yaw: 359.7536
+      pitch: 0.42349866
+  red:
+    pos2:
+      world: world
+      x: -297.6286893747179
+      y: 88.10328315095681
+      z: 304.5258946371735
+      yaw: 262.68484
+      pitch: 87.19231
+    pos1:
+      world: world
+      x: -286.5588534331858
+      y: 80.0
+      z: 312.2670044199401
+      yaw: 178.4551
+      pitch: -2.8424745
+    spawn:
+      world: world
+      x: -292.0468200198288
+      y: 80.0
+      z: 308.4609383365733
+      yaw: 181.1289
+      pitch: -0.54865456
+  net:
+    pos1:
+      world: world
+      x: -287.6535532417451
+      y: 83.62068738076773
+      z: 303.5501909673181
+      yaw: 90.92945
+      pitch: 69.09772
+    pos2:
+      world: world
+      x: -296.7553320564868
+      y: 80.0
+      z: 303.62441430705604
+      yaw: 89.99354
+      pitch: 85.56978
+  ball-spawn:
+    world: world
+    x: -292.21423592491544
+    y: 84.36504170138139
+    z: 303.3338739506523
+    yaw: 89.41825
+    pitch: 8.725752
+border:
+  push-force: 0.3
+  push-up: 0.02
+  safe-margin: 0.45
+queue:
+  leave-item-name: '&cSair da fila'
